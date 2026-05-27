@@ -1,29 +1,21 @@
-"use client"
-
-import Navbar from "@/components/landing/navbar"
-import Hero from "@/components/landing/hero"
-import Features from "@/components/landing/features"
-import About from "@/components/landing/about"
-import Portfolio from "@/components/landing/portfolio"
-import Differentials from "@/components/landing/differentials"
-import Testimonials from "@/components/landing/testimonials"
-import FinalCTA from "@/components/landing/final-cta"
-import Contact from "@/components/landing/contact"
-import Footer from "@/components/landing/footer"
-
-export default function Home() {
-  return (
-    <div className="min-h-screen bg-background">
-      <Navbar />
-      <Hero />
-      <Features />
-      <About />
-      <Portfolio />
-      <Differentials />
-      <Testimonials />
-      <FinalCTA />
-      <Contact />
-      <Footer />
-    </div>
-  )
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "app/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  },
+  "iconLibrary": "lucide"
 }
