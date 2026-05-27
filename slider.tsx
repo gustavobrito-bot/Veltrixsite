@@ -1,42 +1,20 @@
 'use client'
 
 import * as React from 'react'
-import * as SheetPrimitive from '@radix-ui/react-dialog'
-import { XIcon } from 'lucide-react'
+import { GripVerticalIcon } from 'lucide-react'
+import * as ResizablePrimitive from 'react-resizable-panels'
 
 import { cn } from '@/lib/utils'
 
-function Sheet({ ...props }: React.ComponentProps<typeof SheetPrimitive.Root>) {
-  return <SheetPrimitive.Root data-slot="sheet" {...props} />
-}
-
-function SheetTrigger({
-  ...props
-}: React.ComponentProps<typeof SheetPrimitive.Trigger>) {
-  return <SheetPrimitive.Trigger data-slot="sheet-trigger" {...props} />
-}
-
-function SheetClose({
-  ...props
-}: React.ComponentProps<typeof SheetPrimitive.Close>) {
-  return <SheetPrimitive.Close data-slot="sheet-close" {...props} />
-}
-
-function SheetPortal({
-  ...props
-}: React.ComponentProps<typeof SheetPrimitive.Portal>) {
-  return <SheetPrimitive.Portal data-slot="sheet-portal" {...props} />
-}
-
-function SheetOverlay({
+function ResizablePanelGroup({
   className,
   ...props
-}: React.ComponentProps<typeof SheetPrimitive.Overlay>) {
+}: React.ComponentProps<typeof ResizablePrimitive.PanelGroup>) {
   return (
-    <SheetPrimitive.Overlay
-      data-slot="sheet-overlay"
+    <ResizablePrimitive.PanelGroup
+      data-slot="resizable-panel-group"
       className={cn(
-        'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50',
+        'flex h-full w-full data-[panel-group-direction=vertical]:flex-col',
         className,
       )}
       {...props}
@@ -44,96 +22,35 @@ function SheetOverlay({
   )
 }
 
-function SheetContent({
-  className,
-  children,
-  side = 'right',
+function ResizablePanel({
   ...props
-}: React.ComponentProps<typeof SheetPrimitive.Content> & {
-  side?: 'top' | 'right' | 'bottom' | 'left'
+}: React.ComponentProps<typeof ResizablePrimitive.Panel>) {
+  return <ResizablePrimitive.Panel data-slot="resizable-panel" {...props} />
+}
+
+function ResizableHandle({
+  withHandle,
+  className,
+  ...props
+}: React.ComponentProps<typeof ResizablePrimitive.PanelResizeHandle> & {
+  withHandle?: boolean
 }) {
   return (
-    <SheetPortal>
-      <SheetOverlay />
-      <SheetPrimitive.Content
-        data-slot="sheet-content"
-        className={cn(
-          'bg-background data-[state=open]:animate-in data-[state=closed]:animate-out fixed z-50 flex flex-col gap-4 shadow-lg transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500',
-          side === 'right' &&
-            'data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm',
-          side === 'left' &&
-            'data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left inset-y-0 left-0 h-full w-3/4 border-r sm:max-w-sm',
-          side === 'top' &&
-            'data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top inset-x-0 top-0 h-auto border-b',
-          side === 'bottom' &&
-            'data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom inset-x-0 bottom-0 h-auto border-t',
-          className,
-        )}
-        {...props}
-      >
-        {children}
-        <SheetPrimitive.Close className="ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none">
-          <XIcon className="size-4" />
-          <span className="sr-only">Close</span>
-        </SheetPrimitive.Close>
-      </SheetPrimitive.Content>
-    </SheetPortal>
-  )
-}
-
-function SheetHeader({ className, ...props }: React.ComponentProps<'div'>) {
-  return (
-    <div
-      data-slot="sheet-header"
-      className={cn('flex flex-col gap-1.5 p-4', className)}
+    <ResizablePrimitive.PanelResizeHandle
+      data-slot="resizable-handle"
+      className={cn(
+        'bg-border focus-visible:ring-ring relative flex w-px items-center justify-center after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2 focus-visible:ring-1 focus-visible:ring-offset-1 focus-visible:outline-hidden data-[panel-group-direction=vertical]:h-px data-[panel-group-direction=vertical]:w-full data-[panel-group-direction=vertical]:after:left-0 data-[panel-group-direction=vertical]:after:h-1 data-[panel-group-direction=vertical]:after:w-full data-[panel-group-direction=vertical]:after:translate-x-0 data-[panel-group-direction=vertical]:after:-translate-y-1/2 [&[data-panel-group-direction=vertical]>div]:rotate-90',
+        className,
+      )}
       {...props}
-    />
+    >
+      {withHandle && (
+        <div className="bg-border z-10 flex h-4 w-3 items-center justify-center rounded-xs border">
+          <GripVerticalIcon className="size-2.5" />
+        </div>
+      )}
+    </ResizablePrimitive.PanelResizeHandle>
   )
 }
 
-function SheetFooter({ className, ...props }: React.ComponentProps<'div'>) {
-  return (
-    <div
-      data-slot="sheet-footer"
-      className={cn('mt-auto flex flex-col gap-2 p-4', className)}
-      {...props}
-    />
-  )
-}
-
-function SheetTitle({
-  className,
-  ...props
-}: React.ComponentProps<typeof SheetPrimitive.Title>) {
-  return (
-    <SheetPrimitive.Title
-      data-slot="sheet-title"
-      className={cn('text-foreground font-semibold', className)}
-      {...props}
-    />
-  )
-}
-
-function SheetDescription({
-  className,
-  ...props
-}: React.ComponentProps<typeof SheetPrimitive.Description>) {
-  return (
-    <SheetPrimitive.Description
-      data-slot="sheet-description"
-      className={cn('text-muted-foreground text-sm', className)}
-      {...props}
-    />
-  )
-}
-
-export {
-  Sheet,
-  SheetTrigger,
-  SheetClose,
-  SheetContent,
-  SheetHeader,
-  SheetFooter,
-  SheetTitle,
-  SheetDescription,
-}
+export { ResizablePanelGroup, ResizablePanel, ResizableHandle }

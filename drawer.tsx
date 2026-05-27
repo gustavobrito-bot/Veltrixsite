@@ -1,79 +1,150 @@
 'use client'
 
 import * as React from 'react'
-import { Command as CommandPrimitive } from 'cmdk'
-import { SearchIcon } from 'lucide-react'
+import useEmblaCarousel, {
+  type UseEmblaCarouselType,
+} from 'embla-carousel-react'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
 
-function Command({
-  className,
-  ...props
-}: React.ComponentProps<typeof CommandPrimitive>) {
-  return (
-    <CommandPrimitive
-      data-slot="command"
-      className={cn(
-        'bg-popover text-popover-foreground flex h-full w-full flex-col overflow-hidden rounded-md',
-        className,
-      )}
-      {...props}
-    />
-  )
+type CarouselApi = UseEmblaCarouselType[1]
+type UseCarouselParameters = Parameters<typeof useEmblaCarousel>
+type CarouselOptions = UseCarouselParameters[0]
+type CarouselPlugin = UseCarouselParameters[1]
+
+type CarouselProps = {
+  opts?: CarouselOptions
+  plugins?: CarouselPlugin
+  orientation?: 'horizontal' | 'vertical'
+  setApi?: (api: CarouselApi) => void
 }
 
-function CommandDialog({
-  title = 'Command Palette',
-  description = 'Search for a command to run...',
+type CarouselContextProps = {
+  carouselRef: ReturnType<typeof useEmblaCarousel>[0]
+  api: ReturnType<typeof useEmblaCarousel>[1]
+  scrollPrev: () => void
+  scrollNext: () => void
+  canScrollPrev: boolean
+  canScrollNext: boolean
+} & CarouselProps
+
+const CarouselContext = React.createContext<CarouselContextProps | null>(null)
+
+function useCarousel() {
+  const context = React.useContext(CarouselContext)
+
+  if (!context) {
+    throw new Error('useCarousel must be used within a <Carousel />')
+  }
+
+  return context
+}
+
+function Carousel({
+  orientation = 'horizontal',
+  opts,
+  setApi,
+  plugins,
+  className,
   children,
-  className,
-  showCloseButton = true,
   ...props
-}: React.ComponentProps<typeof Dialog> & {
-  title?: string
-  description?: string
-  className?: string
-  showCloseButton?: boolean
-}) {
+}: React.ComponentProps<'div'> & CarouselProps) {
+  const [carouselRef, api] = useEmblaCarousel(
+    {
+      ...opts,
+      axis: orientation === 'horizontal' ? 'x' : 'y',
+    },
+    plugins,
+  )
+  const [canScrollPrev, setCanScrollPrev] = React.useState(false)
+  const [canScrollNext, setCanScrollNext] = React.useState(false)
+
+  const onSelect = React.useCallback((api: CarouselApi) => {
+    if (!api) return
+    setCanScrollPrev(api.canScrollPrev())
+    setCanScrollNext(api.canScrollNext())
+  }, [])
+
+  const scrollPrev = React.useCallback(() => {
+    api?.scrollPrev()
+  }, [api])
+
+  const scrollNext = React.useCallback(() => {
+    api?.scrollNext()
+  }, [api])
+
+  const handleKeyDown = React.useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault()
+        scrollPrev()
+      } else if (event.key === 'ArrowRight') {
+        event.preventDefault()
+        scrollNext()
+      }
+    },
+    [scrollPrev, scrollNext],
+  )
+
+  React.useEffect(() => {
+    if (!api || !setApi) return
+    setApi(api)
+  }, [api, setApi])
+
+  React.useEffect(() => {
+    if (!api) return
+    onSelect(api)
+    api.on('reInit', onSelect)
+    api.on('select', onSelect)
+
+    return () => {
+      api?.off('select', onSelect)
+    }
+  }, [api, onSelect])
+
   return (
-    <Dialog {...props}>
-      <DialogHeader className="sr-only">
-        <DialogTitle>{title}</DialogTitle>
-        <DialogDescription>{description}</DialogDescription>
-      </DialogHeader>
-      <DialogContent
-        className={cn('overflow-hidden p-0', className)}
-        showCloseButton={showCloseButton}
+    <CarouselContext.Provider
+      value={{
+        carouselRef,
+        api: api,
+        opts,
+        orientation:
+          orientation || (opts?.axis === 'y' ? 'vertical' : 'horizontal'),
+        scrollPrev,
+        scrollNext,
+        canScrollPrev,
+        canScrollNext,
+      }}
+    >
+      <div
+        onKeyDownCapture={handleKeyDown}
+        className={cn('relative', className)}
+        role="region"
+        aria-roledescription="carousel"
+        data-slot="carousel"
+        {...props}
       >
-        <Command className="[&_[cmdk-group-heading]]:text-muted-foreground **:data-[slot=command-input-wrapper]:h-12 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
-          {children}
-        </Command>
-      </DialogContent>
-    </Dialog>
+        {children}
+      </div>
+    </CarouselContext.Provider>
   )
 }
 
-function CommandInput({
-  className,
-  ...props
-}: React.ComponentProps<typeof CommandPrimitive.Input>) {
+function CarouselContent({ className, ...props }: React.ComponentProps<'div'>) {
+  const { carouselRef, orientation } = useCarousel()
+
   return (
     <div
-      data-slot="command-input-wrapper"
-      className="flex h-9 items-center gap-2 border-b px-3"
+      ref={carouselRef}
+      className="overflow-hidden"
+      data-slot="carousel-content"
     >
-      <SearchIcon className="size-4 shrink-0 opacity-50" />
-      <CommandPrimitive.Input
-        data-slot="command-input"
+      <div
         className={cn(
-          'placeholder:text-muted-foreground flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50',
+          'flex',
+          orientation === 'horizontal' ? '-ml-4' : '-mt-4 flex-col',
           className,
         )}
         {...props}
@@ -82,15 +153,17 @@ function CommandInput({
   )
 }
 
-function CommandList({
-  className,
-  ...props
-}: React.ComponentProps<typeof CommandPrimitive.List>) {
+function CarouselItem({ className, ...props }: React.ComponentProps<'div'>) {
+  const { orientation } = useCarousel()
+
   return (
-    <CommandPrimitive.List
-      data-slot="command-list"
+    <div
+      role="group"
+      aria-roledescription="slide"
+      data-slot="carousel-item"
       className={cn(
-        'max-h-[300px] scroll-py-1 overflow-x-hidden overflow-y-auto',
+        'min-w-0 shrink-0 grow-0 basis-full',
+        orientation === 'horizontal' ? 'pl-4' : 'pt-4',
         className,
       )}
       {...props}
@@ -98,87 +171,71 @@ function CommandList({
   )
 }
 
-function CommandEmpty({
-  ...props
-}: React.ComponentProps<typeof CommandPrimitive.Empty>) {
-  return (
-    <CommandPrimitive.Empty
-      data-slot="command-empty"
-      className="py-6 text-center text-sm"
-      {...props}
-    />
-  )
-}
-
-function CommandGroup({
+function CarouselPrevious({
   className,
+  variant = 'outline',
+  size = 'icon',
   ...props
-}: React.ComponentProps<typeof CommandPrimitive.Group>) {
+}: React.ComponentProps<typeof Button>) {
+  const { orientation, scrollPrev, canScrollPrev } = useCarousel()
+
   return (
-    <CommandPrimitive.Group
-      data-slot="command-group"
+    <Button
+      data-slot="carousel-previous"
+      variant={variant}
+      size={size}
       className={cn(
-        'text-foreground [&_[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium',
+        'absolute size-8 rounded-full',
+        orientation === 'horizontal'
+          ? 'top-1/2 -left-12 -translate-y-1/2'
+          : '-top-12 left-1/2 -translate-x-1/2 rotate-90',
         className,
       )}
+      disabled={!canScrollPrev}
+      onClick={scrollPrev}
       {...props}
-    />
+    >
+      <ArrowLeft />
+      <span className="sr-only">Previous slide</span>
+    </Button>
   )
 }
 
-function CommandSeparator({
+function CarouselNext({
   className,
+  variant = 'outline',
+  size = 'icon',
   ...props
-}: React.ComponentProps<typeof CommandPrimitive.Separator>) {
-  return (
-    <CommandPrimitive.Separator
-      data-slot="command-separator"
-      className={cn('bg-border -mx-1 h-px', className)}
-      {...props}
-    />
-  )
-}
+}: React.ComponentProps<typeof Button>) {
+  const { orientation, scrollNext, canScrollNext } = useCarousel()
 
-function CommandItem({
-  className,
-  ...props
-}: React.ComponentProps<typeof CommandPrimitive.Item>) {
   return (
-    <CommandPrimitive.Item
-      data-slot="command-item"
+    <Button
+      data-slot="carousel-next"
+      variant={variant}
+      size={size}
       className={cn(
-        "data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        'absolute size-8 rounded-full',
+        orientation === 'horizontal'
+          ? 'top-1/2 -right-12 -translate-y-1/2'
+          : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
         className,
       )}
+      disabled={!canScrollNext}
+      onClick={scrollNext}
       {...props}
-    />
-  )
-}
-
-function CommandShortcut({
-  className,
-  ...props
-}: React.ComponentProps<'span'>) {
-  return (
-    <span
-      data-slot="command-shortcut"
-      className={cn(
-        'text-muted-foreground ml-auto text-xs tracking-widest',
-        className,
-      )}
-      {...props}
-    />
+    >
+      <ArrowRight />
+      <span className="sr-only">Next slide</span>
+    </Button>
   )
 }
 
 export {
-  Command,
-  CommandDialog,
-  CommandInput,
-  CommandList,
-  CommandEmpty,
-  CommandGroup,
-  CommandItem,
-  CommandShortcut,
-  CommandSeparator,
+  type CarouselApi,
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
 }

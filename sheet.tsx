@@ -1,58 +1,48 @@
 'use client'
 
 import * as React from 'react'
-import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area'
+import * as PopoverPrimitive from '@radix-ui/react-popover'
 
 import { cn } from '@/lib/utils'
 
-function ScrollArea({
-  className,
-  children,
+function Popover({
   ...props
-}: React.ComponentProps<typeof ScrollAreaPrimitive.Root>) {
-  return (
-    <ScrollAreaPrimitive.Root
-      data-slot="scroll-area"
-      className={cn('relative', className)}
-      {...props}
-    >
-      <ScrollAreaPrimitive.Viewport
-        data-slot="scroll-area-viewport"
-        className="focus-visible:ring-ring/50 size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:outline-1"
-      >
-        {children}
-      </ScrollAreaPrimitive.Viewport>
-      <ScrollBar />
-      <ScrollAreaPrimitive.Corner />
-    </ScrollAreaPrimitive.Root>
-  )
+}: React.ComponentProps<typeof PopoverPrimitive.Root>) {
+  return <PopoverPrimitive.Root data-slot="popover" {...props} />
 }
 
-function ScrollBar({
-  className,
-  orientation = 'vertical',
+function PopoverTrigger({
   ...props
-}: React.ComponentProps<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>) {
+}: React.ComponentProps<typeof PopoverPrimitive.Trigger>) {
+  return <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />
+}
+
+function PopoverContent({
+  className,
+  align = 'center',
+  sideOffset = 4,
+  ...props
+}: React.ComponentProps<typeof PopoverPrimitive.Content>) {
   return (
-    <ScrollAreaPrimitive.ScrollAreaScrollbar
-      data-slot="scroll-area-scrollbar"
-      orientation={orientation}
-      className={cn(
-        'flex touch-none p-px transition-colors select-none',
-        orientation === 'vertical' &&
-          'h-full w-2.5 border-l border-l-transparent',
-        orientation === 'horizontal' &&
-          'h-2.5 flex-col border-t border-t-transparent',
-        className,
-      )}
-      {...props}
-    >
-      <ScrollAreaPrimitive.ScrollAreaThumb
-        data-slot="scroll-area-thumb"
-        className="bg-border relative flex-1 rounded-full"
+    <PopoverPrimitive.Portal>
+      <PopoverPrimitive.Content
+        data-slot="popover-content"
+        align={align}
+        sideOffset={sideOffset}
+        className={cn(
+          'bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-72 origin-(--radix-popover-content-transform-origin) rounded-md border p-4 shadow-md outline-hidden',
+          className,
+        )}
+        {...props}
       />
-    </ScrollAreaPrimitive.ScrollAreaScrollbar>
+    </PopoverPrimitive.Portal>
   )
 }
 
-export { ScrollArea, ScrollBar }
+function PopoverAnchor({
+  ...props
+}: React.ComponentProps<typeof PopoverPrimitive.Anchor>) {
+  return <PopoverPrimitive.Anchor data-slot="popover-anchor" {...props} />
+}
+
+export { Popover, PopoverTrigger, PopoverContent, PopoverAnchor }
