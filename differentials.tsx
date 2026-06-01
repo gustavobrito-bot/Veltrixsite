@@ -133,7 +133,7 @@ export default function About() {
                   y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
                   opacity: { duration: 0.5 }
                 }}
-                className="absolute top-8 -left-4 md:left-0 bg-card/90 backdrop-blur-xl border border-white/10 p-4 rounded-xl shadow-2xl"
+                className="absolute top-8 left-2 md:-left-4 bg-card/90 backdrop-blur-xl border border-white/10 p-4 rounded-xl shadow-2xl z-10"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center">
@@ -155,7 +155,7 @@ export default function About() {
                   y: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 },
                   opacity: { duration: 0.5 }
                 }}
-                className="absolute top-20 -right-4 md:right-0 bg-card/90 backdrop-blur-xl border border-white/10 p-4 rounded-xl shadow-2xl"
+                className="absolute top-20 right-2 md:-right-4 bg-card/90 backdrop-blur-xl border border-white/10 p-4 rounded-xl shadow-2xl z-10"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
@@ -163,7 +163,7 @@ export default function About() {
                   </div>
                   <div>
                     <div className="text-[10px] text-white/50 tracking-wider">CRESCIMENTO</div>
-                    <div className="text-sm font-bold text-green-400">+340%</div>
+                    <div className="text-sm font-bold text-green-400">Contínuo</div>
                   </div>
                 </div>
               </motion.div>
@@ -177,7 +177,7 @@ export default function About() {
                   y: { duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 },
                   opacity: { duration: 0.5 }
                 }}
-                className="absolute bottom-16 -left-4 md:left-4 bg-card/90 backdrop-blur-xl border border-white/10 p-4 rounded-xl shadow-2xl"
+                className="absolute bottom-16 left-2 md:left-4 bg-card/90 backdrop-blur-xl border border-white/10 p-4 rounded-xl shadow-2xl z-10"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">

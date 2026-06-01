@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "motion/react"
-import { Palette, Globe, Share2, Bot, BarChart3, Layers, ArrowUpRight, Info } from "lucide-react"
+import { Palette, Globe, Share2, Bot, BarChart3, Layers, ArrowUpRight, Info, ChevronDown } from "lucide-react"
 
 const services = [
   {
@@ -44,7 +44,11 @@ const services = [
 ]
 
 export default function Features() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const [activeIndex, setActiveIndex] = useState<number | null>(null)
+
+  const toggle = (i: number) => {
+    setActiveIndex(activeIndex === i ? null : i)
+  }
 
   return (
     <section id="services" className="py-[120px] bg-secondary/30">
@@ -83,6 +87,8 @@ export default function Features() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0.5 bg-white/5 border border-white/5">
           {services.map((service, i) => {
             const Icon = service.icon
+            const isActive = activeIndex === i
+
             return (
               <motion.div
                 key={service.name}
@@ -90,59 +96,98 @@ export default function Features() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.05 }}
-                onMouseEnter={() => setHoveredIndex(i)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                className="bg-card p-10 relative group cursor-pointer overflow-visible border border-transparent transition-all duration-400 hover:bg-background/40"
+                // Desktop: hover. Mobile: click/tap via onClick
+                onMouseEnter={() => {
+                  if (window.matchMedia("(hover: hover)").matches) setActiveIndex(i)
+                }}
+                onMouseLeave={() => {
+                  if (window.matchMedia("(hover: hover)").matches) setActiveIndex(null)
+                }}
+                onClick={() => {
+                  if (!window.matchMedia("(hover: hover)").matches) toggle(i)
+                }}
+                className={`bg-card p-8 md:p-10 relative group cursor-pointer border border-transparent transition-all duration-400 ${isActive ? "bg-background/40" : ""}`}
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 transition-opacity duration-400 group-hover:opacity-100" />
+                <div className={`absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent transition-opacity duration-400 ${isActive ? "opacity-100" : "opacity-0"}`} />
 
-                <div className="absolute top-8 right-8 flex items-center gap-2">
-                  <div className="p-1.5 bg-accent/10 rounded-full text-accent opacity-40 group-hover:opacity-100 transition-opacity">
+                {/* Desktop info icon / Mobile chevron */}
+                <div className="absolute top-6 right-6 flex items-center gap-2">
+                  <div className={`p-1.5 bg-accent/10 rounded-full text-accent transition-opacity hidden md:block ${isActive ? "opacity-100" : "opacity-40"}`}>
                     <Info size={14} />
                   </div>
-                  <div className="text-accent opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
+                  <div className={`text-accent transition-all duration-300 hidden md:block ${isActive ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2"}`}>
                     <ArrowUpRight size={18} />
+                  </div>
+                  {/* Mobile chevron */}
+                  <div className={`md:hidden text-accent transition-transform duration-300 ${isActive ? "rotate-180" : "rotate-0"}`}>
+                    <ChevronDown size={18} />
                   </div>
                 </div>
 
-                <div className="w-14 h-14 bg-background border border-accent/20 rounded-[4px] flex items-center justify-center mb-8 transition-all duration-300 group-hover:border-accent/40 group-hover:shadow-[0_0_20px_rgba(255,87,34,0.2)]">
-                  <Icon className="w-7 h-7 text-accent opacity-60 group-hover:opacity-100 transition-opacity" />
+                <div className={`w-14 h-14 bg-background border rounded-[4px] flex items-center justify-center mb-6 md:mb-8 transition-all duration-300 ${isActive ? "border-accent/40 shadow-[0_0_20px_rgba(255,87,34,0.2)]" : "border-accent/20"}`}>
+                  <Icon className={`w-7 h-7 text-accent transition-opacity ${isActive ? "opacity-100" : "opacity-60"}`} />
                 </div>
 
-                <h3 className="font-display text-2xl mb-4 tracking-wide text-white group-hover:text-accent transition-colors">
+                <h3 className={`font-display text-xl md:text-2xl mb-3 md:mb-4 tracking-wide transition-colors ${isActive ? "text-accent" : "text-white"}`}>
                   {service.name}
                 </h3>
-                <p className="text-[14px] text-white/40 leading-relaxed group-hover:text-white/60 transition-colors duration-300 mb-6">
+                <p className={`text-[14px] leading-relaxed transition-colors duration-300 mb-4 ${isActive ? "text-white/60" : "text-white/40"}`}>
                   {service.desc}
                 </p>
 
+                {/* Details — inline on mobile, tooltip on desktop */}
                 <AnimatePresence>
-                  {hoveredIndex === i && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                      className="absolute left-0 bottom-full mb-4 w-[280px] bg-background border border-accent/30 p-6 z-50 pointer-events-none shadow-[0_20px_50px_rgba(0,0,0,0.6)] backdrop-blur-xl"
-                    >
-                      <div className="font-mono text-[9px] tracking-[3px] text-accent mb-4 uppercase">
-                        DETALHES DA SOLUÇÃO
-                      </div>
-                      <ul className="space-y-3">
-                        {service.details.map((detail, idx) => (
-                          <motion.li
-                            key={idx}
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: idx * 0.05 }}
-                            className="flex items-center gap-3 text-[11px] text-white/80 font-medium tracking-wide"
-                          >
-                            <div className="w-1 h-1 bg-accent rounded-full" />
-                            {detail}
-                          </motion.li>
-                        ))}
-                      </ul>
-                      <div className="absolute -bottom-2 left-10 w-4 h-4 bg-background border-r border-b border-accent/30 rotate-45" />
-                    </motion.div>
+                  {isActive && (
+                    <>
+                      {/* Mobile: inline expand */}
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="md:hidden overflow-hidden"
+                      >
+                        <div className="border-t border-accent/20 pt-4 mt-2">
+                          <div className="font-mono text-[9px] tracking-[3px] text-accent mb-3 uppercase">
+                            DETALHES DA SOLUÇÃO
+                          </div>
+                          <ul className="space-y-2">
+                            {service.details.map((detail, idx) => (
+                              <li key={idx} className="flex items-center gap-3 text-[12px] text-white/80 font-medium tracking-wide">
+                                <div className="w-1 h-1 bg-accent rounded-full flex-shrink-0" />
+                                {detail}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </motion.div>
+
+                      {/* Desktop: floating tooltip */}
+                      <motion.div
+                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                        className="hidden md:block absolute left-0 bottom-full mb-4 w-[260px] bg-background border border-accent/30 p-6 z-50 pointer-events-none shadow-[0_20px_50px_rgba(0,0,0,0.6)] backdrop-blur-xl"
+                      >
+                        <div className="font-mono text-[9px] tracking-[3px] text-accent mb-4 uppercase">
+                          DETALHES DA SOLUÇÃO
+                        </div>
+                        <ul className="space-y-3">
+                          {service.details.map((detail, idx) => (
+                            <motion.li
+                              key={idx}
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: idx * 0.05 }}
+                              className="flex items-center gap-3 text-[11px] text-white/80 font-medium tracking-wide"
+                            >
+                              <div className="w-1 h-1 bg-accent rounded-full" />
+                              {detail}
+                            </motion.li>
+                          ))}
+                        </ul>
+                        <div className="absolute -bottom-2 left-10 w-4 h-4 bg-background border-r border-b border-accent/30 rotate-45" />
+                      </motion.div>
+                    </>
                   )}
                 </AnimatePresence>
               </motion.div>
