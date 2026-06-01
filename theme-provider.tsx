@@ -58,8 +58,8 @@ export default function Hero() {
   }, [])
 
   const stats = [
-    { number: 200, suffix: "+", label: "PROJETOS" },
-    { number: 98, suffix: "%", label: "SATISFAÇÃO" },
+    { number: 2, suffix: "+", label: "PROJETOS" },
+    { number: 100, suffix: "%", label: "SATISFAÇÃO" },
     { number: 5, suffix: "★", label: "AVALIAÇÃO" },
   ]
 

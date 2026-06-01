@@ -33,21 +33,21 @@ function AnimatedNumber({ target, suffix = "" }: { target: number; suffix?: stri
 
 export default function About() {
   const stats = [
-    { icon: Award, number: 200, suffix: "+", label: "Projetos Entregues" },
-    { icon: Users, number: 150, suffix: "+", label: "Clientes Atendidos" },
-    { icon: TrendingUp, number: 98, suffix: "%", label: "Taxa de Satisfacao" },
+    { icon: Award, number: 2, suffix: "+", label: "Projetos Entregues" },
+    { icon: Users, number: 2, suffix: "+", label: "Clientes Atendidos" },
+    { icon: TrendingUp, number: 100, suffix: "%", label: "Taxa de Satisfação" },
   ]
 
   const features = [
-    { icon: Target, title: "Estrategia", desc: "Cada projeto comeca com analise profunda do mercado e objetivos." },
-    { icon: Sparkles, title: "Criatividade", desc: "Design inovador que destaca sua marca da concorrencia." },
-    { icon: Zap, title: "Performance", desc: "Solucoes otimizadas para resultados mensuraveis." },
+    { icon: Target, title: "Estratégia", desc: "Cada projeto começa com análise profunda do mercado e objetivos." },
+    { icon: Sparkles, title: "Criatividade", desc: "Design inovador que destaca sua marca da concorrência." },
+    { icon: Zap, title: "Performance", desc: "Soluções otimizadas para resultados mensuráveis." },
   ]
 
   const mvv = [
-    { label: "MISSAO", text: "Elevar marcas atraves da tecnologia, branding e performance." },
-    { label: "VISAO", text: "Ser referencia em transformacao digital e construcao de marcas." },
-    { label: "VALORES", tags: ["Inovacao", "Criatividade", "Estrategia", "Excelencia", "Performance", "Transparencia"] },
+    { label: "MISSÃO", text: "Elevar marcas através da tecnologia, branding e performance." },
+    { label: "VISÃO", text: "Ser referência em transformação digital e construção de marcas." },
+    { label: "VALORES", tags: ["Inovação", "Criatividade", "Estratégia", "Excelência", "Performance", "Transparência"] },
   ]
 
   return (
@@ -217,11 +217,11 @@ export default function About() {
             </div>
             <h2 className="font-display text-[clamp(36px,5vw,64px)] leading-[1.1] tracking-tight mb-6">
               Transformamos Ideias em{" "}
-              <span className="text-stroke-accent">Experiencias</span>{" "}
+              <span className="text-transparent [-webkit-text-stroke:1px_var(--accent)]">Experiências</span>{" "}
               <span className="text-accent">Digitais.</span>
             </h2>
             <p className="text-white/60 text-base md:text-lg leading-relaxed mb-8">
-              A <span className="text-white font-semibold">Veltrix Tecnologia</span> nasceu da paixao por criar solucoes digitais que realmente fazem diferenca. Unimos estrategia, design de alto nivel e tecnologia de ponta para construir marcas que se destacam no mercado.
+              A <span className="text-white font-semibold">Veltrix Tecnologia</span> nasceu da paixão por criar soluções digitais que realmente fazem diferença. Unimos estratégia, design de alto nível e tecnologia de ponta para construir marcas que se destacam no mercado.
             </p>
 
             {/* Mini features */}
