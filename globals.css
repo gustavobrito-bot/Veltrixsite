@@ -1,27 +1,41 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+@import 'tailwindcss';
 
-# dependencies
-/node_modules
+@theme {
+  --font-display: Space Grotesk, system-ui, -apple-system, sans-serif;
+  --color-background: #0a1628;
+  --color-foreground: #ffffff;
+  --color-card: #112238;
+  --color-secondary: #1e3250;
+  --color-accent: #ff5722;
+  --color-border: rgb(255 255 255 / 0.1);
+}
 
-# next.js
-/.next/
-/out/
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+  }
+}
 
-# production
-/build
+@layer components {
+  .btn-primary-custom {
+    @apply px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-orange-600 transition-all duration-300 transform hover:scale-105 active:scale-95;
+  }
 
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
+  .btn-secondary-custom {
+    @apply px-6 py-3 border border-accent/30 text-accent font-semibold rounded-lg hover:bg-accent/10 transition-all duration-300;
+  }
 
-# env files
-.env*
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
 
-# vercel
-.vercel
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+}
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
