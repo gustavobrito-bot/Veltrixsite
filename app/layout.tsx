@@ -4,8 +4,8 @@ import "../globals.css"
 
 const spaceGrotesk = Space_Grotesk({ 
   subsets: ["latin"], 
-  variable: "--font-display",
-  display: "swap"
+  variable: "--font-space-grotesk",
+  display: "swap",
 })
 
 export const metadata: Metadata = {
@@ -29,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-BR" className={`${spaceGrotesk.variable} scroll-smooth bg-background`}>
+    <html lang="pt-BR" className={`${spaceGrotesk.variable} scroll-smooth`}>
       <head>
         <meta charSet="utf-8" />
         <link rel="icon" href="/icon.svg" />

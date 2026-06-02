@@ -1,41 +1,83 @@
 @import 'tailwindcss';
 
-@theme {
-  --font-display: Space Grotesk, system-ui, -apple-system, sans-serif;
+@theme inline {
+  --font-sans: var(--font-space-grotesk), system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-space-grotesk), system-ui, -apple-system, sans-serif;
+
   --color-background: #0a1628;
   --color-foreground: #ffffff;
   --color-card: #112238;
   --color-secondary: #1e3250;
   --color-accent: #ff5722;
   --color-border: rgb(255 255 255 / 0.1);
+
+  --radius: 0.25rem;
 }
 
 @layer base {
+  html {
+    @apply bg-background;
+  }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  * {
+    border-color: rgb(255 255 255 / 0.08);
   }
 }
 
 @layer components {
   .btn-primary-custom {
-    @apply px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-orange-600 transition-all duration-300 transform hover:scale-105 active:scale-95;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #ff5722;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border: 1px solid #ff5722;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .btn-primary-custom:hover {
+    background-color: #e64a19;
+    border-color: #e64a19;
+    transform: translateY(-1px);
+  }
+  .btn-primary-custom:active {
+    transform: translateY(0);
   }
 
   .btn-secondary-custom {
-    @apply px-6 py-3 border border-accent/30 text-accent font-semibold rounded-lg hover:bg-accent/10 transition-all duration-300;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: transparent;
+    color: #ff5722;
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border: 1px solid rgb(255 87 34 / 0.3);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .btn-secondary-custom:hover {
+    background-color: rgb(255 87 34 / 0.1);
+    border-color: rgb(255 87 34 / 0.5);
   }
 
   .animate-float {
-    animation: float 3s ease-in-out infinite;
+    animation: float 4s ease-in-out infinite;
   }
 
   @keyframes float {
-    0%, 100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-20px);
-    }
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
   }
 }
 

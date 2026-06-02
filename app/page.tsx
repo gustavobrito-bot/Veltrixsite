@@ -1,5 +1,3 @@
-"use client"
-
 import Header from "../header"
 import Hero from "../final-cta"
 import Differentials from "../differentials"
