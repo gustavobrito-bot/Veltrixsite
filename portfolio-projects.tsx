@@ -12,7 +12,7 @@ const projects = [
     client: "Angélica",
     year: "2025",
     duration: "2 meses",
-    heroImage: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-702j2U0xH5gq70mIbZuAP4icEu3P1E.png",
+    heroImage: "/images/angel-luxe-hero.png",
     description: "Plataforma de e-commerce premium para brand de moda de luxo. Design sofisticado com experiência de compra intuitiva e integração com sistemas de gestão de estoque.",
     about: "Desenvolvimento de um site de vendas moderno e estratégico para nossa cliente Angélica, com foco em fortalecer sua presença digital, transmitir mais profissionalismo e aumentar suas oportunidades de venda online.",
     challenge: "A cliente não possuía um site próprio, o que limitava sua autoridade no mercado e dificultava a conversão de novos clientes através da Internet. Além disso, sua comunicação visual não transmitia toda a qualidade e valor da marca.",
@@ -25,7 +25,9 @@ const projects = [
       "Experiência do cliente significativamente melhorada"
     ],
     gallery: [
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-702j2U0xH5gq70mIbZuAP4icEu3P1E.png"
+      "/images/angel-luxe-hero.png",
+      "/images/angel-luxe-categorias.png",
+      "/images/angel-luxe-produto.png",
     ],
     tags: ["E-commerce", "Next.js", "Stripe", "Design"],
     link: "#"
@@ -37,20 +39,22 @@ const projects = [
     client: "Adega da Mooca",
     year: "2025",
     duration: "1 mês",
-    heroImage: "/placeholder.svg?height=400&width=600&text=Adega+da+Mooca",
-    description: "Site e catálogo digital para vinícola artesanal. Showcasing de produtos com sistema de recomendação de vinhos e integração com delivery partners.",
-    about: "Criação de um site elegante para a Adega da Mooca, focando em apresentar o catálogo de vinhos de forma sofisticada e facilitar o processo de compra para os clientes.",
-    challenge: "A adega não tinha presença digital e perdia vendas para concorrentes que ofereciam compra online. Os clientes não conseguiam ver o catálogo completo sem visitar a loja física.",
-    solution: "Desenvolvemos um site com catálogo digital completo, sistema de recomendação baseado em preferências e integração com parceiros de delivery para entregas rápidas.",
-    services: ["Design de Interface", "Desenvolvimento Web", "Sistema de Catálogo", "Integração de APIs"],
+    heroImage: "/images/adega-produtos.png",
+    description: "Plataforma digital completa para adega e conveniência com cardápio online, sistema de pedidos via WhatsApp e delivery integrado para a região da Mooca.",
+    about: "Criação da presença digital completa da Adega da Mooca, focando em facilitar pedidos online, apresentar o catálogo de bebidas e conectar o negócio com clientes da região de forma prática e eficiente.",
+    challenge: "A Adega não tinha presença digital estruturada e perdia vendas para concorrentes que ofereciam pedidos online. Os clientes precisavam ligar ou ir pessoalmente para ver os produtos disponíveis e fazer pedidos.",
+    solution: "Desenvolvemos um site completo com cardápio digital interativo, sistema de pedidos via WhatsApp, integração com delivery, página de localização com Google Maps e identidade visual renovada que transmite confiança e praticidade.",
+    services: ["Identidade Visual", "Desenvolvimento Web", "Cardápio Digital", "Integração WhatsApp"],
     results: [
-      "Aumento de 150% nas vendas online",
-      "Catálogo digital com mais de 200 rótulos",
-      "Integração com 3 parceiros de delivery",
-      "Redução de 40% no tempo de atendimento"
+      "Cardápio online com 21 produtos organizados por categoria",
+      "Sistema de pedidos via WhatsApp integrado",
+      "Página de localização com mapa e endereço completo",
+      "Presença digital profissional e conversora"
     ],
     gallery: [
-      "/placeholder.svg?height=400&width=600&text=Adega+da+Mooca"
+      "/images/adega-produtos.png",
+      "/images/adega-modal.png",
+      "/images/adega-localizacao.png",
     ],
     tags: ["Website", "React", "CMS", "Branding"],
     link: "#"
