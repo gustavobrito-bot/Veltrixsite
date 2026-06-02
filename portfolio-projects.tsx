@@ -9,7 +9,7 @@ const projects = [
     title: "Angel Luxe",
     category: "DESENVOLVIMENTO",
     description: "Plataforma de e-commerce premium para brand de moda de luxo. Design sofisticado com experiência de compra intuitiva e integração com sistemas de gestão de estoque.",
-    image: "https://images.unsplash.com/photo-1460925895917-adf4e565e479?w=600&h=400&fit=crop",
+    image: "/placeholder.svg?height=400&width=600&text=Angel+Luxe",
     tags: ["E-commerce", "Next.js", "Stripe", "Design"],
     link: "#"
   },
@@ -18,7 +18,7 @@ const projects = [
     title: "Adega da Mooca",
     category: "DESENVOLVIMENTO",
     description: "Site e catálogo digital para vinícola artesanal. Showcasing de produtos com sistema de recomendação de vinhos e integração com delivery partners.",
-    image: "https://images.unsplash.com/photo-1510812431401-41d2cab2debf?w=600&h=400&fit=crop",
+    image: "/placeholder.svg?height=400&width=600&text=Adega+da+Mooca",
     tags: ["Website", "React", "CMS", "Branding"],
     link: "#"
   }

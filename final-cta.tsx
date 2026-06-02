@@ -12,7 +12,6 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
   useEffect(() => {
     if (hasAnimated) return
     
-    // Small delay to ensure component is mounted
     const startTimer = setTimeout(() => {
       setHasAnimated(true)
       const duration = 2000
@@ -55,9 +54,8 @@ export default function Hero() {
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       const now = Date.now()
-      if (now - throttleRef.current < 50) return // Throttle to ~20fps
+      if (now - throttleRef.current < 50) return
       throttleRef.current = now
-
       setMousePosition({
         x: (e.clientX / window.innerWidth - 0.5) * 20,
         y: (e.clientY / window.innerHeight - 0.5) * 20,
@@ -74,11 +72,7 @@ export default function Hero() {
   ]
 
   return (
-    <section
-      id="hero"
-      className="min-h-screen flex items-center relative overflow-hidden pt-[120px] px-6 md:px-12 pb-12"
-    >
-      {/* Background Gradient - Replaced heavy GIF */}
+    <section id="hero" className="min-h-screen flex items-center relative overflow-hidden pt-[120px] px-6 md:px-12 pb-12">
       <motion.div
         className="absolute inset-0 z-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent"
         style={{ x: mousePosition.x * 0.3, y: mousePosition.y * 0.3 }}
@@ -93,15 +87,6 @@ export default function Hero() {
       <div className="absolute inset-0 opacity-10 pointer-events-none z-0">
         <div className="w-full h-full bg-[linear-gradient(rgba(255,87,34,0.3)_1px,transparent_1px),linear-gradient(90deg,rgba(255,87,34,0.3)_1px,transparent_1px)] bg-[size:80px_80px]" />
       </div>
-
-      <motion.div
-        className="absolute top-[-100px] right-[-100px] w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(255,87,34,0.08)_0%,transparent_70%)] pointer-events-none z-0"
-        animate={{
-          x: [0, -20, 0],
-          y: [0, 20, 0],
-        }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-      />
 
       <div className="relative z-10 w-full max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         <div className="text-left">
@@ -185,7 +170,7 @@ export default function Hero() {
         >
           <div className="absolute inset-0 bg-gradient-to-br from-accent/30 via-transparent to-transparent rounded-3xl blur-3xl animate-pulse" />
           <Image
-            src="/veltrix-logo-transparent.png"
+            src="/veltrix-logo.png"
             alt="Veltrix Tecnologia"
             width={500}
             height={300}

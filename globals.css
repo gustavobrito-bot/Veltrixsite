@@ -27,6 +27,10 @@
 }
 
 @layer components {
+  .font-display {
+    font-family: var(--font-space-grotesk), system-ui, -apple-system, sans-serif;
+  }
+
   .btn-primary-custom {
     display: inline-flex;
     align-items: center;
@@ -80,4 +84,3 @@
     50% { transform: translateY(-12px); }
   }
 }
-
