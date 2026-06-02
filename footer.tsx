@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react"
 import Image from "next/image"
-import { ArrowRight, Instagram, Linkedin, Mail } from "lucide-react"
+import { ArrowRight, Instagram, Mail } from "lucide-react"
 
 export default function Footer() {
   return (
@@ -29,14 +29,6 @@ export default function Footer() {
                 className="w-10 h-10 bg-white/5 border border-white/10 flex items-center justify-center hover:border-accent/50 hover:bg-accent/10 transition-all"
               >
                 <Instagram className="w-4 h-4 text-white/60" />
-              </a>
-              <a 
-                href="https://linkedin.com/company/veltrix" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-white/5 border border-white/10 flex items-center justify-center hover:border-accent/50 hover:bg-accent/10 transition-all"
-              >
-                <Linkedin className="w-4 h-4 text-white/60" />
               </a>
               <a 
                 href="mailto:contato@veltrix.com.br"
@@ -82,7 +74,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-white/5 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-white/30 text-xs">
-            © 2024 Veltrix Tecnologia. Todos os direitos reservados.
+            © 2026 Veltrix Tecnologia. Todos os direitos reservados.
           </p>
           <p className="text-white/30 text-xs">
             Feito com dedicação em São Paulo, Brasil
