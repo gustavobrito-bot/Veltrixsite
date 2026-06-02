@@ -27,8 +27,8 @@ export default function Header() {
           <Image
             src="/veltrix-logo.png"
             alt="Veltrix Tecnologia"
-            width={140}
-            height={40}
+            width={160}
+            height={48}
             className="h-10 w-auto"
             priority
           />
