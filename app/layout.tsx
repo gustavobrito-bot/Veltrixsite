@@ -2,7 +2,11 @@ import type { Metadata, Viewport } from "next"
 import { Space_Grotesk } from "next/font/google"
 import "../globals.css"
 
-const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-display" })
+const spaceGrotesk = Space_Grotesk({ 
+  subsets: ["latin"], 
+  variable: "--font-display",
+  display: "swap"
+})
 
 export const metadata: Metadata = {
   title: "Veltrix Tecnologia - Startup Premium de Tecnologia",
