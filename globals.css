@@ -1,27 +1,86 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+@import 'tailwindcss';
 
-# dependencies
-/node_modules
+@theme inline {
+  --font-sans: var(--font-space-grotesk), system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-space-grotesk), system-ui, -apple-system, sans-serif;
 
-# next.js
-/.next/
-/out/
+  --color-background: #0a1628;
+  --color-foreground: #ffffff;
+  --color-card: #112238;
+  --color-secondary: #1e3250;
+  --color-accent: #ff5722;
+  --color-border: rgb(255 255 255 / 0.1);
 
-# production
-/build
+  --radius: 0.25rem;
+}
 
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
+@layer base {
+  html {
+    @apply bg-background;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  * {
+    border-color: rgb(255 255 255 / 0.08);
+  }
+}
 
-# env files
-.env*
+@layer components {
+  .font-display {
+    font-family: var(--font-space-grotesk), system-ui, -apple-system, sans-serif;
+  }
 
-# vercel
-.vercel
+  .btn-primary-custom {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #ff5722;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border: 1px solid #ff5722;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .btn-primary-custom:hover {
+    background-color: #e64a19;
+    border-color: #e64a19;
+    transform: translateY(-1px);
+  }
+  .btn-primary-custom:active {
+    transform: translateY(0);
+  }
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+  .btn-secondary-custom {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: transparent;
+    color: #ff5722;
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border: 1px solid rgb(255 87 34 / 0.3);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .btn-secondary-custom:hover {
+    background-color: rgb(255 87 34 / 0.1);
+    border-color: rgb(255 87 34 / 0.5);
+  }
+
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+  }
+}

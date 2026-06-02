@@ -1,53 +1,57 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import Image from "next/image"
-import { motion, useInView } from "motion/react"
+import { motion } from "motion/react"
 import { Sparkles, Zap, Target, Award, Users, TrendingUp } from "lucide-react"
 
 function AnimatedNumber({ target, suffix = "" }: { target: number; suffix?: string }) {
   const [count, setCount] = useState(0)
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true })
+  const [hasAnimated, setHasAnimated] = useState(false)
 
   useEffect(() => {
-    if (!isInView) return
-    const duration = 2000
-    const steps = 60
-    const increment = target / steps
-    let current = 0
-    const timer = setInterval(() => {
-      current += increment
-      if (current >= target) {
-        setCount(target)
-        clearInterval(timer)
-      } else {
-        setCount(Math.floor(current))
-      }
-    }, duration / steps)
-    return () => clearInterval(timer)
-  }, [isInView, target])
+    if (hasAnimated) return
+    
+    const startTimer = setTimeout(() => {
+      setHasAnimated(true)
+      const duration = 2000
+      const steps = 60
+      const increment = target / steps
+      let current = 0
+      const timer = setInterval(() => {
+        current += increment
+        if (current >= target) {
+          setCount(target)
+          clearInterval(timer)
+        } else {
+          setCount(Math.floor(current))
+        }
+      }, duration / steps)
+    }, 800)
+    
+    return () => clearTimeout(startTimer)
+  }, [hasAnimated, target])
 
-  return <span ref={ref}>{count}{suffix}</span>
+  return <span>{count}{suffix}</span>
 }
 
 export default function About() {
   const stats = [
-    { icon: Award, number: 200, suffix: "+", label: "Projetos Entregues" },
-    { icon: Users, number: 150, suffix: "+", label: "Clientes Atendidos" },
-    { icon: TrendingUp, number: 98, suffix: "%", label: "Taxa de Satisfacao" },
+    { icon: Award, number: 2, suffix: "+", label: "Projetos Entregues" },
+    { icon: Users, number: 2, suffix: "+", label: "Clientes Atendidos" },
+    { icon: TrendingUp, number: 100, suffix: "%", label: "Taxa de Satisfação" },
   ]
 
   const features = [
-    { icon: Target, title: "Estrategia", desc: "Cada projeto comeca com analise profunda do mercado e objetivos." },
-    { icon: Sparkles, title: "Criatividade", desc: "Design inovador que destaca sua marca da concorrencia." },
-    { icon: Zap, title: "Performance", desc: "Solucoes otimizadas para resultados mensuraveis." },
+    { icon: Target, title: "Estratégia", desc: "Cada projeto começa com análise profunda do mercado e objetivos." },
+    { icon: Sparkles, title: "Criatividade", desc: "Design inovador que destaca sua marca da concorrência." },
+    { icon: Zap, title: "Performance", desc: "Soluções otimizadas para resultados mensuráveis." },
   ]
 
   const mvv = [
-    { label: "MISSAO", text: "Elevar marcas atraves da tecnologia, branding e performance." },
-    { label: "VISAO", text: "Ser referencia em transformacao digital e construcao de marcas." },
-    { label: "VALORES", tags: ["Inovacao", "Criatividade", "Estrategia", "Excelencia", "Performance", "Transparencia"] },
+    { label: "MISSÃO", text: "Elevar marcas através da tecnologia, branding e performance." },
+    { label: "VISÃO", text: "Ser referência em transformação digital e construção de marcas." },
+    { label: "VALORES", tags: ["Inovação", "Criatividade", "Estratégia", "Excelência", "Performance", "Transparência"] },
   ]
 
   return (
@@ -102,20 +106,22 @@ export default function About() {
                   <motion.div
                     animate={{ scale: [1, 1.05, 1] }}
                     transition={{ duration: 4, repeat: Infinity }}
+                    style={{ willChange: "transform" }}
                   >
                     <Image
                       src="/veltrix-logo.png"
                       alt="Veltrix Tecnologia"
                       width={200}
                       height={200}
-                      className="w-32 h-auto md:w-48 mix-blend-screen brightness-125"
+                      className="w-32 h-auto md:w-48"
                     />
                   </motion.div>
                   
                   {/* Sparkle effects */}
                   <motion.div
                     animate={{ opacity: [0.5, 1, 0.5], scale: [0.8, 1.2, 0.8] }}
-                    transition={{ duration: 2, repeat: Infinity }}
+                    transition={{ duration: 3, repeat: Infinity }}
+                    style={{ willChange: "opacity, transform" }}
                     className="absolute -top-2 -right-2"
                   >
                     <Sparkles className="w-6 h-6 text-accent" />
@@ -130,10 +136,11 @@ export default function About() {
                 viewport={{ once: true }}
                 animate={{ y: [0, -10, 0] }}
                 transition={{ 
-                  y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+                  y: { duration: 4, repeat: Infinity, ease: "easeInOut" },
                   opacity: { duration: 0.5 }
                 }}
-                className="absolute top-8 -left-4 md:left-0 bg-card/90 backdrop-blur-xl border border-white/10 p-4 rounded-xl shadow-2xl"
+                style={{ willChange: "transform" }}
+                className="absolute top-8 left-2 md:-left-4 bg-card/90 backdrop-blur-xl border border-white/10 p-4 rounded-xl shadow-2xl z-10"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center">
@@ -152,10 +159,11 @@ export default function About() {
                 viewport={{ once: true }}
                 animate={{ y: [0, 10, 0] }}
                 transition={{ 
-                  y: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 },
+                  y: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 },
                   opacity: { duration: 0.5 }
                 }}
-                className="absolute top-20 -right-4 md:right-0 bg-card/90 backdrop-blur-xl border border-white/10 p-4 rounded-xl shadow-2xl"
+                style={{ willChange: "transform" }}
+                className="absolute top-20 right-2 md:-right-4 bg-card/90 backdrop-blur-xl border border-white/10 p-4 rounded-xl shadow-2xl z-10"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
@@ -163,7 +171,7 @@ export default function About() {
                   </div>
                   <div>
                     <div className="text-[10px] text-white/50 tracking-wider">CRESCIMENTO</div>
-                    <div className="text-sm font-bold text-green-400">+340%</div>
+                    <div className="text-sm font-bold text-green-400">Contínuo</div>
                   </div>
                 </div>
               </motion.div>
@@ -174,10 +182,11 @@ export default function About() {
                 viewport={{ once: true }}
                 animate={{ y: [0, -8, 0] }}
                 transition={{ 
-                  y: { duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 },
+                  y: { duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 },
                   opacity: { duration: 0.5 }
                 }}
-                className="absolute bottom-16 -left-4 md:left-4 bg-card/90 backdrop-blur-xl border border-white/10 p-4 rounded-xl shadow-2xl"
+                style={{ willChange: "transform" }}
+                className="absolute bottom-16 left-2 md:left-4 bg-card/90 backdrop-blur-xl border border-white/10 p-4 rounded-xl shadow-2xl z-10"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
@@ -217,11 +226,11 @@ export default function About() {
             </div>
             <h2 className="font-display text-[clamp(36px,5vw,64px)] leading-[1.1] tracking-tight mb-6">
               Transformamos Ideias em{" "}
-              <span className="text-stroke-accent">Experiencias</span>{" "}
+              <span className="text-transparent [-webkit-text-stroke:1px_var(--accent)]">Experiências</span>{" "}
               <span className="text-accent">Digitais.</span>
             </h2>
             <p className="text-white/60 text-base md:text-lg leading-relaxed mb-8">
-              A <span className="text-white font-semibold">Veltrix Tecnologia</span> nasceu da paixao por criar solucoes digitais que realmente fazem diferenca. Unimos estrategia, design de alto nivel e tecnologia de ponta para construir marcas que se destacam no mercado.
+              A <span className="text-white font-semibold">Veltrix Tecnologia</span> nasceu da paixão por criar soluções digitais que realmente fazem diferença. Unimos estratégia, design de alto nível e tecnologia de ponta para construir marcas que se destacam no mercado.
             </p>
 
             {/* Mini features */}
