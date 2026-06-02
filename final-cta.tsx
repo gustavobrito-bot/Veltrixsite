@@ -1,34 +1,39 @@
 "use client"
 
-import { useEffect, useState, useRef, useCallback } from "react"
+import { useEffect, useState, useRef } from "react"
 import Image from "next/image"
-import { motion, useInView } from "motion/react"
+import { motion } from "motion/react"
 import { ArrowRight } from "lucide-react"
 
 function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
   const [count, setCount] = useState(0)
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true })
+  const [hasAnimated, setHasAnimated] = useState(false)
 
   useEffect(() => {
-    if (!isInView) return
-    const duration = 2000
-    const steps = 60
-    const increment = target / steps
-    let current = 0
-    const timer = setInterval(() => {
-      current += increment
-      if (current >= target) {
-        setCount(target)
-        clearInterval(timer)
-      } else {
-        setCount(Math.floor(current))
-      }
-    }, duration / steps)
-    return () => clearInterval(timer)
-  }, [isInView, target])
+    if (hasAnimated) return
+    
+    // Small delay to ensure component is mounted
+    const startTimer = setTimeout(() => {
+      setHasAnimated(true)
+      const duration = 2000
+      const steps = 60
+      const increment = target / steps
+      let current = 0
+      const timer = setInterval(() => {
+        current += increment
+        if (current >= target) {
+          setCount(target)
+          clearInterval(timer)
+        } else {
+          setCount(Math.floor(current))
+        }
+      }, duration / steps)
+    }, 500)
+    
+    return () => clearTimeout(startTimer)
+  }, [hasAnimated, target])
 
-  return <span ref={ref}>{count}{suffix}</span>
+  return <span>{count}{suffix}</span>
 }
 
 export default function Hero() {
