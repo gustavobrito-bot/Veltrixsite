@@ -102,6 +102,7 @@ export default function About() {
                   <motion.div
                     animate={{ scale: [1, 1.05, 1] }}
                     transition={{ duration: 4, repeat: Infinity }}
+                    style={{ willChange: "transform" }}
                   >
                     <Image
                       src="/veltrix-logo.png"
@@ -115,7 +116,8 @@ export default function About() {
                   {/* Sparkle effects */}
                   <motion.div
                     animate={{ opacity: [0.5, 1, 0.5], scale: [0.8, 1.2, 0.8] }}
-                    transition={{ duration: 2, repeat: Infinity }}
+                    transition={{ duration: 3, repeat: Infinity }}
+                    style={{ willChange: "opacity, transform" }}
                     className="absolute -top-2 -right-2"
                   >
                     <Sparkles className="w-6 h-6 text-accent" />
@@ -130,9 +132,10 @@ export default function About() {
                 viewport={{ once: true }}
                 animate={{ y: [0, -10, 0] }}
                 transition={{ 
-                  y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+                  y: { duration: 4, repeat: Infinity, ease: "easeInOut" },
                   opacity: { duration: 0.5 }
                 }}
+                style={{ willChange: "transform" }}
                 className="absolute top-8 left-2 md:-left-4 bg-card/90 backdrop-blur-xl border border-white/10 p-4 rounded-xl shadow-2xl z-10"
               >
                 <div className="flex items-center gap-3">
@@ -152,9 +155,10 @@ export default function About() {
                 viewport={{ once: true }}
                 animate={{ y: [0, 10, 0] }}
                 transition={{ 
-                  y: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 },
+                  y: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 },
                   opacity: { duration: 0.5 }
                 }}
+                style={{ willChange: "transform" }}
                 className="absolute top-20 right-2 md:-right-4 bg-card/90 backdrop-blur-xl border border-white/10 p-4 rounded-xl shadow-2xl z-10"
               >
                 <div className="flex items-center gap-3">
@@ -174,9 +178,10 @@ export default function About() {
                 viewport={{ once: true }}
                 animate={{ y: [0, -8, 0] }}
                 transition={{ 
-                  y: { duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 },
+                  y: { duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 },
                   opacity: { duration: 0.5 }
                 }}
+                style={{ willChange: "transform" }}
                 className="absolute bottom-16 left-2 md:left-4 bg-card/90 backdrop-blur-xl border border-white/10 p-4 rounded-xl shadow-2xl z-10"
               >
                 <div className="flex items-center gap-3">

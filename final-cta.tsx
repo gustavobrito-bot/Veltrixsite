@@ -1,9 +1,9 @@
 "use client"
 
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef, useCallback } from "react"
 import Image from "next/image"
 import { motion, useInView } from "motion/react"
-import { ArrowRight, Play } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 
 function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
   const [count, setCount] = useState(0)
@@ -35,6 +35,7 @@ export default function Hero() {
   const [displayText, setDisplayText] = useState("")
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const fullText = "STARTUP DE TECNOLOGIA PREMIUM"
+  const throttleRef = useRef(0)
 
   useEffect(() => {
     let index = 0
@@ -48,6 +49,10 @@ export default function Hero() {
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
+      const now = Date.now()
+      if (now - throttleRef.current < 50) return // Throttle to ~20fps
+      throttleRef.current = now
+
       setMousePosition({
         x: (e.clientX / window.innerWidth - 0.5) * 20,
         y: (e.clientY / window.innerHeight - 0.5) * 20,
@@ -68,30 +73,24 @@ export default function Hero() {
       id="hero"
       className="min-h-screen flex items-center relative overflow-hidden pt-[120px] px-6 md:px-12 pb-12"
     >
-      {/* Background Image with Overlay */}
+      {/* Background Gradient - Replaced heavy GIF */}
       <motion.div
-        className="absolute inset-0 z-0 flex items-center justify-center"
-        style={{ x: mousePosition.x * 0.5, y: mousePosition.y * 0.5 }}
-      >
-        <img
-          src="/images/black-hole-gif.gif"
-          alt="Black hole animation"
-          className="w-auto h-3/4 object-contain opacity-60"
-        />
-      </motion.div>
-      <div className="absolute inset-0 bg-black/60" />
+        className="absolute inset-0 z-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent"
+        style={{ x: mousePosition.x * 0.3, y: mousePosition.y * 0.3 }}
+      />
+      <div className="absolute inset-0 bg-black/60 z-0" />
 
       <motion.div
         className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_70%_50%,rgba(255,87,34,0.06)_0%,transparent_60%),radial-gradient(ellipse_50%_80%_at_20%_80%,rgba(10,22,40,0.8)_0%,transparent_50%)] z-[1]"
-        style={{ x: mousePosition.x * -1, y: mousePosition.y * -1 }}
+        style={{ x: mousePosition.x * -0.5, y: mousePosition.y * -0.5 }}
       />
 
-      <div className="absolute inset-0 opacity-10 pointer-events-none">
+      <div className="absolute inset-0 opacity-10 pointer-events-none z-0">
         <div className="w-full h-full bg-[linear-gradient(rgba(255,87,34,0.3)_1px,transparent_1px),linear-gradient(90deg,rgba(255,87,34,0.3)_1px,transparent_1px)] bg-[size:80px_80px]" />
       </div>
 
       <motion.div
-        className="absolute top-[-100px] right-[-100px] w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(255,87,34,0.08)_0%,transparent_70%)] pointer-events-none"
+        className="absolute top-[-100px] right-[-100px] w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(255,87,34,0.08)_0%,transparent_70%)] pointer-events-none z-0"
         animate={{
           x: [0, -20, 0],
           y: [0, 20, 0],
@@ -185,6 +184,7 @@ export default function Hero() {
             alt="Veltrix Tecnologia"
             width={500}
             height={300}
+            priority
             className="w-full max-w-md lg:max-w-lg drop-shadow-[0_0_60px_rgba(255,87,34,0.4)] animate-float relative z-10"
           />
         </motion.div>
