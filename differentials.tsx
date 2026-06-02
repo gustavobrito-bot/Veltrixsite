@@ -109,7 +109,7 @@ export default function About() {
                       alt="Veltrix Tecnologia"
                       width={200}
                       height={200}
-                      className="w-32 h-auto md:w-48 mix-blend-screen brightness-125"
+                      className="w-32 h-auto md:w-48"
                     />
                   </motion.div>
                   

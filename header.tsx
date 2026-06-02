@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { motion } from "motion/react"
 import { Menu, X } from "lucide-react"
+import Image from "next/image"
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
@@ -17,13 +18,21 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-white/5">
       <nav className="max-w-[1400px] mx-auto px-6 md:px-12 py-4 flex items-center justify-between">
-        <motion.div
+        <motion.a
+          href="#hero"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="text-xl font-bold text-accent"
+          className="flex items-center"
         >
-          VELTRIX
-        </motion.div>
+          <Image
+            src="/veltrix-logo.png"
+            alt="Veltrix Tecnologia"
+            width={140}
+            height={40}
+            className="h-10 w-auto"
+            priority
+          />
+        </motion.a>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-8">
