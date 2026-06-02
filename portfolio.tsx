@@ -71,7 +71,7 @@ export default function Features() {
             transition={{ delay: 0.1 }}
             className="font-display text-[clamp(40px,5vw,72px)] leading-none tracking-tight mb-6"
           >
-            Nossas <span className="text-transparent [-webkit-text-stroke:1px_var(--accent)]">Soluções</span>
+            Nossas <span className="text-accent">Soluções</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
