@@ -1,11 +1,11 @@
 "use client"
 
 import { useState } from "react"
-import { motion } from "motion/react"
 import Image from "next/image"
 import { ArrowRight, Instagram, Mail } from "lucide-react"
 import AboutModal from "./about-modal"
 import ServicesModal from "./services-modal"
+import { WHATSAPP_URL, CONTACT_EMAIL, INSTAGRAM_URL } from "./lib/site"
 
 export default function Footer() {
   const [showAbout, setShowAbout] = useState(false)
@@ -13,99 +13,93 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="bg-card border-t border-white/5">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
-
-            {/* Logo e descrição */}
-            <div className="md:col-span-2">
+      <footer className="border-t border-white/8 bg-background">
+        <div className="container-x flex flex-col gap-12 py-14 sm:py-16">
+          <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
+            <div className="flex flex-col items-start gap-5">
               <Image
                 src="/veltrix-logo.png"
                 alt="Veltrix Tecnologia"
-                width={160}
-                height={48}
-                className="h-12 w-auto mb-6"
+                width={180}
+                height={101}
+                className="logo-blend h-11 w-auto"
               />
-              <p className="text-white/50 text-sm leading-relaxed max-w-md mb-6">
-                Transformamos marcas em experiências digitais premium. Branding, tecnologia e performance para empresas que querem se destacar.
+              <p className="max-w-md text-pretty text-[14px] leading-relaxed text-muted">
+                Transformamos marcas em experiências digitais premium. Branding, tecnologia e performance para empresas
+                que querem se destacar.
               </p>
-              <div className="flex gap-4">
+              <div className="flex gap-2">
                 <a
-                  href="https://instagram.com/veltrixtecnologia"
+                  href={INSTAGRAM_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 bg-white/5 border border-white/10 flex items-center justify-center hover:border-accent/50 hover:bg-accent/10 transition-all"
+                  aria-label="Instagram da Veltrix"
+                  className="flex size-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-muted transition-colors hover:border-accent/50 hover:bg-accent/10 hover:text-accent"
                 >
-                  <Instagram className="w-4 h-4 text-white/60" />
+                  <Instagram className="size-4" />
                 </a>
                 <a
-                  href="mailto:contato@veltrix.com.br"
-                  className="w-10 h-10 bg-white/5 border border-white/10 flex items-center justify-center hover:border-accent/50 hover:bg-accent/10 transition-all"
+                  href={`mailto:${CONTACT_EMAIL}`}
+                  aria-label="Enviar e-mail para a Veltrix"
+                  className="flex size-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] text-muted transition-colors hover:border-accent/50 hover:bg-accent/10 hover:text-accent"
                 >
-                  <Mail className="w-4 h-4 text-white/60" />
+                  <Mail className="size-4" />
                 </a>
               </div>
             </div>
 
-            {/* Navegação */}
-            <div>
-              <h4 className="font-mono text-[10px] tracking-[3px] text-accent mb-6 uppercase">Navegação</h4>
-              <ul className="space-y-3">
+            <nav aria-label="Rodapé" className="flex flex-col gap-4">
+              <h4 className="text-[11px] font-semibold uppercase tracking-[0.2em] text-accent">Navegação</h4>
+              <ul className="flex flex-col gap-2.5">
                 <li>
                   <button
+                    type="button"
                     onClick={() => setShowAbout(true)}
-                    className="text-white/50 text-sm hover:text-accent transition-colors text-left"
+                    className="text-[14px] text-muted transition-colors hover:text-foreground"
                   >
                     Sobre
                   </button>
                 </li>
                 <li>
                   <button
+                    type="button"
                     onClick={() => setShowServices(true)}
-                    className="text-white/50 text-sm hover:text-accent transition-colors text-left"
+                    className="text-[14px] text-muted transition-colors hover:text-foreground"
                   >
                     Serviços
                   </button>
                 </li>
                 <li>
-                  <a href="#portfolio" className="text-white/50 text-sm hover:text-accent transition-colors">
-                    Portfolio
+                  <a href="#portfolio" className="text-[14px] text-muted transition-colors hover:text-foreground">
+                    Portfólio
                   </a>
                 </li>
                 <li>
-                  <a href="#contato" className="text-white/50 text-sm hover:text-accent transition-colors">
+                  <a href="#contato" className="text-[14px] text-muted transition-colors hover:text-foreground">
                     Contato
                   </a>
                 </li>
               </ul>
-            </div>
+            </nav>
 
-            {/* CTA */}
-            <div>
-              <h4 className="font-mono text-[10px] tracking-[3px] text-accent mb-6 uppercase">Vamos Conversar?</h4>
-              <p className="text-white/50 text-sm mb-4">
-                Pronto para transformar sua marca?
-              </p>
+            <div className="flex flex-col items-start gap-4">
+              <h4 className="text-[11px] font-semibold uppercase tracking-[0.2em] text-accent">Vamos conversar?</h4>
+              <p className="text-[14px] text-muted">Pronto para transformar sua marca?</p>
               <a
-                href="https://wa.me/5511983182274?text=Olá!%20Vim%20pelo%20site%20da%20Veltrix%20e%20gostaria%20de%20falar%20com%20um%20especialista%20para%20entender%20qual%20solução%20faz%20mais%20sentido%20para%20minha%20empresa."
+                href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary-custom text-[10px] inline-flex items-center gap-2 group"
+                className="btn-primary-custom group px-5 py-3 text-xs"
               >
-                Iniciar Projeto
-                <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                Iniciar projeto
+                <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
               </a>
             </div>
           </div>
 
-          {/* Bottom bar */}
-          <div className="border-t border-white/5 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-white/30 text-xs">
-              © 2026 Veltrix Tecnologia. Todos os direitos reservados.
-            </p>
-            <p className="text-white/30 text-xs">
-              Feito com dedicação em São Paulo, Brasil
-            </p>
+          <div className="flex flex-col gap-2 border-t border-white/8 pt-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
+            <p>© 2026 Veltrix Tecnologia. Todos os direitos reservados.</p>
+            <p>Feito com dedicação em São Paulo, Brasil</p>
           </div>
         </div>
       </footer>

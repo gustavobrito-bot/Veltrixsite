@@ -1,95 +1,118 @@
 "use client"
 
-import { useState } from "react"
-import { motion } from "motion/react"
-import { Menu, X } from "lucide-react"
+import { useEffect, useState } from "react"
+import { motion, AnimatePresence } from "motion/react"
+import { Menu, X, ArrowUpRight } from "lucide-react"
 import Image from "next/image"
+import { WHATSAPP_URL } from "./lib/site"
 
 const navItems = [
   { label: "Sobre", href: "#about" },
   { label: "Serviços", href: "#services" },
-  { label: "Portfolio", href: "#portfolio" },
+  { label: "Portfólio", href: "#portfolio" },
   { label: "Contato", href: "#contato" },
 ]
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24)
+    onScroll()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
+  }, [])
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 bg-background/80 backdrop-blur-lg border-b border-white/5">
-      <nav className="max-w-[1400px] mx-auto px-6 md:px-12 py-4 flex items-center justify-between">
-        <motion.a
-          href="#hero"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="flex items-center"
-        >
+    <header
+      className={`fixed inset-x-0 top-0 z-40 transition-colors duration-300 ${
+        scrolled || isOpen ? "border-b border-white/8 bg-background/85 backdrop-blur-xl" : "bg-transparent"
+      }`}
+    >
+      <nav aria-label="Principal" className="container-x flex h-16 items-center justify-between sm:h-[72px]">
+        <a href="#hero" className="flex items-center" aria-label="Veltrix Tecnologia – início">
           <Image
             src="/veltrix-logo.png"
             alt="Veltrix Tecnologia"
             width={160}
-            height={48}
-            className="h-10 w-auto"
+            height={90}
+            className="logo-blend h-9 w-auto sm:h-10"
             priority
           />
-        </motion.a>
+        </a>
 
-        {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden items-center gap-1 md:flex">
           {navItems.map((item) => (
             <a
               key={item.label}
               href={item.href}
-              className="text-white/70 hover:text-accent transition-colors text-sm font-medium"
+              className="rounded-full px-4 py-2 text-sm font-medium text-muted transition-colors hover:bg-white/5 hover:text-foreground"
             >
               {item.label}
             </a>
           ))}
           <a
-            href="https://wa.me/5511983182274?text=Olá!%20Vim%20pelo%20site%20da%20Veltrix%20e%20gostaria%20de%20falar%20com%20um%20especialista%20para%20entender%20qual%20solução%20faz%20mais%20sentido%20para%20minha%20empresa."
+            href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary-custom text-sm"
+            className="btn-primary-custom ml-3 px-5 py-2.5 text-xs"
           >
             Conversar
+            <ArrowUpRight className="size-3.5" />
           </a>
         </div>
 
-        {/* Mobile toggle */}
-        <button className="md:hidden text-white" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+        <button
+          type="button"
+          className="flex size-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-foreground md:hidden"
+          onClick={() => setIsOpen((v) => !v)}
+          aria-expanded={isOpen}
+          aria-controls="mobile-menu"
+          aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
+        >
+          {isOpen ? <X className="size-5" /> : <Menu className="size-5" />}
         </button>
+      </nav>
 
-        {/* Mobile menu */}
+      <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="absolute top-full left-0 right-0 bg-background border-b border-white/5 md:hidden"
+            id="mobile-menu"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.22 }}
+            className="overflow-hidden border-t border-white/8 md:hidden"
           >
-            <div className="flex flex-col gap-4 p-6">
-              {navItems.map((item) => (
-                <a
+            <div className="container-x flex flex-col gap-1 py-4">
+              {navItems.map((item, i) => (
+                <motion.a
                   key={item.label}
                   href={item.href}
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.04 * i }}
                   onClick={() => setIsOpen(false)}
-                  className="text-white/70 hover:text-accent transition-colors text-left text-sm"
+                  className="flex items-center justify-between rounded-xl px-4 py-3.5 text-base font-medium text-foreground transition-colors hover:bg-white/5"
                 >
                   {item.label}
-                </a>
+                  <ArrowUpRight className="size-4 text-muted" />
+                </motion.a>
               ))}
               <a
-                href="https://wa.me/5511983182274?text=Olá!%20Vim%20pelo%20site%20da%20Veltrix%20e%20gostaria%20de%20falar%20com%20um%20especialista%20para%20entender%20qual%20solução%20faz%20mais%20sentido%20para%20minha%20empresa."
+                href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary-custom text-sm w-full text-center"
+                className="btn-primary-custom mt-3 w-full"
+                onClick={() => setIsOpen(false)}
               >
-                Conversar
+                Conversar com o time
               </a>
             </div>
           </motion.div>
         )}
-      </nav>
+      </AnimatePresence>
     </header>
   )
 }

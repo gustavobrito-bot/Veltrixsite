@@ -1,95 +1,76 @@
 "use client"
 
 import { motion } from "motion/react"
-import { MessageSquare, Star, ArrowRight } from "lucide-react"
+import { BadgePercent, HeartHandshake, ShieldCheck, ArrowRight } from "lucide-react"
+import SectionHeading from "./section-heading"
+import { WHATSAPP_URL } from "./lib/site"
 
-export default function Testimonials() {
+const perks = [
+  {
+    icon: BadgePercent,
+    title: "Preço de lançamento",
+    desc: "Os primeiros clientes têm acesso a condições exclusivas e preços especiais que não estarão disponíveis depois.",
+  },
+  {
+    icon: HeartHandshake,
+    title: "Atenção total",
+    desc: "Por sermos novos, cada projeto recebe dedicação máxima. Você não é mais um número — é nossa vitrine.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Resultado garantido",
+    desc: "Trabalhamos até o resultado ser exatamente o que você esperava. Sua satisfação constrói nossa reputação.",
+  },
+]
+
+export default function LaunchOffer() {
   return (
-    <section id="testimonials" className="py-24 bg-secondary/30 overflow-hidden border-y border-white/5">
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 mb-16 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex items-center justify-center gap-3 font-mono text-[10px] tracking-[4px] text-accent mb-4 uppercase"
-        >
-          <span className="w-8 h-[1px] bg-accent" />
-          PORTFÓLIO & CLIENTES
-          <span className="w-8 h-[1px] bg-accent" />
-        </motion.div>
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          className="font-display text-5xl tracking-tight text-white mb-6"
-        >
-          Seja o Primeiro a <span className="text-accent">Transformar</span>
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="text-white/50 max-w-[540px] mx-auto text-base leading-relaxed"
-        >
-          Estamos iniciando nossa jornada e abrindo vagas para os primeiros clientes com condições especiais de lançamento.
-        </motion.p>
-      </div>
+    <section id="testimonials" className="relative overflow-hidden py-24 sm:py-32">
+      <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      <div aria-hidden className="absolute left-1/2 top-1/2 size-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/10 blur-[140px]" />
 
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            {
-              icon: <Star className="w-6 h-6 text-accent" />,
-              title: "Preço de Lançamento",
-              desc: "Primeiros clientes têm acesso a condições exclusivas e preços especiais que não estarão disponíveis depois.",
-            },
-            {
-              icon: <MessageSquare className="w-6 h-6 text-accent" />,
-              title: "Atenção Total",
-              desc: "Por sermos novos, cada projeto recebe dedicação máxima. Você não é mais um número — é nossa vitrine.",
-            },
-            {
-              icon: <ArrowRight className="w-6 h-6 text-accent" />,
-              title: "Resultado Garantido",
-              desc: "Trabalhamos até o resultado ser exatamente o que você esperava. Sua satisfação constrói nossa reputação.",
-            },
-          ].map((card, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
+      <div className="container-x relative flex flex-col gap-14">
+        <SectionHeading
+          label="Condição de lançamento"
+          title={
+            <>
+              Seja o primeiro a <span className="text-accent">transformar</span>
+            </>
+          }
+          description="Estamos iniciando nossa jornada e abrindo vagas para os primeiros clientes com condições especiais de lançamento."
+        />
+
+        <ul className="grid gap-4 md:grid-cols-3">
+          {perks.map((perk, i) => (
+            <motion.li
+              key={perk.title}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="bg-card border border-white/6 p-8 rounded-[4px] group hover:border-accent/30 transition-all duration-300"
+              transition={{ delay: i * 0.08 }}
+              className="surface group flex flex-col gap-5 p-6 transition-colors hover:border-accent/30 sm:p-7"
             >
-              <div className="w-12 h-12 bg-accent/10 border border-accent/20 rounded-[4px] flex items-center justify-center mb-6 group-hover:bg-accent/20 transition-all">
-                {card.icon}
+              <span className="flex size-12 items-center justify-center rounded-xl bg-accent/10 text-accent transition-colors group-hover:bg-accent group-hover:text-white">
+                <perk.icon className="size-6" />
+              </span>
+              <div className="flex flex-col gap-2">
+                <h3 className="font-display text-lg font-bold tracking-tight text-foreground sm:text-xl">{perk.title}</h3>
+                <p className="text-pretty text-[14px] leading-relaxed text-muted">{perk.desc}</p>
               </div>
-              <h3 className="font-display text-xl text-white mb-3 group-hover:text-accent transition-colors">
-                {card.title}
-              </h3>
-              <p className="text-white/50 text-[14px] leading-relaxed">{card.desc}</p>
-            </motion.div>
+            </motion.li>
           ))}
-        </div>
+        </ul>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="text-center mt-12"
+          transition={{ delay: 0.3 }}
+          className="flex justify-center"
         >
-          <a
-            href="https://wa.me/5511983182274?text=Olá!%20Vim%20pelo%20site%20da%20Veltrix%20e%20gostaria%20de%20falar%20com%20um%20especialista%20para%20entender%20qual%20solução%20faz%20mais%20sentido%20para%20minha%20empresa."
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary-custom inline-flex items-center gap-2 group"
-          >
-            Garantir Condição de Lançamento
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn-primary-custom group w-full sm:w-auto">
+            Garantir condição de lançamento
+            <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
           </a>
         </motion.div>
       </div>

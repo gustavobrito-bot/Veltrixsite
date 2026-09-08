@@ -1,109 +1,103 @@
 "use client"
 
-import { motion } from "motion/react"
+import { useEffect } from "react"
+import { motion, AnimatePresence } from "motion/react"
 import Image from "next/image"
 import { X, ArrowRight } from "lucide-react"
-import { useState } from "react"
+import { WHATSAPP_URL } from "./lib/site"
 
 interface AboutModalProps {
   isOpen: boolean
   onClose: () => void
 }
 
+const paragraphs = [
+  "A Veltrix nasceu com o propósito de transformar desafios em oportunidades por meio de estratégias inteligentes, inovação e foco em resultados.",
+  "Acreditamos que cada negócio possui um potencial único de crescimento. Por isso, trabalhamos lado a lado com nossos clientes para desenvolver soluções que gerem valor real, fortaleçam marcas e impulsionem resultados sustentáveis.",
+  "Nossa atuação é baseada em três pilares fundamentais: compromisso, excelência e evolução contínua. Buscamos entender profundamente as necessidades de cada cliente para entregar soluções personalizadas, eficientes e alinhadas aos objetivos de negócio.",
+  "Mais do que prestar serviços, a Veltrix constrói parcerias duradouras, pautadas pela transparência, confiança e dedicação. Nosso objetivo é ser um agente de crescimento para empresas que desejam se destacar em mercados cada vez mais competitivos.",
+  "Na Veltrix, acreditamos que grandes resultados são construídos com estratégia, execução e visão de futuro.",
+]
+
 export default function AboutModal({ isOpen, onClose }: AboutModalProps) {
-  if (!isOpen) return null
+  useEffect(() => {
+    if (!isOpen) return
+    const previous = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose()
+    }
+    window.addEventListener("keydown", onKey)
+    return () => {
+      document.body.style.overflow = previous
+      window.removeEventListener("keydown", onKey)
+    }
+  }, [isOpen, onClose])
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      onClick={onClose}
-      className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
-    >
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 20 }}
-        onClick={(e) => e.stopPropagation()}
-        className="bg-card border border-white/10 rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden"
-      >
-        {/* Header com hero */}
-        <div className="relative h-64 bg-gradient-to-br from-accent/10 to-background flex items-center justify-center overflow-hidden">
-          <div className="absolute inset-0 bg-grid opacity-10" />
-          <div className="relative z-10 text-center">
-            <Image
-              src="/veltrix-logo.png"
-              alt="Veltrix Tecnologia"
-              width={180}
-              height={54}
-              className="h-16 w-auto mx-auto mb-4"
-            />
-            <h2 className="text-3xl md:text-4xl font-display tracking-tight text-white">
-              Sobre Nós
-            </h2>
-          </div>
-        </div>
-
-        {/* Conteúdo */}
-        <div className="overflow-y-auto p-8 md:p-12 space-y-6 max-h-[calc(90vh-256px)]">
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="space-y-6 text-white/70 leading-relaxed"
-          >
-            <p>
-              A Veltrix nasceu com o propósito de transformar desafios em oportunidades por meio de estratégias inteligentes, inovação e foco em resultados.
-            </p>
-
-            <p>
-              Acreditamos que cada negócio possui um potencial único de crescimento. Por isso, trabalhamos lado a lado com nossos clientes para desenvolver soluções que gerem valor real, fortaleçam marcas e impulsionem resultados sustentáveis.
-            </p>
-
-            <p>
-              Nossa atuação é baseada em três pilares fundamentais: compromisso, excelência e evolução contínua. Buscamos entender profundamente as necessidades de cada cliente para entregar soluções personalizadas, eficientes e alinhadas aos objetivos de negócio.
-            </p>
-
-            <p>
-              Mais do que prestar serviços, a Veltrix constrói parcerias duradouras, pautadas pela transparência, confiança e dedicação. Nosso objetivo é ser um agente de crescimento para empresas que desejam se destacar em mercados cada vez mais competitivos.
-            </p>
-
-            <p>
-              Na Veltrix, acreditamos que grandes resultados são construídos com estratégia, execução e visão de futuro.
-            </p>
-          </motion.div>
-
-          {/* CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="pt-8 border-t border-white/10"
-          >
-            <p className="text-white/50 mb-4">
-              Pronto para começar uma parceria que gera resultados?
-            </p>
-            <a
-              href="https://wa.me/5511983182274?text=Olá!%20Vim%20pelo%20site%20da%20Veltrix%20e%20gostaria%20de%20falar%20com%20um%20especialista%20para%20entender%20qual%20solução%20faz%20mais%20sentido%20para%20minha%20empresa."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary-custom text-xs inline-flex items-center gap-2 group"
-            >
-              Fale com um Especialista
-              <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-            </a>
-          </motion.div>
-        </div>
-
-        {/* Close button */}
-        <button
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
           onClick={onClose}
-          className="absolute top-4 right-4 z-20 w-10 h-10 bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center transition-all"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="about-modal-title"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-background/90 p-3 backdrop-blur-sm sm:p-6"
         >
-          <X className="w-5 h-5 text-white" />
-        </button>
-      </motion.div>
-    </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 24, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 24, scale: 0.98 }}
+            onClick={(e) => e.stopPropagation()}
+            className="relative flex max-h-[92svh] w-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-white/10 bg-card shadow-2xl"
+          >
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="Fechar"
+              className="absolute right-3 top-3 z-20 flex size-10 items-center justify-center rounded-full border border-white/15 bg-background/70 text-foreground backdrop-blur transition-colors hover:bg-accent sm:right-5 sm:top-5"
+            >
+              <X className="size-5" />
+            </button>
+
+            <div className="relative flex flex-col items-center gap-3 overflow-hidden border-b border-white/8 px-6 py-10 text-center sm:py-12">
+              <div aria-hidden className="grid-bg absolute inset-0" />
+              <div aria-hidden className="absolute -top-20 left-1/2 size-56 -translate-x-1/2 rounded-full bg-accent/25 blur-3xl" />
+              <Image
+                src="/veltrix-logo.png"
+                alt="Veltrix Tecnologia"
+                width={180}
+                height={101}
+                className="logo-blend relative h-12 w-auto"
+              />
+              <h2 id="about-modal-title" className="relative font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+                Sobre nós
+              </h2>
+            </div>
+
+            <div className="flex flex-col gap-8 overflow-y-auto p-6 sm:p-10">
+              <div className="flex flex-col gap-4 text-pretty text-[15px] leading-relaxed text-muted">
+                {paragraphs.map((text, i) => (
+                  <p key={i} className={i === 0 ? "text-base text-foreground/90 sm:text-lg" : undefined}>
+                    {text}
+                  </p>
+                ))}
+              </div>
+
+              <div className="flex flex-col items-start gap-4 border-t border-white/8 pt-6">
+                <p className="text-[14px] text-muted">Pronto para começar uma parceria que gera resultados?</p>
+                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn-primary-custom group w-full sm:w-auto">
+                  Fale com um especialista
+                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   )
 }
