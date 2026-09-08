@@ -3,26 +3,43 @@
 @theme inline {
   --font-sans: var(--font-space-grotesk), system-ui, -apple-system, sans-serif;
   --font-display: var(--font-space-grotesk), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-space-grotesk), ui-monospace, monospace;
 
-  --color-background: #0a1628;
-  --color-foreground: #ffffff;
-  --color-card: #112238;
-  --color-secondary: #1e3250;
+  --color-background: #070e1c;
+  --color-foreground: #f4f6fb;
+  --color-card: #0d1a2e;
+  --color-secondary: #142640;
+  --color-muted: #8b98b0;
   --color-accent: #ff5722;
-  --color-border: rgb(255 255 255 / 0.1);
+  --color-accent-soft: #ff8a5b;
+  --color-border: rgb(255 255 255 / 0.08);
 
-  --radius: 0.25rem;
+  --radius: 0.75rem;
 }
 
 @layer base {
   html {
     @apply bg-background;
+    overflow-x: clip;
+    scroll-padding-top: 5rem;
   }
   body {
     @apply bg-background text-foreground font-sans antialiased;
+    overflow-x: clip;
+    min-width: 0;
   }
   * {
     border-color: rgb(255 255 255 / 0.08);
+    min-width: 0;
+  }
+  img,
+  svg,
+  video {
+    max-width: 100%;
+  }
+  ::selection {
+    background: rgb(255 87 34 / 0.35);
+    color: #fff;
   }
 }
 
@@ -31,56 +48,60 @@
     font-family: var(--font-space-grotesk), system-ui, -apple-system, sans-serif;
   }
 
+  .container-x {
+    @apply mx-auto w-full max-w-[1280px] px-5 sm:px-8 lg:px-12;
+  }
+
+  .section-label {
+    @apply inline-flex items-center gap-2.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-accent;
+  }
+  .section-label::before {
+    content: "";
+    @apply h-px w-6 bg-accent;
+  }
+
+  .surface {
+    @apply rounded-2xl border border-white/8 bg-card;
+    background-image: linear-gradient(160deg, rgb(255 255 255 / 0.04), transparent 60%);
+  }
+
   .btn-primary-custom {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    background-color: #ff5722;
-    color: #ffffff;
-    font-weight: 600;
-    font-size: 0.75rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    border: 1px solid #ff5722;
-    cursor: pointer;
-    transition: all 0.2s ease;
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3.5 text-[13px] font-semibold text-white transition-all duration-200;
+    box-shadow: 0 8px 30px -10px rgb(255 87 34 / 0.75), inset 0 1px 0 rgb(255 255 255 / 0.25);
   }
   .btn-primary-custom:hover {
-    background-color: #e64a19;
-    border-color: #e64a19;
-    transform: translateY(-1px);
+    @apply bg-accent-soft -translate-y-px;
+    box-shadow: 0 14px 40px -12px rgb(255 87 34 / 0.85), inset 0 1px 0 rgb(255 255 255 / 0.3);
   }
   .btn-primary-custom:active {
     transform: translateY(0);
   }
 
   .btn-secondary-custom {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    background-color: transparent;
-    color: #ff5722;
-    font-weight: 600;
-    font-size: 0.75rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    border: 1px solid rgb(255 87 34 / 0.3);
-    cursor: pointer;
-    transition: all 0.2s ease;
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-6 py-3.5 text-[13px] font-semibold text-foreground transition-all duration-200;
   }
   .btn-secondary-custom:hover {
-    background-color: rgb(255 87 34 / 0.1);
-    border-color: rgb(255 87 34 / 0.5);
+    @apply border-accent/50 bg-accent/10 text-accent;
+  }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.045) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 100%);
+  }
+
+  .logo-blend {
+    mix-blend-mode: screen;
   }
 
   .animate-float {
-    animation: float 4s ease-in-out infinite;
+    animation: float 6s ease-in-out infinite;
   }
 
   @keyframes float {
     0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-12px); }
+    50% { transform: translateY(-10px); }
   }
 }

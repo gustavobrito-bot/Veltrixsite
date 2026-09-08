@@ -1,338 +1,298 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import Image from "next/image"
 import { motion, AnimatePresence } from "motion/react"
 import { ArrowUpRight, X, Calendar, Clock, User, Check, ChevronLeft, ChevronRight } from "lucide-react"
+import SectionHeading from "./section-heading"
+import { WHATSAPP_URL } from "./lib/site"
 
 const projects = [
   {
     id: 1,
     title: "Angel Luxe",
-    category: "DESENVOLVIMENTO",
+    category: "E-commerce",
     client: "Angélica",
     year: "2025",
     duration: "2 meses",
     heroImage: "/images/angel-luxe-hero.png",
-    description: "Plataforma de e-commerce premium para brand de moda de luxo. Design sofisticado com experiência de compra intuitiva e integração com sistemas de gestão de estoque.",
-    about: "Desenvolvimento de um site de vendas moderno e estratégico para nossa cliente Angélica, com foco em fortalecer sua presença digital, transmitir mais profissionalismo e aumentar suas oportunidades de venda online.",
-    challenge: "A cliente não possuía um site próprio, o que limitava sua autoridade no mercado e dificultava a conversão de novos clientes através da Internet. Além disso, sua comunicação visual não transmitia toda a qualidade e valor da marca.",
-    solution: "Criamos uma solução digital completa, desenvolvendo um site moderno, responsivo e pensado para converter. Também trabalhamos toda a identidade visual da marca e implementamos automações para otimizar processos e melhorar o atendimento ao cliente.",
-    services: ["Identidade Visual", "Desenvolvimento de Site", "Automação de Processos", "Estratégia Digital"],
+    description:
+      "Plataforma de e-commerce premium para marca de moda de luxo, com experiência de compra intuitiva e integração com gestão de estoque.",
+    about:
+      "Desenvolvimento de um site de vendas moderno e estratégico para nossa cliente Angélica, com foco em fortalecer sua presença digital, transmitir mais profissionalismo e aumentar suas oportunidades de venda online.",
+    challenge:
+      "A cliente não possuía um site próprio, o que limitava sua autoridade no mercado e dificultava a conversão de novos clientes pela internet. Além disso, sua comunicação visual não transmitia toda a qualidade e o valor da marca.",
+    solution:
+      "Criamos uma solução digital completa: um site moderno, responsivo e pensado para converter. Também trabalhamos toda a identidade visual da marca e implementamos automações para otimizar processos e melhorar o atendimento.",
+    services: ["Identidade visual", "Desenvolvimento de site", "Automação de processos", "Estratégia digital"],
     results: [
       "Presença digital mais forte e profissional",
       "Estrutura preparada para escalar vendas",
       "Maior autoridade e credibilidade no mercado",
-      "Experiência do cliente significativamente melhorada"
+      "Experiência do cliente significativamente melhorada",
     ],
-    gallery: [
-      "/images/angel-luxe-hero.png",
-      "/images/angel-luxe-categorias.png",
-      "/images/angel-luxe-produto.png",
-    ],
+    gallery: ["/images/angel-luxe-hero.png", "/images/angel-luxe-categorias.png", "/images/angel-luxe-produto.png"],
     tags: ["E-commerce", "Next.js", "Stripe", "Design"],
-    link: "#"
   },
   {
     id: 2,
     title: "Adega da Mooca",
-    category: "DESENVOLVIMENTO",
+    category: "Website",
     client: "Adega da Mooca",
     year: "2025",
     duration: "1 mês",
     heroImage: "/images/adega-produtos.png",
-    description: "Plataforma digital completa para adega e conveniência com cardápio online, sistema de pedidos via WhatsApp e delivery integrado para a região da Mooca.",
-    about: "Criação da presença digital completa da Adega da Mooca, focando em facilitar pedidos online, apresentar o catálogo de bebidas e conectar o negócio com clientes da região de forma prática e eficiente.",
-    challenge: "A Adega não tinha presença digital estruturada e perdia vendas para concorrentes que ofereciam pedidos online. Os clientes precisavam ligar ou ir pessoalmente para ver os produtos disponíveis e fazer pedidos.",
-    solution: "Desenvolvemos um site completo com cardápio digital interativo, sistema de pedidos via WhatsApp, integração com delivery, página de localização com Google Maps e identidade visual renovada que transmite confiança e praticidade.",
-    services: ["Identidade Visual", "Desenvolvimento Web", "Cardápio Digital", "Integração WhatsApp"],
+    description:
+      "Plataforma digital completa para adega e conveniência, com cardápio online, pedidos via WhatsApp e delivery integrado para a região da Mooca.",
+    about:
+      "Criação da presença digital completa da Adega da Mooca, facilitando pedidos online, apresentando o catálogo de bebidas e conectando o negócio com clientes da região de forma prática.",
+    challenge:
+      "A adega não tinha presença digital estruturada e perdia vendas para concorrentes que ofereciam pedidos online. Os clientes precisavam ligar ou ir pessoalmente para ver os produtos disponíveis.",
+    solution:
+      "Desenvolvemos um site completo com cardápio digital interativo, pedidos via WhatsApp, integração com delivery, página de localização com Google Maps e identidade visual renovada.",
+    services: ["Identidade visual", "Desenvolvimento web", "Cardápio digital", "Integração WhatsApp"],
     results: [
       "Cardápio online com 21 produtos organizados por categoria",
       "Sistema de pedidos via WhatsApp integrado",
       "Página de localização com mapa e endereço completo",
-      "Presença digital profissional e conversora"
+      "Presença digital profissional e conversora",
     ],
-    gallery: [
-      "/images/adega-produtos.png",
-      "/images/adega-modal.png",
-      "/images/adega-localizacao.png",
-    ],
+    gallery: ["/images/adega-produtos.png", "/images/adega-modal.png", "/images/adega-localizacao.png"],
     tags: ["Website", "React", "CMS", "Branding"],
-    link: "#"
-  }
+  },
 ]
 
+type Project = (typeof projects)[number]
+
 export default function PortfolioProjects() {
-  const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null)
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
-  const openModal = (project: typeof projects[0]) => {
+  const openModal = (project: Project) => {
     setSelectedProject(project)
     setCurrentImageIndex(0)
+  }
+
+  const closeModal = () => setSelectedProject(null)
+
+  useEffect(() => {
+    if (!selectedProject) return
+    const previous = document.body.style.overflow
     document.body.style.overflow = "hidden"
-  }
-
-  const closeModal = () => {
-    setSelectedProject(null)
-    document.body.style.overflow = "auto"
-  }
-
-  const nextImage = () => {
-    if (selectedProject) {
-      setCurrentImageIndex((prev) => 
-        prev === selectedProject.gallery.length - 1 ? 0 : prev + 1
-      )
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeModal()
     }
-  }
-
-  const prevImage = () => {
-    if (selectedProject) {
-      setCurrentImageIndex((prev) => 
-        prev === 0 ? selectedProject.gallery.length - 1 : prev - 1
-      )
+    window.addEventListener("keydown", onKey)
+    return () => {
+      document.body.style.overflow = previous
+      window.removeEventListener("keydown", onKey)
     }
+  }, [selectedProject])
+
+  const step = (dir: 1 | -1) => {
+    if (!selectedProject) return
+    const total = selectedProject.gallery.length
+    setCurrentImageIndex((prev) => (prev + dir + total) % total)
   }
 
   return (
     <>
-      <section id="portfolio" className="py-[120px] bg-background">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12">
-          {/* Header */}
-          <div className="text-center mb-16">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="flex items-center justify-center gap-3 font-mono text-[10px] tracking-[4px] text-accent mb-4 uppercase"
-            >
-              <span className="w-8 h-[1px] bg-accent" />
-              NOSSOS TRABALHOS
-              <span className="w-8 h-[1px] bg-accent" />
-            </motion.div>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="font-display text-[clamp(40px,5vw,72px)] leading-none tracking-tight mb-6"
-            >
-              Portfólio <span className="text-accent">Selecionado</span>
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="text-white/60 max-w-[600px] mx-auto text-base leading-relaxed"
-            >
-              Conheça alguns dos projetos que transformaram marcas e geraram resultados reais para nossos clientes.
-            </motion.p>
-          </div>
+      <section id="portfolio" className="relative py-24 sm:py-32">
+        <div className="container-x flex flex-col gap-14">
+          <SectionHeading
+            label="Nossos trabalhos"
+            title={
+              <>
+                Portfólio <span className="text-accent">selecionado</span>
+              </>
+            }
+            description="Conheça alguns dos projetos que transformaram marcas e geraram resultados reais para nossos clientes."
+          />
 
-          {/* Projects Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+          <ul className="grid gap-8 md:grid-cols-2 lg:gap-10">
             {projects.map((project, index) => (
-              <motion.div
+              <motion.li
                 key={project.id}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                onClick={() => openModal(project)}
-                className="group cursor-pointer overflow-hidden"
               >
-                {/* Image Container */}
-                <div className="relative h-80 md:h-96 overflow-hidden rounded-xl mb-6 bg-secondary border border-white/5">
-                  <motion.img
-                    src={project.heroImage}
-                    alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-300" />
-                  
-                  {/* Overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center">
-                      <ArrowUpRight className="w-7 h-7 text-white" />
-                    </div>
-                  </div>
-
-                  {/* Category Badge */}
-                  <div className="absolute top-6 left-6 bg-accent/90 backdrop-blur-sm px-3 py-1 rounded-full">
-                    <span className="font-mono text-[9px] tracking-[2px] text-white uppercase font-semibold">
+                <button
+                  type="button"
+                  onClick={() => openModal(project)}
+                  className="group flex w-full flex-col gap-5 text-left"
+                  aria-label={`Ver detalhes do projeto ${project.title}`}
+                >
+                  <div className="surface relative aspect-[4/3] w-full overflow-hidden rounded-2xl">
+                    <Image
+                      src={project.heroImage}
+                      alt={project.title}
+                      fill
+                      sizes="(min-width: 768px) 50vw, 100vw"
+                      className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/10 to-transparent" />
+                    <span className="absolute left-4 top-4 rounded-full border border-white/15 bg-background/70 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground backdrop-blur">
                       {project.category}
                     </span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div>
-                  <h3 className="font-display text-3xl md:text-4xl text-white mb-3 group-hover:text-accent transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="text-white/60 text-base leading-relaxed mb-4">
-                    {project.description}
-                  </p>
-
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-3 py-1 bg-accent/10 border border-accent/30 rounded-full text-[11px] text-accent uppercase tracking-[1px] font-semibold"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                    <span className="absolute bottom-4 right-4 flex size-11 items-center justify-center rounded-full bg-accent text-white opacity-90 shadow-[0_10px_30px_-10px_rgba(255,87,34,0.9)] transition-transform duration-300 group-hover:-translate-y-1 group-hover:opacity-100">
+                      <ArrowUpRight className="size-5" />
+                    </span>
                   </div>
 
-                  {/* Link */}
-                  <div className="inline-flex items-center gap-2 text-accent hover:text-orange-500 transition-colors font-semibold text-sm">
-                    Ver Projeto
-                    <ArrowUpRight className="w-4 h-4" />
+                  <div className="flex flex-col gap-3">
+                    <h3 className="font-display text-2xl font-bold tracking-tight text-foreground transition-colors group-hover:text-accent sm:text-3xl">
+                      {project.title}
+                    </h3>
+                    <p className="text-pretty text-[14px] leading-relaxed text-muted sm:text-[15px]">
+                      {project.description}
+                    </p>
+                    <ul className="flex flex-wrap gap-2">
+                      {project.tags.map((tag) => (
+                        <li
+                          key={tag}
+                          className="rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-[11px] font-medium text-foreground/75"
+                        >
+                          {tag}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                </div>
-              </motion.div>
+                </button>
+              </motion.li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
-      {/* Project Detail Modal */}
       <AnimatePresence>
         {selectedProject && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/90 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-background/90 p-3 backdrop-blur-sm sm:p-6"
             onClick={closeModal}
+            role="dialog"
+            aria-modal="true"
+            aria-label={selectedProject.title}
           >
             <motion.div
-              initial={{ opacity: 0, y: 50, scale: 0.95 }}
+              initial={{ opacity: 0, y: 40, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 50, scale: 0.95 }}
-              transition={{ type: "spring", damping: 25 }}
+              exit={{ opacity: 0, y: 40, scale: 0.98 }}
+              transition={{ type: "spring", damping: 26, stiffness: 240 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-6xl mx-4 my-8 bg-background border border-white/10 rounded-2xl overflow-hidden shadow-2xl"
+              className="relative my-auto w-full max-w-5xl overflow-hidden rounded-2xl border border-white/10 bg-card shadow-2xl"
             >
-              {/* Close Button */}
               <button
+                type="button"
                 onClick={closeModal}
-                className="absolute top-6 right-6 z-50 w-10 h-10 bg-white/10 hover:bg-accent rounded-full flex items-center justify-center transition-colors"
+                aria-label="Fechar"
+                className="absolute right-3 top-3 z-20 flex size-10 items-center justify-center rounded-full border border-white/15 bg-background/70 text-foreground backdrop-blur transition-colors hover:bg-accent sm:right-5 sm:top-5"
               >
-                <X className="w-5 h-5 text-white" />
+                <X className="size-5" />
               </button>
 
-              {/* Hero Image */}
-              <div className="relative h-64 md:h-96 overflow-hidden">
-                <img
+              <div className="relative aspect-[16/10] w-full sm:aspect-[21/9]">
+                <Image
                   src={selectedProject.heroImage}
                   alt={selectedProject.title}
-                  className="w-full h-full object-cover"
+                  fill
+                  sizes="(min-width: 1024px) 1024px, 100vw"
+                  className="object-cover object-top"
+                  priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
-                
-                {/* Project Title Overlay */}
-                <div className="absolute bottom-0 left-0 right-0 p-8">
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <span className="px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-[10px] text-white/80 uppercase tracking-[2px]">
-                      Site Exclusivo
-                    </span>
-                    <span className="px-3 py-1 bg-accent/90 rounded-full text-[10px] text-white uppercase tracking-[2px]">
-                      {selectedProject.category}
-                    </span>
-                  </div>
-                  <h2 className="font-display text-4xl md:text-5xl text-white mb-4">
+                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/60 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 flex flex-col gap-3 p-5 sm:p-8">
+                  <span className="w-fit rounded-full bg-accent px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-white">
+                    {selectedProject.category}
+                  </span>
+                  <h2 className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-5xl">
                     {selectedProject.title}
                   </h2>
-                  <div className="flex flex-wrap items-center gap-4 text-white/60 text-sm">
-                    <div className="flex items-center gap-2">
-                      <User className="w-4 h-4" />
-                      {selectedProject.client}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4" />
-                      {selectedProject.year}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Clock className="w-4 h-4" />
-                      {selectedProject.duration}
-                    </div>
-                  </div>
+                  <ul className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-muted sm:text-sm">
+                    <li className="flex items-center gap-1.5">
+                      <User className="size-3.5" /> {selectedProject.client}
+                    </li>
+                    <li className="flex items-center gap-1.5">
+                      <Calendar className="size-3.5" /> {selectedProject.year}
+                    </li>
+                    <li className="flex items-center gap-1.5">
+                      <Clock className="size-3.5" /> {selectedProject.duration}
+                    </li>
+                  </ul>
                 </div>
               </div>
 
-              {/* Content Grid */}
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 p-8">
-                {/* Main Content - 2 columns */}
-                <div className="lg:col-span-2 space-y-8">
-                  {/* Sobre o Projeto */}
-                  <div>
-                    <h3 className="font-display text-xl text-white mb-4 flex items-center gap-2">
-                      <span className="text-accent">{">"}</span>
-                      Sobre o Projeto
-                    </h3>
-                    <p className="text-white/60 leading-relaxed">
+              <div className="grid gap-8 p-5 sm:p-8 lg:grid-cols-3">
+                <div className="flex flex-col gap-8 lg:col-span-2">
+                  <div className="flex flex-col gap-3">
+                    <h3 className="font-display text-lg font-bold text-foreground sm:text-xl">Sobre o projeto</h3>
+                    <p className="text-pretty text-[14px] leading-relaxed text-muted sm:text-[15px]">
                       {selectedProject.about}
                     </p>
                   </div>
 
-                  {/* O Desafio e Nossa Solucao */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="bg-card border border-white/5 p-6 rounded-xl">
-                      <h4 className="font-display text-lg text-white mb-3">O Desafio</h4>
-                      <p className="text-white/50 text-sm leading-relaxed">
-                        {selectedProject.challenge}
-                      </p>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="flex flex-col gap-2 rounded-xl border border-white/8 bg-background/50 p-5">
+                      <h4 className="text-sm font-bold text-foreground">O desafio</h4>
+                      <p className="text-[13px] leading-relaxed text-muted">{selectedProject.challenge}</p>
                     </div>
-                    <div className="bg-card border border-white/5 p-6 rounded-xl">
-                      <h4 className="font-display text-lg text-white mb-3">Nossa Solução</h4>
-                      <p className="text-white/50 text-sm leading-relaxed">
-                        {selectedProject.solution}
-                      </p>
+                    <div className="flex flex-col gap-2 rounded-xl border border-accent/25 bg-accent/5 p-5">
+                      <h4 className="text-sm font-bold text-foreground">Nossa solução</h4>
+                      <p className="text-[13px] leading-relaxed text-muted">{selectedProject.solution}</p>
                     </div>
                   </div>
 
-                  {/* Galeria */}
-                  <div>
-                    <h3 className="font-display text-xl text-white mb-4">Galeria</h3>
+                  <div className="flex flex-col gap-3">
+                    <h3 className="font-display text-lg font-bold text-foreground sm:text-xl">Galeria</h3>
                     <div className="relative">
-                      <div className="aspect-video rounded-xl overflow-hidden bg-secondary border border-white/5">
-                        <img
+                      <div className="relative aspect-video overflow-hidden rounded-xl border border-white/8 bg-background">
+                        <Image
                           src={selectedProject.gallery[currentImageIndex]}
-                          alt={`${selectedProject.title} - Imagem ${currentImageIndex + 1}`}
-                          className="w-full h-full object-cover"
+                          alt={`${selectedProject.title} – imagem ${currentImageIndex + 1}`}
+                          fill
+                          sizes="(min-width: 1024px) 680px, 100vw"
+                          className="object-cover object-top"
                         />
                       </div>
                       {selectedProject.gallery.length > 1 && (
                         <>
                           <button
-                            onClick={prevImage}
-                            className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-accent rounded-full flex items-center justify-center transition-colors"
+                            type="button"
+                            onClick={() => step(-1)}
+                            aria-label="Imagem anterior"
+                            className="absolute left-3 top-1/2 flex size-9 -translate-y-1/2 items-center justify-center rounded-full bg-background/70 text-foreground backdrop-blur transition-colors hover:bg-accent"
                           >
-                            <ChevronLeft className="w-5 h-5 text-white" />
+                            <ChevronLeft className="size-5" />
                           </button>
                           <button
-                            onClick={nextImage}
-                            className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-accent rounded-full flex items-center justify-center transition-colors"
+                            type="button"
+                            onClick={() => step(1)}
+                            aria-label="Próxima imagem"
+                            className="absolute right-3 top-1/2 flex size-9 -translate-y-1/2 items-center justify-center rounded-full bg-background/70 text-foreground backdrop-blur transition-colors hover:bg-accent"
                           >
-                            <ChevronRight className="w-5 h-5 text-white" />
+                            <ChevronRight className="size-5" />
                           </button>
                         </>
                       )}
                     </div>
-                    {/* Thumbnails */}
                     {selectedProject.gallery.length > 1 && (
-                      <div className="flex gap-2 mt-4">
+                      <div className="flex gap-2">
                         {selectedProject.gallery.map((img, idx) => (
                           <button
-                            key={idx}
+                            key={img}
+                            type="button"
                             onClick={() => setCurrentImageIndex(idx)}
-                            className={`w-16 h-12 rounded-lg overflow-hidden border-2 transition-colors ${
-                              idx === currentImageIndex ? "border-accent" : "border-transparent"
+                            aria-label={`Ver imagem ${idx + 1}`}
+                            aria-current={idx === currentImageIndex}
+                            className={`relative h-12 w-16 overflow-hidden rounded-lg border-2 transition-colors ${
+                              idx === currentImageIndex ? "border-accent" : "border-transparent opacity-60 hover:opacity-100"
                             }`}
                           >
-                            <img src={img} alt="" className="w-full h-full object-cover" />
+                            <Image src={img} alt="" fill sizes="64px" className="object-cover object-top" />
                           </button>
                         ))}
                       </div>
@@ -340,54 +300,43 @@ export default function PortfolioProjects() {
                   </div>
                 </div>
 
-                {/* Sidebar - 1 column */}
-                <div className="space-y-6">
-                  {/* Servicos */}
-                  <div className="bg-card border border-white/5 p-6 rounded-xl">
-                    <h4 className="font-display text-lg text-white mb-4">Serviços</h4>
-                    <div className="flex flex-wrap gap-2">
+                <aside className="flex flex-col gap-4">
+                  <div className="flex flex-col gap-3 rounded-xl border border-white/8 bg-background/50 p-5">
+                    <h4 className="text-sm font-bold text-foreground">Serviços</h4>
+                    <ul className="flex flex-wrap gap-2">
                       {selectedProject.services.map((service) => (
-                        <span
+                        <li
                           key={service}
-                          className="px-3 py-2 bg-secondary border border-white/10 rounded-lg text-[12px] text-white/70"
+                          className="rounded-full border border-white/10 px-2.5 py-1 text-[11px] font-medium text-foreground/80"
                         >
                           {service}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Resultados */}
-                  <div className="bg-card border border-white/5 p-6 rounded-xl">
-                    <h4 className="font-display text-lg text-white mb-4">Resultados</h4>
-                    <ul className="space-y-3">
-                      {selectedProject.results.map((result, idx) => (
-                        <li key={idx} className="flex items-start gap-3">
-                          <div className="w-5 h-5 bg-accent/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                            <Check className="w-3 h-3 text-accent" />
-                          </div>
-                          <span className="text-white/60 text-sm">{result}</span>
                         </li>
                       ))}
                     </ul>
                   </div>
 
-                  {/* CTA */}
-                  <div className="bg-gradient-to-br from-accent/20 to-accent/5 border border-accent/30 p-6 rounded-xl">
-                    <h4 className="font-display text-lg text-white mb-2">Gostou do que viu?</h4>
-                    <p className="text-white/50 text-sm mb-4">
-                      Vamos criar algo incrível para sua marca.
-                    </p>
-                    <a
-                      href="https://wa.me/5511983182274?text=Olá!%20Vim%20pelo%20site%20da%20Veltrix%20e%20gostaria%20de%20falar%20com%20um%20especialista%20para%20entender%20qual%20solução%20faz%20mais%20sentido%20para%20minha%20empresa."
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-primary-custom w-full justify-center text-[11px]"
-                    >
+                  <div className="flex flex-col gap-3 rounded-xl border border-white/8 bg-background/50 p-5">
+                    <h4 className="text-sm font-bold text-foreground">Resultados</h4>
+                    <ul className="flex flex-col gap-2.5">
+                      {selectedProject.results.map((result) => (
+                        <li key={result} className="flex items-start gap-2.5 text-[13px] leading-relaxed text-muted">
+                          <span className="mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-full bg-accent/15 text-accent">
+                            <Check className="size-2.5" />
+                          </span>
+                          {result}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="flex flex-col gap-3 rounded-xl border border-accent/30 bg-gradient-to-br from-accent/20 to-accent/5 p-5">
+                    <h4 className="font-display text-lg font-bold text-foreground">Gostou do que viu?</h4>
+                    <p className="text-[13px] leading-relaxed text-muted">Vamos criar algo incrível para sua marca.</p>
+                    <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn-primary-custom w-full">
                       Falar com a Veltrix
                     </a>
                   </div>
-                </div>
+                </aside>
               </div>
             </motion.div>
           </motion.div>

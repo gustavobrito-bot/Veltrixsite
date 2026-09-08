@@ -1,9 +1,10 @@
 "use client"
 
-import { motion } from "motion/react"
+import { useEffect } from "react"
+import { motion, AnimatePresence } from "motion/react"
 import Image from "next/image"
-import { X, ArrowRight, CheckCircle2 } from "lucide-react"
-import { useState } from "react"
+import { X, ArrowRight, LineChart, Megaphone, ClipboardList, Rocket, Handshake, Settings2 } from "lucide-react"
+import { WHATSAPP_URL } from "./lib/site"
 
 interface ServicesModalProps {
   isOpen: boolean
@@ -12,137 +13,140 @@ interface ServicesModalProps {
 
 const services = [
   {
+    icon: LineChart,
     title: "Consultoria Estratégica",
-    description: "Analisamos o cenário atual da sua empresa e identificamos oportunidades de crescimento, otimização de processos e desenvolvimento de estratégias alinhadas aos seus objetivos.",
-    icon: "📊"
+    description:
+      "Analisamos o cenário atual da sua empresa e identificamos oportunidades de crescimento, otimização de processos e estratégias alinhadas aos seus objetivos.",
   },
   {
-    title: "Marketing e Posicionamento de Marca",
-    description: "Desenvolvemos estratégias para fortalecer a presença da sua marca, aumentar sua relevância no mercado e criar conexões mais fortes com seu público-alvo.",
-    icon: "🎯"
+    icon: Megaphone,
+    title: "Marketing e Posicionamento",
+    description:
+      "Desenvolvemos estratégias para fortalecer a presença da sua marca, aumentar sua relevância no mercado e criar conexões mais fortes com seu público.",
   },
   {
+    icon: ClipboardList,
     title: "Planejamento e Gestão de Projetos",
-    description: "Estruturamos projetos com foco em organização, produtividade e alcance de resultados, acompanhando cada etapa para garantir eficiência e qualidade na execução.",
-    icon: "📋"
+    description:
+      "Estruturamos projetos com foco em organização, produtividade e resultados, acompanhando cada etapa para garantir eficiência e qualidade.",
   },
   {
+    icon: Rocket,
     title: "Desenvolvimento de Negócios",
-    description: "Auxiliamos empresas na identificação de novas oportunidades de mercado, expansão comercial e criação de estratégias para aumentar competitividade e faturamento.",
-    icon: "🚀"
+    description:
+      "Auxiliamos na identificação de novas oportunidades de mercado, expansão comercial e estratégias para aumentar competitividade e faturamento.",
   },
   {
-    title: "Gestão de Relacionamento com Clientes",
-    description: "Implementamos ações e processos que fortalecem o relacionamento com clientes, aumentam a satisfação e contribuem para a fidelização.",
-    icon: "🤝"
+    icon: Handshake,
+    title: "Relacionamento com Clientes",
+    description:
+      "Implementamos ações e processos que fortalecem o relacionamento com clientes, aumentam a satisfação e contribuem para a fidelização.",
   },
   {
+    icon: Settings2,
     title: "Soluções Personalizadas",
-    description: "Cada empresa possui necessidades específicas. Desenvolvemos soluções sob medida para atender desafios e objetivos particulares, sempre com foco em gerar valor e resultados consistentes.",
-    icon: "⚙️"
-  }
+    description:
+      "Cada empresa possui necessidades específicas. Desenvolvemos soluções sob medida para atender desafios e objetivos particulares.",
+  },
 ]
 
 export default function ServicesModal({ isOpen, onClose }: ServicesModalProps) {
-  if (!isOpen) return null
+  useEffect(() => {
+    if (!isOpen) return
+    const previous = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose()
+    }
+    window.addEventListener("keydown", onKey)
+    return () => {
+      document.body.style.overflow = previous
+      window.removeEventListener("keydown", onKey)
+    }
+  }, [isOpen, onClose])
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      onClick={onClose}
-      className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
-    >
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 20 }}
-        onClick={(e) => e.stopPropagation()}
-        className="bg-card border border-white/10 rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden"
-      >
-        {/* Header */}
-        <div className="relative h-64 bg-gradient-to-br from-accent/10 to-background flex items-center justify-center overflow-hidden">
-          <div className="absolute inset-0 bg-grid opacity-10" />
-          <div className="relative z-10 text-center">
-            <Image
-              src="/veltrix-logo.png"
-              alt="Veltrix Tecnologia"
-              width={180}
-              height={54}
-              className="h-16 w-auto mx-auto mb-4"
-            />
-            <h2 className="text-3xl md:text-4xl font-display tracking-tight text-white">
-              Nossos Serviços
-            </h2>
-          </div>
-        </div>
-
-        {/* Conteúdo */}
-        <div className="overflow-y-auto p-8 md:p-12 max-h-[calc(90vh-256px)]">
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-white/70 mb-8 text-center leading-relaxed max-w-2xl mx-auto"
-          >
-            Na Veltrix, oferecemos soluções estratégicas voltadas para o crescimento, fortalecimento e posicionamento de negócios. Nosso foco é entregar resultados por meio de planejamento, inovação e execução eficiente.
-          </motion.p>
-
-          {/* Services Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            {services.map((service, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 + index * 0.05 }}
-                className="bg-white/5 border border-white/10 p-6 hover:border-accent/50 hover:bg-white/10 transition-all group"
-              >
-                <div className="text-3xl mb-3">{service.icon}</div>
-                <h3 className="text-lg font-semibold text-white mb-3">
-                  {service.title}
-                </h3>
-                <p className="text-white/60 text-sm leading-relaxed">
-                  {service.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="bg-white/5 border border-white/10 p-8 text-center"
-          >
-            <h3 className="text-xl font-semibold text-white mb-3">
-              Qual serviço faz mais sentido para sua empresa?
-            </h3>
-            <p className="text-white/60 mb-6">
-              Vamos conversar para entender seus desafios e encontrar a melhor solução.
-            </p>
-            <a
-              href="https://wa.me/5511983182274?text=Olá!%20Vim%20pelo%20site%20da%20Veltrix%20e%20gostaria%20de%20falar%20com%20um%20especialista%20para%20entender%20qual%20solução%20faz%20mais%20sentido%20para%20minha%20empresa."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary-custom text-xs inline-flex items-center gap-2 group"
-            >
-              Fale com um Especialista
-              <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-            </a>
-          </motion.div>
-        </div>
-
-        {/* Close button */}
-        <button
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
           onClick={onClose}
-          className="absolute top-4 right-4 z-20 w-10 h-10 bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center transition-all"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="services-modal-title"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-background/90 p-3 backdrop-blur-sm sm:p-6"
         >
-          <X className="w-5 h-5 text-white" />
-        </button>
-      </motion.div>
-    </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 24, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 24, scale: 0.98 }}
+            onClick={(e) => e.stopPropagation()}
+            className="relative flex max-h-[92svh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl border border-white/10 bg-card shadow-2xl"
+          >
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="Fechar"
+              className="absolute right-3 top-3 z-20 flex size-10 items-center justify-center rounded-full border border-white/15 bg-background/70 text-foreground backdrop-blur transition-colors hover:bg-accent sm:right-5 sm:top-5"
+            >
+              <X className="size-5" />
+            </button>
+
+            <div className="relative flex flex-col items-center gap-3 overflow-hidden border-b border-white/8 px-6 py-10 text-center sm:py-12">
+              <div aria-hidden className="grid-bg absolute inset-0" />
+              <div aria-hidden className="absolute -top-20 left-1/2 size-56 -translate-x-1/2 rounded-full bg-accent/25 blur-3xl" />
+              <Image
+                src="/veltrix-logo.png"
+                alt="Veltrix Tecnologia"
+                width={180}
+                height={101}
+                className="logo-blend relative h-12 w-auto"
+              />
+              <h2 id="services-modal-title" className="relative font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+                Nossos serviços
+              </h2>
+            </div>
+
+            <div className="flex flex-col gap-8 overflow-y-auto p-6 sm:p-10">
+              <p className="mx-auto max-w-2xl text-pretty text-center text-[15px] leading-relaxed text-muted">
+                Na Veltrix, oferecemos soluções estratégicas voltadas para o crescimento, fortalecimento e posicionamento de
+                negócios. Nosso foco é entregar resultados por meio de planejamento, inovação e execução eficiente.
+              </p>
+
+              <ul className="grid gap-3 sm:grid-cols-2">
+                {services.map((service, index) => (
+                  <motion.li
+                    key={service.title}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.05 + index * 0.04 }}
+                    className="group flex flex-col gap-3 rounded-xl border border-white/8 bg-background/50 p-5 transition-colors hover:border-accent/30"
+                  >
+                    <span className="flex size-10 items-center justify-center rounded-lg bg-accent/10 text-accent transition-colors group-hover:bg-accent group-hover:text-white">
+                      <service.icon className="size-5" />
+                    </span>
+                    <h3 className="text-[15px] font-bold text-foreground">{service.title}</h3>
+                    <p className="text-[13px] leading-relaxed text-muted">{service.description}</p>
+                  </motion.li>
+                ))}
+              </ul>
+
+              <div className="flex flex-col items-center gap-4 rounded-xl border border-accent/25 bg-gradient-to-br from-accent/15 to-transparent p-6 text-center sm:p-8">
+                <h3 className="font-display text-xl font-bold tracking-tight text-foreground">
+                  Qual serviço faz mais sentido para sua empresa?
+                </h3>
+                <p className="text-[14px] text-muted">Vamos conversar para entender seus desafios e encontrar a melhor solução.</p>
+                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn-primary-custom group w-full sm:w-auto">
+                  Fale com um especialista
+                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   )
 }

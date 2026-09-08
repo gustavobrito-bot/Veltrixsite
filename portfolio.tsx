@@ -2,198 +2,143 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "motion/react"
-import { Palette, Globe, Share2, Bot, BarChart3, Layers, ArrowUpRight, Info, ChevronDown } from "lucide-react"
+import { Palette, Globe, Share2, Bot, BarChart3, Layers, ChevronDown, Check } from "lucide-react"
+import SectionHeading from "./section-heading"
 
 const services = [
   {
     icon: Palette,
     name: "Branding & Identidade",
     desc: "Construção de marcas memoráveis com identidade visual estratégica e posicionamento diferenciado.",
-    details: ["Logotipo & Símbolo", "Manual de Identidade", "Tipografia Exclusiva", "Estudo de Cores"],
+    details: ["Logotipo & símbolo", "Manual de identidade", "Tipografia exclusiva", "Estudo de cores"],
   },
   {
     icon: Globe,
     name: "Desenvolvimento Web",
-    desc: "Sites institucionais e Landing Pages premium, modernos e responsivos que convertem.",
-    details: ["Sites Institucionais", "Landing Pages", "E-commerce Premium", "Otimização SEO"],
+    desc: "Sites institucionais e landing pages premium, modernos e responsivos que convertem.",
+    details: ["Sites institucionais", "Landing pages", "E-commerce premium", "Otimização SEO"],
   },
   {
     icon: Share2,
     name: "Social Media",
     desc: "Gestão estratégica de redes sociais com conteúdo que engaja e posiciona sua marca.",
-    details: ["Planejamento Mensal", "Design de Ativos", "Edição de Reels", "Gestão de Anúncios"],
+    details: ["Planejamento mensal", "Design de ativos", "Edição de reels", "Gestão de anúncios"],
   },
   {
     icon: Bot,
     name: "IA & Automação",
     desc: "Soluções com IA integrada e sistemas que automatizam processos e escalam operações.",
-    details: ["Chatbots Inteligentes", "Automação de CRM", "Processos Internos", "Análise Preditiva"],
+    details: ["Chatbots inteligentes", "Automação de CRM", "Processos internos", "Análise preditiva"],
   },
   {
     icon: BarChart3,
     name: "Dashboards & BI",
-    desc: "Painéis de controle personalizados para visualizar dados e tomar decisões estratégicas.",
-    details: ["Visualização de KPIs", "Integração de APIs", "Relatórios em Tempo Real", "Mineração de Dados"],
+    desc: "Painéis personalizados para visualizar dados e tomar decisões estratégicas.",
+    details: ["Visualização de KPIs", "Integração de APIs", "Relatórios em tempo real", "Mineração de dados"],
   },
   {
     icon: Layers,
     name: "Design Estratégico",
     desc: "Design com propósito: cada elemento pensado para comunicar, converter e criar valor.",
-    details: ["UX Research", "UI Design de Interfaces", "Prototipagem Alta Fiel", "Design Systems"],
+    details: ["UX research", "UI design de interfaces", "Prototipagem de alta fidelidade", "Design systems"],
   },
 ]
 
-export default function Features() {
+export default function Services() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
 
-  const toggle = (i: number) => {
-    setActiveIndex(activeIndex === i ? null : i)
-  }
-
   return (
-    <section id="services" className="py-[120px] bg-secondary/30">
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12">
-        <div className="text-center mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex items-center justify-center gap-3 font-mono text-[10px] tracking-[4px] text-accent mb-4 uppercase"
-          >
-            <span className="w-8 h-[1px] bg-accent" />
-            O QUE FAZEMOS
-            <span className="w-8 h-[1px] bg-accent" />
-          </motion.div>
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="font-display text-[clamp(40px,5vw,72px)] leading-none tracking-tight mb-6"
-          >
-            Nossas <span className="text-accent">Soluções</span>
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-white/60 max-w-[600px] mx-auto text-base leading-relaxed"
-          >
-            Cada solução é desenvolvida com estratégia, design premium e tecnologia de ponta para gerar resultados reais.
-          </motion.p>
-        </div>
+    <section id="services" className="relative bg-card/40 py-24 sm:py-32">
+      <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0.5 bg-white/5 border border-white/5">
+      <div className="container-x flex flex-col gap-14">
+        <SectionHeading
+          label="O que fazemos"
+          title={
+            <>
+              Nossas <span className="text-accent">soluções</span>
+            </>
+          }
+          description="Cada solução é desenvolvida com estratégia, design premium e tecnologia de ponta para gerar resultados reais."
+        />
+
+        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service, i) => {
             const Icon = service.icon
             const isActive = activeIndex === i
+            const panelId = `service-panel-${i}`
 
             return (
-              <motion.div
+              <motion.li
                 key={service.name}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.05 }}
-                // Desktop: hover. Mobile: click/tap via onClick
-                onMouseEnter={() => {
-                  if (window.matchMedia("(hover: hover)").matches) setActiveIndex(i)
-                }}
-                onMouseLeave={() => {
-                  if (window.matchMedia("(hover: hover)").matches) setActiveIndex(null)
-                }}
-                onClick={() => {
-                  if (!window.matchMedia("(hover: hover)").matches) toggle(i)
-                }}
-                className={`bg-card p-8 md:p-10 relative group cursor-pointer border border-transparent transition-all duration-400 ${isActive ? "bg-background/40" : ""}`}
+                transition={{ delay: (i % 3) * 0.06 }}
+                className={`surface group relative flex flex-col overflow-hidden transition-colors duration-300 ${
+                  isActive ? "border-accent/40" : "hover:border-white/15"
+                }`}
               >
-                <div className={`absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent transition-opacity duration-400 ${isActive ? "opacity-100" : "opacity-0"}`} />
-
-                {/* Desktop info icon / Mobile chevron */}
-                <div className="absolute top-6 right-6 flex items-center gap-2">
-                  <div className={`p-1.5 bg-accent/10 rounded-full text-accent transition-opacity hidden md:block ${isActive ? "opacity-100" : "opacity-40"}`}>
-                    <Info size={14} />
+                <div
+                  aria-hidden
+                  className={`absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent transition-opacity duration-300 ${
+                    isActive ? "opacity-100" : "opacity-0 group-hover:opacity-60"
+                  }`}
+                />
+                <button
+                  type="button"
+                  onClick={() => setActiveIndex(isActive ? null : i)}
+                  aria-expanded={isActive}
+                  aria-controls={panelId}
+                  className="flex w-full flex-col items-start gap-5 p-6 text-left sm:p-7"
+                >
+                  <div className="flex w-full items-start justify-between gap-4">
+                    <span
+                      className={`flex size-12 items-center justify-center rounded-xl border transition-all duration-300 ${
+                        isActive
+                          ? "border-accent/40 bg-accent text-white shadow-[0_10px_30px_-10px_rgba(255,87,34,0.8)]"
+                          : "border-white/10 bg-background/60 text-accent"
+                      }`}
+                    >
+                      <Icon className="size-5" />
+                    </span>
+                    <ChevronDown
+                      className={`mt-3 size-4 text-muted transition-transform duration-300 ${isActive ? "rotate-180 text-accent" : ""}`}
+                    />
                   </div>
-                  <div className={`text-accent transition-all duration-300 hidden md:block ${isActive ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2"}`}>
-                    <ArrowUpRight size={18} />
+                  <div className="flex flex-col gap-2">
+                    <h3 className="font-display text-lg font-bold tracking-tight text-foreground sm:text-xl">
+                      {service.name}
+                    </h3>
+                    <p className="text-pretty text-[14px] leading-relaxed text-muted">{service.desc}</p>
                   </div>
-                  {/* Mobile chevron */}
-                  <div className={`md:hidden text-accent transition-transform duration-300 ${isActive ? "rotate-180" : "rotate-0"}`}>
-                    <ChevronDown size={18} />
-                  </div>
-                </div>
+                </button>
 
-                <div className={`w-14 h-14 bg-background border rounded-[4px] flex items-center justify-center mb-6 md:mb-8 transition-all duration-300 ${isActive ? "border-accent/40 shadow-[0_0_20px_rgba(255,87,34,0.2)]" : "border-accent/20"}`}>
-                  <Icon className={`w-7 h-7 text-accent transition-opacity ${isActive ? "opacity-100" : "opacity-60"}`} />
-                </div>
-
-                <h3 className={`font-display text-xl md:text-2xl mb-3 md:mb-4 tracking-wide transition-colors ${isActive ? "text-accent" : "text-white"}`}>
-                  {service.name}
-                </h3>
-                <p className={`text-[14px] leading-relaxed transition-colors duration-300 mb-4 ${isActive ? "text-white/60" : "text-white/40"}`}>
-                  {service.desc}
-                </p>
-
-                {/* Details — inline on mobile, tooltip on desktop */}
-                <AnimatePresence>
+                <AnimatePresence initial={false}>
                   {isActive && (
-                    <>
-                      {/* Mobile: inline expand */}
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="md:hidden overflow-hidden"
-                      >
-                        <div className="border-t border-accent/20 pt-4 mt-2">
-                          <div className="font-mono text-[9px] tracking-[3px] text-accent mb-3 uppercase">
-                            DETALHES DA SOLUÇÃO
-                          </div>
-                          <ul className="space-y-2">
-                            {service.details.map((detail, idx) => (
-                              <li key={idx} className="flex items-center gap-3 text-[12px] text-white/80 font-medium tracking-wide">
-                                <div className="w-1 h-1 bg-accent rounded-full flex-shrink-0" />
-                                {detail}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </motion.div>
-
-                      {/* Desktop: floating tooltip */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                        className="hidden md:block absolute left-0 bottom-full mb-4 w-[260px] bg-background border border-accent/30 p-6 z-50 pointer-events-none shadow-[0_20px_50px_rgba(0,0,0,0.6)] backdrop-blur-xl"
-                      >
-                        <div className="font-mono text-[9px] tracking-[3px] text-accent mb-4 uppercase">
-                          DETALHES DA SOLUÇÃO
-                        </div>
-                        <ul className="space-y-3">
-                          {service.details.map((detail, idx) => (
-                            <motion.li
-                              key={idx}
-                              initial={{ opacity: 0, x: -10 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: idx * 0.05 }}
-                              className="flex items-center gap-3 text-[11px] text-white/80 font-medium tracking-wide"
-                            >
-                              <div className="w-1 h-1 bg-accent rounded-full" />
-                              {detail}
-                            </motion.li>
-                          ))}
-                        </ul>
-                        <div className="absolute -bottom-2 left-10 w-4 h-4 bg-background border-r border-b border-accent/30 rotate-45" />
-                      </motion.div>
-                    </>
+                    <motion.div
+                      id={panelId}
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25 }}
+                      className="overflow-hidden"
+                    >
+                      <ul className="grid gap-2 border-t border-white/8 px-6 pb-6 pt-5 sm:px-7">
+                        {service.details.map((detail) => (
+                          <li key={detail} className="flex items-center gap-2.5 text-[13px] text-foreground/85">
+                            <Check className="size-3.5 shrink-0 text-accent" />
+                            {detail}
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.div>
                   )}
                 </AnimatePresence>
-              </motion.div>
+              </motion.li>
             )
           })}
-        </div>
+        </ul>
       </div>
     </section>
   )
