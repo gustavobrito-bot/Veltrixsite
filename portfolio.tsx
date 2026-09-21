@@ -48,21 +48,19 @@ export default function Services() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
 
   return (
-    <section id="services" className="relative bg-card/40 py-24 sm:py-32">
-      <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-
+    <section id="services" className="py-20 sm:py-28">
       <div className="container-x flex flex-col gap-14">
         <SectionHeading
-          label="O que fazemos"
           title={
             <>
-              Nossas <span className="text-accent">soluções</span>
+              Impulsione sua marca com <br className="hidden sm:block" />
+              nossas soluções personalizadas
             </>
           }
           description="Cada solução é desenvolvida com estratégia, design premium e tecnologia de ponta para gerar resultados reais."
         />
 
-        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service, i) => {
             const Icon = service.icon
             const isActive = activeIndex === i
@@ -75,39 +73,31 @@ export default function Services() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: (i % 3) * 0.06 }}
-                className={`surface group relative flex flex-col overflow-hidden transition-colors duration-300 ${
-                  isActive ? "border-accent/40" : "hover:border-white/15"
+                className={`surface group relative flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1 ${
+                  isActive ? "border-accent/50" : "hover:border-accent/30"
                 }`}
               >
-                <div
-                  aria-hidden
-                  className={`absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent to-transparent transition-opacity duration-300 ${
-                    isActive ? "opacity-100" : "opacity-0 group-hover:opacity-60"
-                  }`}
-                />
                 <button
                   type="button"
                   onClick={() => setActiveIndex(isActive ? null : i)}
                   aria-expanded={isActive}
                   aria-controls={panelId}
-                  className="flex w-full flex-col items-start gap-5 p-6 text-left sm:p-7"
+                  className="flex w-full flex-col items-start gap-5 p-7 text-left"
                 >
                   <div className="flex w-full items-start justify-between gap-4">
                     <span
-                      className={`flex size-12 items-center justify-center rounded-xl border transition-all duration-300 ${
-                        isActive
-                          ? "border-accent/40 bg-accent text-white shadow-[0_10px_30px_-10px_rgba(255,87,34,0.8)]"
-                          : "border-white/10 bg-background/60 text-accent"
+                      className={`flex size-14 items-center justify-center rounded-full transition-colors duration-300 ${
+                        isActive ? "bg-accent text-white" : "bg-accent/10 text-accent group-hover:bg-accent group-hover:text-white"
                       }`}
                     >
-                      <Icon className="size-5" />
+                      <Icon className="size-6" />
                     </span>
                     <ChevronDown
-                      className={`mt-3 size-4 text-muted transition-transform duration-300 ${isActive ? "rotate-180 text-accent" : ""}`}
+                      className={`mt-4 size-4 text-muted transition-transform duration-300 ${isActive ? "rotate-180 text-accent" : ""}`}
                     />
                   </div>
                   <div className="flex flex-col gap-2">
-                    <h3 className="font-display text-lg font-bold tracking-tight text-foreground sm:text-xl">
+                    <h3 className="font-display text-lg font-semibold tracking-tight text-foreground sm:text-xl">
                       {service.name}
                     </h3>
                     <p className="text-pretty text-[14px] leading-relaxed text-muted">{service.desc}</p>
@@ -124,9 +114,9 @@ export default function Services() {
                       transition={{ duration: 0.25 }}
                       className="overflow-hidden"
                     >
-                      <ul className="grid gap-2 border-t border-white/8 px-6 pb-6 pt-5 sm:px-7">
+                      <ul className="grid gap-2 border-t border-border px-7 pb-7 pt-5">
                         {service.details.map((detail) => (
-                          <li key={detail} className="flex items-center gap-2.5 text-[13px] text-foreground/85">
+                          <li key={detail} className="flex items-center gap-2.5 text-[13px] text-foreground/80">
                             <Check className="size-3.5 shrink-0 text-accent" />
                             {detail}
                           </li>

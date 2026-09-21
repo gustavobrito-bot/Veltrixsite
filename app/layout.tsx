@@ -1,10 +1,11 @@
 import type { Metadata, Viewport } from "next"
-import { Space_Grotesk } from "next/font/google"
+import { Poppins } from "next/font/google"
 import "../globals.css"
 
-const spaceGrotesk = Space_Grotesk({
+const poppins = Poppins({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins",
   display: "swap",
 })
 
@@ -22,7 +23,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
-  themeColor: "#070e1c",
+  themeColor: "#f5f5f5",
 }
 
 export default function RootLayout({
@@ -31,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-BR" className={`${spaceGrotesk.variable} scroll-smooth bg-background`}>
+    <html lang="pt-BR" className={`${poppins.variable} scroll-smooth bg-background`}>
       <body className="bg-background text-foreground antialiased">{children}</body>
     </html>
   )
