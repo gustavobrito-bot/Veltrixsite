@@ -1,14 +1,9 @@
 "use client"
 
+import Image from "next/image"
 import { motion } from "motion/react"
-import { Sparkles, Zap, Target, Award, Users, TrendingUp, Compass, Eye, Gem } from "lucide-react"
+import { Sparkles, Zap, Target, Compass, Eye, Gem } from "lucide-react"
 import SectionHeading from "./section-heading"
-
-const stats = [
-  { icon: Award, value: "2+", label: "Projetos entregues" },
-  { icon: Users, value: "2+", label: "Clientes atendidos" },
-  { icon: TrendingUp, value: "100%", label: "Taxa de satisfação" },
-]
 
 const features = [
   { icon: Target, title: "Estratégia", desc: "Cada projeto começa com análise profunda do mercado e dos objetivos." },
@@ -16,22 +11,39 @@ const features = [
   { icon: Zap, title: "Performance", desc: "Soluções otimizadas para resultados mensuráveis." },
 ]
 
-const values = ["Inovação", "Criatividade", "Estratégia", "Excelência", "Performance", "Transparência"]
+const pillars = [
+  { icon: Compass, label: "Missão", text: "Elevar marcas através da tecnologia, branding e performance." },
+  { icon: Eye, label: "Visão", text: "Ser referência em transformação digital e construção de marcas." },
+  { icon: Gem, label: "Valores", text: "Inovação, criatividade, estratégia, excelência, performance e transparência." },
+]
 
 export default function About() {
   return (
-    <section id="about" className="relative overflow-hidden py-24 sm:py-32">
-      <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+    <section id="about" className="py-20 sm:py-28">
+      <div className="container-x flex flex-col gap-16">
+        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative aspect-[4/5] w-full overflow-hidden rounded-[28px] shadow-[0_30px_60px_-30px_rgba(15,29,58,0.45)] sm:aspect-[5/4] lg:aspect-[4/5]"
+          >
+            <Image
+              src="/images/about-studio.png"
+              alt="Equipe da Veltrix revisando uma identidade visual no estúdio"
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover"
+            />
+          </motion.div>
 
-      <div className="container-x">
-        <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-20">
           <div className="flex flex-col gap-8">
             <SectionHeading
               align="left"
               label="Quem somos"
               title={
                 <>
-                  Transformamos ideias em <span className="text-accent">experiências digitais.</span>
+                  Transformamos ideias em <span className="text-accent">experiências digitais</span>
                 </>
               }
             />
@@ -54,101 +66,41 @@ export default function About() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.08 }}
-                  className="flex items-start gap-4 rounded-2xl border border-white/8 bg-white/[0.02] p-4 transition-colors hover:border-accent/30 hover:bg-accent/5"
+                  className="surface flex items-start gap-4 p-4 transition-colors hover:border-accent/30"
                 >
-                  <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent">
+                  <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
                     <feature.icon className="size-5" />
                   </span>
                   <div className="flex flex-col gap-1">
-                    <span className="text-sm font-semibold text-foreground">{feature.title}</span>
+                    <span className="text-[15px] font-semibold text-foreground">{feature.title}</span>
                     <span className="text-[13px] leading-relaxed text-muted">{feature.desc}</span>
                   </div>
                 </motion.li>
               ))}
             </ul>
           </div>
-
-          <div className="grid gap-4 sm:grid-cols-2">
-            <motion.article
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="surface flex flex-col gap-4 p-6 sm:col-span-2 sm:flex-row sm:items-center sm:gap-6 sm:p-8"
-            >
-              <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-accent text-white shadow-[0_10px_30px_-10px_rgba(255,87,34,0.8)]">
-                <Compass className="size-6" />
-              </span>
-              <div className="flex flex-col gap-1.5">
-                <span className="section-label">Missão</span>
-                <p className="text-pretty text-base font-medium leading-relaxed text-foreground sm:text-lg">
-                  Elevar marcas através da tecnologia, branding e performance.
-                </p>
-              </div>
-            </motion.article>
-
-            <motion.article
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.08 }}
-              className="surface flex flex-col gap-4 p-6"
-            >
-              <span className="flex size-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
-                <Eye className="size-5" />
-              </span>
-              <div className="flex flex-col gap-1.5">
-                <span className="section-label">Visão</span>
-                <p className="text-pretty text-[15px] leading-relaxed text-foreground/90">
-                  Ser referência em transformação digital e construção de marcas.
-                </p>
-              </div>
-            </motion.article>
-
-            <motion.article
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.16 }}
-              className="surface flex flex-col gap-4 p-6"
-            >
-              <span className="flex size-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
-                <Gem className="size-5" />
-              </span>
-              <div className="flex flex-col gap-3">
-                <span className="section-label">Valores</span>
-                <ul className="flex flex-wrap gap-2">
-                  {values.map((tag) => (
-                    <li
-                      key={tag}
-                      className="rounded-full border border-white/10 bg-background/60 px-2.5 py-1 text-[11px] font-medium text-foreground/80"
-                    >
-                      {tag}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </motion.article>
-
-            <motion.dl
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.24 }}
-              className="relative grid grid-cols-3 gap-3 overflow-hidden rounded-2xl border border-accent/25 bg-gradient-to-br from-accent/15 via-card to-card p-5 sm:col-span-2 sm:p-8"
-            >
-              <div aria-hidden className="absolute -right-10 -top-10 size-40 rounded-full bg-accent/25 blur-3xl" />
-              {stats.map((stat) => (
-                <div key={stat.label} className="relative flex flex-col gap-2">
-                  <stat.icon className="size-4 text-accent" />
-                  <dd className="order-1 font-display text-2xl font-bold leading-none text-foreground sm:text-4xl">
-                    {stat.value}
-                  </dd>
-                  <dt className="order-2 text-[11px] leading-snug text-muted sm:text-xs">{stat.label}</dt>
-                </div>
-              ))}
-            </motion.dl>
-          </div>
         </div>
+
+        <ul className="grid gap-5 md:grid-cols-3">
+          {pillars.map((pillar, i) => (
+            <motion.li
+              key={pillar.label}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08 }}
+              className="surface flex flex-col gap-4 p-7"
+            >
+              <span className="flex size-12 items-center justify-center rounded-full bg-accent text-white">
+                <pillar.icon className="size-5" />
+              </span>
+              <div className="flex flex-col gap-1.5">
+                <span className="section-label">{pillar.label}</span>
+                <p className="text-pretty text-[15px] leading-relaxed text-foreground/90">{pillar.text}</p>
+              </div>
+            </motion.li>
+          ))}
+        </ul>
       </div>
     </section>
   )

@@ -97,15 +97,10 @@ export default function PortfolioProjects() {
 
   return (
     <>
-      <section id="portfolio" className="relative py-24 sm:py-32">
+      <section id="portfolio" className="py-20 sm:py-28">
         <div className="container-x flex flex-col gap-14">
           <SectionHeading
-            label="Nossos trabalhos"
-            title={
-              <>
-                Portfólio <span className="text-accent">selecionado</span>
-              </>
-            }
+            title="Resultados comprovados"
             description="Conheça alguns dos projetos que transformaram marcas e geraram resultados reais para nossos clientes."
           />
 
@@ -121,10 +116,10 @@ export default function PortfolioProjects() {
                 <button
                   type="button"
                   onClick={() => openModal(project)}
-                  className="group flex w-full flex-col gap-5 text-left"
+                  className="surface group flex w-full flex-col overflow-hidden text-left transition-all duration-300 hover:-translate-y-1 hover:border-accent/30"
                   aria-label={`Ver detalhes do projeto ${project.title}`}
                 >
-                  <div className="surface relative aspect-[4/3] w-full overflow-hidden rounded-2xl">
+                  <div className="relative aspect-[4/3] w-full overflow-hidden">
                     <Image
                       src={project.heroImage}
                       alt={project.title}
@@ -132,17 +127,16 @@ export default function PortfolioProjects() {
                       sizes="(min-width: 768px) 50vw, 100vw"
                       className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/10 to-transparent" />
-                    <span className="absolute left-4 top-4 rounded-full border border-white/15 bg-background/70 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground backdrop-blur">
+                    <span className="absolute left-4 top-4 rounded-full bg-card/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground shadow-sm backdrop-blur">
                       {project.category}
                     </span>
-                    <span className="absolute bottom-4 right-4 flex size-11 items-center justify-center rounded-full bg-accent text-white opacity-90 shadow-[0_10px_30px_-10px_rgba(255,87,34,0.9)] transition-transform duration-300 group-hover:-translate-y-1 group-hover:opacity-100">
+                    <span className="absolute bottom-4 right-4 flex size-11 items-center justify-center rounded-full bg-accent text-white shadow-[0_10px_24px_-10px_rgba(255,87,34,0.9)] transition-transform duration-300 group-hover:-translate-y-1">
                       <ArrowUpRight className="size-5" />
                     </span>
                   </div>
 
-                  <div className="flex flex-col gap-3">
-                    <h3 className="font-display text-2xl font-bold tracking-tight text-foreground transition-colors group-hover:text-accent sm:text-3xl">
+                  <div className="flex flex-col gap-3 p-6 sm:p-7">
+                    <h3 className="font-display text-2xl font-semibold tracking-tight text-foreground transition-colors group-hover:text-accent">
                       {project.title}
                     </h3>
                     <p className="text-pretty text-[14px] leading-relaxed text-muted sm:text-[15px]">
@@ -152,7 +146,7 @@ export default function PortfolioProjects() {
                       {project.tags.map((tag) => (
                         <li
                           key={tag}
-                          className="rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-[11px] font-medium text-foreground/75"
+                          className="rounded-full border border-border bg-background px-2.5 py-1 text-[11px] font-medium text-foreground/75"
                         >
                           {tag}
                         </li>
@@ -172,7 +166,7 @@ export default function PortfolioProjects() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-background/90 p-3 backdrop-blur-sm sm:p-6"
+            className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-secondary/70 p-3 backdrop-blur-sm sm:p-6"
             onClick={closeModal}
             role="dialog"
             aria-modal="true"
@@ -184,13 +178,13 @@ export default function PortfolioProjects() {
               exit={{ opacity: 0, y: 40, scale: 0.98 }}
               transition={{ type: "spring", damping: 26, stiffness: 240 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative my-auto w-full max-w-5xl overflow-hidden rounded-2xl border border-white/10 bg-card shadow-2xl"
+              className="relative my-auto w-full max-w-5xl overflow-hidden rounded-3xl bg-card shadow-2xl"
             >
               <button
                 type="button"
                 onClick={closeModal}
                 aria-label="Fechar"
-                className="absolute right-3 top-3 z-20 flex size-10 items-center justify-center rounded-full border border-white/15 bg-background/70 text-foreground backdrop-blur transition-colors hover:bg-accent sm:right-5 sm:top-5"
+                className="absolute right-3 top-3 z-20 flex size-10 items-center justify-center rounded-full bg-card/90 text-foreground shadow backdrop-blur transition-colors hover:bg-accent hover:text-white sm:right-5 sm:top-5"
               >
                 <X className="size-5" />
               </button>
@@ -204,15 +198,15 @@ export default function PortfolioProjects() {
                   className="object-cover object-top"
                   priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/60 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-secondary/90 via-secondary/30 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 flex flex-col gap-3 p-5 sm:p-8">
                   <span className="w-fit rounded-full bg-accent px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-white">
                     {selectedProject.category}
                   </span>
-                  <h2 className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-5xl">
+                  <h2 className="font-display text-3xl font-semibold tracking-tight text-white sm:text-5xl">
                     {selectedProject.title}
                   </h2>
-                  <ul className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-muted sm:text-sm">
+                  <ul className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-white/80 sm:text-sm">
                     <li className="flex items-center gap-1.5">
                       <User className="size-3.5" /> {selectedProject.client}
                     </li>
@@ -229,27 +223,27 @@ export default function PortfolioProjects() {
               <div className="grid gap-8 p-5 sm:p-8 lg:grid-cols-3">
                 <div className="flex flex-col gap-8 lg:col-span-2">
                   <div className="flex flex-col gap-3">
-                    <h3 className="font-display text-lg font-bold text-foreground sm:text-xl">Sobre o projeto</h3>
+                    <h3 className="font-display text-lg font-semibold text-foreground sm:text-xl">Sobre o projeto</h3>
                     <p className="text-pretty text-[14px] leading-relaxed text-muted sm:text-[15px]">
                       {selectedProject.about}
                     </p>
                   </div>
 
                   <div className="grid gap-4 sm:grid-cols-2">
-                    <div className="flex flex-col gap-2 rounded-xl border border-white/8 bg-background/50 p-5">
-                      <h4 className="text-sm font-bold text-foreground">O desafio</h4>
+                    <div className="flex flex-col gap-2 rounded-2xl border border-border bg-background p-5">
+                      <h4 className="text-sm font-semibold text-foreground">O desafio</h4>
                       <p className="text-[13px] leading-relaxed text-muted">{selectedProject.challenge}</p>
                     </div>
-                    <div className="flex flex-col gap-2 rounded-xl border border-accent/25 bg-accent/5 p-5">
-                      <h4 className="text-sm font-bold text-foreground">Nossa solução</h4>
+                    <div className="flex flex-col gap-2 rounded-2xl border border-accent/25 bg-accent/5 p-5">
+                      <h4 className="text-sm font-semibold text-foreground">Nossa solução</h4>
                       <p className="text-[13px] leading-relaxed text-muted">{selectedProject.solution}</p>
                     </div>
                   </div>
 
                   <div className="flex flex-col gap-3">
-                    <h3 className="font-display text-lg font-bold text-foreground sm:text-xl">Galeria</h3>
+                    <h3 className="font-display text-lg font-semibold text-foreground sm:text-xl">Galeria</h3>
                     <div className="relative">
-                      <div className="relative aspect-video overflow-hidden rounded-xl border border-white/8 bg-background">
+                      <div className="relative aspect-video overflow-hidden rounded-2xl border border-border bg-background">
                         <Image
                           src={selectedProject.gallery[currentImageIndex]}
                           alt={`${selectedProject.title} – imagem ${currentImageIndex + 1}`}
@@ -264,7 +258,7 @@ export default function PortfolioProjects() {
                             type="button"
                             onClick={() => step(-1)}
                             aria-label="Imagem anterior"
-                            className="absolute left-3 top-1/2 flex size-9 -translate-y-1/2 items-center justify-center rounded-full bg-background/70 text-foreground backdrop-blur transition-colors hover:bg-accent"
+                            className="absolute left-3 top-1/2 flex size-9 -translate-y-1/2 items-center justify-center rounded-full bg-card/90 text-foreground shadow backdrop-blur transition-colors hover:bg-accent hover:text-white"
                           >
                             <ChevronLeft className="size-5" />
                           </button>
@@ -272,7 +266,7 @@ export default function PortfolioProjects() {
                             type="button"
                             onClick={() => step(1)}
                             aria-label="Próxima imagem"
-                            className="absolute right-3 top-1/2 flex size-9 -translate-y-1/2 items-center justify-center rounded-full bg-background/70 text-foreground backdrop-blur transition-colors hover:bg-accent"
+                            className="absolute right-3 top-1/2 flex size-9 -translate-y-1/2 items-center justify-center rounded-full bg-card/90 text-foreground shadow backdrop-blur transition-colors hover:bg-accent hover:text-white"
                           >
                             <ChevronRight className="size-5" />
                           </button>
@@ -301,13 +295,13 @@ export default function PortfolioProjects() {
                 </div>
 
                 <aside className="flex flex-col gap-4">
-                  <div className="flex flex-col gap-3 rounded-xl border border-white/8 bg-background/50 p-5">
-                    <h4 className="text-sm font-bold text-foreground">Serviços</h4>
+                  <div className="flex flex-col gap-3 rounded-2xl border border-border bg-background p-5">
+                    <h4 className="text-sm font-semibold text-foreground">Serviços</h4>
                     <ul className="flex flex-wrap gap-2">
                       {selectedProject.services.map((service) => (
                         <li
                           key={service}
-                          className="rounded-full border border-white/10 px-2.5 py-1 text-[11px] font-medium text-foreground/80"
+                          className="rounded-full border border-border bg-card px-2.5 py-1 text-[11px] font-medium text-foreground/80"
                         >
                           {service}
                         </li>
@@ -315,8 +309,8 @@ export default function PortfolioProjects() {
                     </ul>
                   </div>
 
-                  <div className="flex flex-col gap-3 rounded-xl border border-white/8 bg-background/50 p-5">
-                    <h4 className="text-sm font-bold text-foreground">Resultados</h4>
+                  <div className="flex flex-col gap-3 rounded-2xl border border-border bg-background p-5">
+                    <h4 className="text-sm font-semibold text-foreground">Resultados</h4>
                     <ul className="flex flex-col gap-2.5">
                       {selectedProject.results.map((result) => (
                         <li key={result} className="flex items-start gap-2.5 text-[13px] leading-relaxed text-muted">
@@ -329,9 +323,9 @@ export default function PortfolioProjects() {
                     </ul>
                   </div>
 
-                  <div className="flex flex-col gap-3 rounded-xl border border-accent/30 bg-gradient-to-br from-accent/20 to-accent/5 p-5">
-                    <h4 className="font-display text-lg font-bold text-foreground">Gostou do que viu?</h4>
-                    <p className="text-[13px] leading-relaxed text-muted">Vamos criar algo incrível para sua marca.</p>
+                  <div className="flex flex-col gap-3 rounded-2xl bg-secondary p-5 text-white">
+                    <h4 className="font-display text-lg font-semibold">Gostou do que viu?</h4>
+                    <p className="text-[13px] leading-relaxed text-white/75">Vamos criar algo incrível para sua marca.</p>
                     <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="btn-primary-custom w-full">
                       Falar com a Veltrix
                     </a>
