@@ -5,7 +5,7 @@ const steps = [
   { title: "Conversa", text: "Entendemos seu negócio, seu cliente e o que precisa vender mais." },
   { title: "Proposta fechada", text: "Escopo, prazo e preço por escrito. Sem surpresa no meio do caminho." },
   { title: "Construção", text: "Você acompanha uma prévia online e aprova cada etapa." },
-  { title: "No ar + suporte", text: "Publicamos, mostramos como atualizar e seguimos por perto depois da entrega." },
+  { title: "No ar + suporte", text: "Publicamos e nosso time de suporte cuida das atualizações depois da entrega." },
 ]
 
 const faqs = [
@@ -15,7 +15,7 @@ const faqs = [
   },
   {
     q: "Eu consigo mudar preço e cardápio sozinho?",
-    a: "Sim. Na entrega mostramos como atualizar itens, fotos e preços sem depender da gente.",
+    a: "Você não precisa se preocupar com isso: temos um time de suporte especializado que faz as atualizações de preços, itens e fotos do seu cardápio sempre que precisar.",
   },
   {
     q: "Tem mensalidade?",
