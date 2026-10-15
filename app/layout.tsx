@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next"
-import { Poppins } from "next/font/google"
+import { Poppins, Bricolage_Grotesque, Instrument_Sans, IBM_Plex_Mono } from "next/font/google"
 import "../globals.css"
 
 const poppins = Poppins({
@@ -9,11 +9,39 @@ const poppins = Poppins({
   display: "swap",
 })
 
+const bricolage = Bricolage_Grotesque({
+  subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
+  variable: "--font-bricolage",
+  display: "swap",
+})
+
+const instrument = Instrument_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-instrument",
+  display: "swap",
+})
+
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-plex-mono",
+  display: "swap",
+})
+
 export const metadata: Metadata = {
-  title: "Veltrix Tecnologia — Branding, Tecnologia e Performance",
+  title: "Veltrix — Sites e cardápios digitais para bares, restaurantes e comércio em SP",
   description:
-    "Transformamos marcas em experiências digitais. Branding, desenvolvimento web, IA e performance para empresas que querem crescer e se posicionar acima da média.",
-  keywords: ["tecnologia", "branding", "desenvolvimento web", "IA", "startup", "São Paulo"],
+    "Sites rápidos, cardápio digital com pedido no WhatsApp e painéis de vendas para bares, restaurantes e comércios de São Paulo.",
+  keywords: [
+    "cardápio digital",
+    "site para restaurante",
+    "site para bar",
+    "cardápio com QR Code",
+    "pedido pelo WhatsApp",
+    "São Paulo",
+  ],
   authors: [{ name: "Veltrix Tecnologia" }],
   icons: { icon: "/icon.svg" },
 }
@@ -23,7 +51,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
-  themeColor: "#f5f5f5",
+  themeColor: "#0f1d3a",
 }
 
 export default function RootLayout({
@@ -32,7 +60,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-BR" className={`${poppins.variable} scroll-smooth bg-background`}>
+    <html
+      lang="pt-BR"
+      className={`${poppins.variable} ${bricolage.variable} ${instrument.variable} ${plexMono.variable} scroll-smooth bg-background`}
+    >
       <body className="bg-background text-foreground antialiased">{children}</body>
     </html>
   )

@@ -1,29 +1,24 @@
-import Header from "../header"
-import Hero from "../final-cta"
-import ClientsStrip from "../clients-strip"
-import About from "../differentials"
-import Services from "../portfolio"
-import PortfolioProjects from "../portfolio-projects"
-import Ecosystem from "../ecosystem"
-import LaunchOffer from "../avatar"
-import Contact from "../contact"
-import Footer from "../footer"
+import SiteHeader from "../redesign/site-header"
+import Hero from "../redesign/hero"
+import Services from "../redesign/services"
+import Cases from "../redesign/cases"
+import { Process, Founder, Faq } from "../redesign/process-founder-faq"
+import { ProofStrip, ClosingCta } from "../redesign/closing"
 
 export default function Home() {
   return (
     <>
-      <Header />
-      <main className="bg-background">
+      <SiteHeader />
+      <main className="bg-paper">
         <Hero />
-        <ClientsStrip />
+        <ProofStrip />
         <Services />
-        <About />
-        <PortfolioProjects />
-        <Ecosystem />
-        <LaunchOffer />
-        <Contact />
+        <Cases />
+        <Process />
+        <Founder />
+        <Faq />
       </main>
-      <Footer />
+      <ClosingCta />
     </>
   )
 }
