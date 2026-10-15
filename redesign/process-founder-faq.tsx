@@ -36,9 +36,9 @@ export function Process() {
           Do primeiro “oi” ao site no ar, em quatro passos.
         </h2>
       </div>
-      <ol className="m-0 grid list-none gap-4 p-0 sm:grid-cols-2 lg:grid-cols-4">
+      <ol className="m-0 grid list-none gap-x-10 gap-y-10 p-0 sm:grid-cols-2 lg:grid-cols-4">
         {steps.map((s, i) => (
-          <li key={s.title} className="flex flex-col gap-3 rounded-3xl bg-white p-7">
+          <li key={s.title} className="flex flex-col gap-3">
             <span className="font-code text-sm text-accent-strong">0{i + 1}</span>
             <strong className="font-heading text-[22px]">{s.title}</strong>
             <span className="text-[15px] leading-relaxed text-slate">{s.text}</span>
@@ -52,7 +52,7 @@ export function Process() {
 export function Founder() {
   return (
     <section className="mx-auto max-w-[1240px] px-5 pb-24 font-body text-ink sm:px-6 lg:pb-28">
-      <div className="flex flex-wrap items-center gap-10 rounded-[32px] bg-white p-7 sm:p-10">
+      <div className="flex flex-wrap items-center gap-10">
         <div className="relative aspect-square w-full max-w-[260px] flex-[0_1_260px] overflow-hidden rounded-3xl bg-navy">
           <Image
             src="/images/gustavo-brito.png"
@@ -72,9 +72,9 @@ export function Founder() {
             programo os projetos de ponta a ponta. Você fala direto comigo, do orçamento à entrega.
           </p>
           <ul className="m-0 flex list-none flex-wrap gap-2.5 p-0 text-[13px] font-medium">
-            <li className="rounded-full bg-paper px-3.5 py-2">Marketing · São Judas</li>
-            <li className="rounded-full bg-paper px-3.5 py-2">Trade marketing &amp; dados</li>
-            <li className="rounded-full bg-paper px-3.5 py-2">Next.js · React Native · Cloud</li>
+            <li className="rounded-full bg-white px-3.5 py-2">Marketing · São Judas</li>
+            <li className="rounded-full bg-white px-3.5 py-2">Trade marketing &amp; dados</li>
+            <li className="rounded-full bg-white px-3.5 py-2">Next.js · React Native · Cloud</li>
           </ul>
         </div>
       </div>
@@ -91,9 +91,9 @@ export function Faq() {
           Antes de chamar no WhatsApp.
         </h2>
       </div>
-      <div className="flex min-w-0 flex-[999_1_560px] flex-col gap-3">
+      <div className="flex min-w-0 flex-[999_1_560px] flex-col gap-2">
         {faqs.map((f) => (
-          <details key={f.q} className="group rounded-2xl bg-white px-6 py-5">
+          <details key={f.q} className="group py-4">
             <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-semibold [&::-webkit-details-marker]:hidden">
               {f.q}
               <Plus className="size-6 shrink-0 text-accent-strong transition-transform group-open:rotate-45" aria-hidden="true" />

@@ -45,26 +45,24 @@ export default function Services() {
         </p>
       </div>
 
-      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-x-12 gap-y-16 md:grid-cols-2 lg:grid-cols-3">
         {offers.map((o) => (
           <article
             key={o.title}
-            className={`flex flex-col gap-5 rounded-3xl p-8 ${
-              o.featured ? "bg-navy text-white" : "bg-white"
-            }`}
+            className="flex flex-col gap-5"
           >
             <div className="flex items-center justify-between">
-              <span className={`font-code text-[13px] ${o.featured ? "text-white/70" : "text-slate"}`}>{o.tag}</span>
+              <span className={`font-code text-[13px] text-slate`}>{o.tag}</span>
               {o.featured && (
                 <span className="rounded-full bg-accent px-3 py-1.5 text-xs font-semibold text-navy">Destaque</span>
               )}
             </div>
             <h3 className="m-0 font-heading text-[28px] font-bold leading-tight">{o.title}</h3>
-            <p className={`m-0 text-base leading-relaxed ${o.featured ? "text-white/75" : "text-slate"}`}>{o.text}</p>
+            <p className={`m-0 text-base leading-relaxed text-slate`}>{o.text}</p>
             <ul className="m-0 flex list-none flex-col gap-2.5 p-0 text-[15px]">
               {o.items.map((it) => (
                 <li key={it} className="flex gap-2.5">
-                  <span className={`font-bold ${o.featured ? "text-accent-light" : "text-accent-strong"}`} aria-hidden="true">
+                  <span className={`font-bold text-accent-strong`} aria-hidden="true">
                     +
                   </span>
                   {it}
@@ -72,14 +70,12 @@ export default function Services() {
               ))}
             </ul>
             <div className="mt-auto flex items-center justify-between pt-5">
-              <span className={`text-sm ${o.featured ? "text-white/70" : "text-slate"}`}>Orçamento sob medida</span>
+              <span className={`text-sm text-slate`}>Orçamento sob medida</span>
               <a
                 href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`whitespace-nowrap text-[15px] font-semibold underline-offset-4 hover:underline ${
-                  o.featured ? "text-accent-light" : "text-accent-strong"
-                }`}
+                className={`whitespace-nowrap text-[15px] font-semibold underline-offset-4 hover:underline text-accent-strong`}
               >
                 Pedir orçamento →
               </a>
