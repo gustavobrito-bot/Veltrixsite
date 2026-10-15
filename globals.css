@@ -14,6 +14,18 @@
   --color-accent-soft: #ff7a45;
   --color-border: rgb(15 29 58 / 0.08);
 
+  /* Redesign 2026 */
+  --font-heading: var(--font-bricolage), system-ui, sans-serif;
+  --font-body: var(--font-instrument), system-ui, sans-serif;
+  --font-code: var(--font-plex-mono), ui-monospace, monospace;
+  --color-navy: #0f1d3a;
+  --color-ink: #0b1220;
+  --color-paper: #f2f3f5;
+  --color-line: #e3e6eb;
+  --color-slate: #5a6275;
+  --color-accent-strong: #d84315;
+  --color-accent-light: #ff8a65;
+
   --radius: 1rem;
 }
 
