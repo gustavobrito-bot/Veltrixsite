@@ -33,13 +33,12 @@ const plexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   title: "Veltrix — Sites e cardápios digitais para bares, restaurantes e comércio em SP",
   description:
-    "Sites rápidos, cardápio digital com pedido no WhatsApp e visualização 3D/AR, e painéis de vendas para bares, restaurantes e comércios de São Paulo.",
+    "Sites rápidos, cardápio digital com pedido no WhatsApp e painéis de vendas para bares, restaurantes e comércios de São Paulo.",
   keywords: [
     "cardápio digital",
     "site para restaurante",
     "site para bar",
-    "cardápio 3D",
-    "realidade aumentada",
+    "cardápio com QR Code",
     "pedido pelo WhatsApp",
     "São Paulo",
   ],

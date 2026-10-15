@@ -17,9 +17,9 @@ const offers: Offer[] = [
   },
   {
     tag: "/ cardápio",
-    title: "Cardápio digital com 3D/AR",
-    text: "QR Code na mesa, pedido direto no WhatsApp e o prato aparecendo em 3D na frente do cliente.",
-    items: ["Categorias, fotos e preços organizados", "Pratos em 3D, sem baixar app", "QR Codes prontos para imprimir"],
+    title: "Cardápio digital",
+    text: "QR Code na mesa, cardápio sempre atualizado e o pedido chegando direto no seu WhatsApp.",
+    items: ["Categorias, fotos e preços organizados", "Pedido direto no WhatsApp, sem app", "QR Codes prontos para imprimir"],
     featured: true,
   },
   {
@@ -50,13 +50,13 @@ export default function Services() {
           <article
             key={o.title}
             className={`flex flex-col gap-5 rounded-3xl p-8 ${
-              o.featured ? "bg-navy text-white" : "border border-line bg-white"
+              o.featured ? "bg-navy text-white" : "bg-white"
             }`}
           >
             <div className="flex items-center justify-between">
               <span className={`font-code text-[13px] ${o.featured ? "text-white/70" : "text-slate"}`}>{o.tag}</span>
               {o.featured && (
-                <span className="rounded-full bg-accent px-3 py-1.5 text-xs font-semibold text-navy">Exclusivo Veltrix</span>
+                <span className="rounded-full bg-accent px-3 py-1.5 text-xs font-semibold text-navy">Destaque</span>
               )}
             </div>
             <h3 className="m-0 font-heading text-[28px] font-bold leading-tight">{o.title}</h3>
@@ -71,17 +71,13 @@ export default function Services() {
                 </li>
               ))}
             </ul>
-            <div
-              className={`mt-auto flex items-center justify-between border-t pt-5 ${
-                o.featured ? "border-white/15" : "border-line"
-              }`}
-            >
+            <div className="mt-auto flex items-center justify-between pt-5">
               <span className={`text-sm ${o.featured ? "text-white/70" : "text-slate"}`}>Orçamento sob medida</span>
               <a
                 href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`text-[15px] font-semibold underline-offset-4 hover:underline ${
+                className={`whitespace-nowrap text-[15px] font-semibold underline-offset-4 hover:underline ${
                   o.featured ? "text-accent-light" : "text-accent-strong"
                 }`}
               >

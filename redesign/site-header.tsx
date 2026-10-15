@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import { Menu, X } from "lucide-react"
-import { WHATSAPP_URL } from "../lib/site"
+import { Menu, X, Instagram } from "lucide-react"
+import { WHATSAPP_URL, INSTAGRAM_URL } from "../lib/site"
 
 const navItems = [
   { label: "Serviços", href: "#servicos" },
@@ -16,7 +16,7 @@ export default function SiteHeader() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-40 border-b border-white/10 bg-navy/95 font-body text-white backdrop-blur-xl">
+    <header className="sticky top-0 z-40 bg-navy/95 font-body text-white backdrop-blur-xl">
       <nav aria-label="Principal" className="mx-auto flex h-[72px] max-w-[1240px] items-center justify-between px-5 sm:px-6">
         <a href="#inicio" className="flex items-center" aria-label="Veltrix Tecnologia – início">
           <Image
@@ -36,6 +36,15 @@ export default function SiteHeader() {
             </a>
           ))}
           <a
+            href={INSTAGRAM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram da Veltrix"
+            className="flex size-11 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-white/20"
+          >
+            <Instagram className="size-5" aria-hidden="true" />
+          </a>
+          <a
             href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
@@ -51,26 +60,37 @@ export default function SiteHeader() {
           aria-expanded={open}
           aria-controls="menu-mobile"
           aria-label={open ? "Fechar menu" : "Abrir menu"}
-          className="flex size-11 items-center justify-center rounded-full border border-white/25 md:hidden"
+          className="flex size-11 items-center justify-center rounded-full bg-white/10 md:hidden"
         >
           {open ? <X className="size-5" aria-hidden="true" /> : <Menu className="size-5" aria-hidden="true" />}
         </button>
       </nav>
 
       {open && (
-        <div id="menu-mobile" className="border-t border-white/10 px-5 pb-6 md:hidden">
+        <div id="menu-mobile" className="px-5 pb-6 md:hidden">
           <ul className="flex flex-col">
             {navItems.map((item) => (
               <li key={item.href}>
                 <a
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="block border-b border-white/10 py-4 text-lg text-white/90"
+                  className="block py-3.5 text-lg text-white/90"
                 >
                   {item.label}
                 </a>
               </li>
             ))}
+            <li>
+              <a
+                href={INSTAGRAM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 py-3.5 text-lg text-white/90"
+              >
+                <Instagram className="size-5" aria-hidden="true" />
+                @veltrixtecnologia
+              </a>
+            </li>
           </ul>
           <a
             href={WHATSAPP_URL}

@@ -30,7 +30,7 @@ const cases: Case[] = [
 
 export default function Cases() {
   return (
-    <section id="cases" className="border-y border-line bg-white font-body text-ink">
+    <section id="cases" className="bg-white font-body text-ink">
       <div className="mx-auto flex max-w-[1240px] flex-col gap-14 px-5 py-24 sm:px-6 lg:py-28">
         <div className="flex max-w-[720px] flex-col gap-4">
           <span className="font-code text-[13px] tracking-[0.12em] text-accent-strong">02 — PROJETOS NO AR</span>
@@ -43,17 +43,17 @@ export default function Cases() {
           {cases.map((c, i) => (
             <article
               key={c.name}
-              className={`flex flex-wrap items-stretch gap-10 rounded-[28px] border border-line bg-[#f7f8fa] p-4 sm:p-6 ${
+              className={`flex flex-wrap items-stretch gap-10 rounded-[28px] bg-paper p-4 sm:p-6 ${
                 i % 2 === 1 ? "lg:flex-row-reverse" : ""
               }`}
             >
-              <div className="relative min-h-[260px] flex-[1_1_420px] overflow-hidden rounded-[20px] bg-paper sm:min-h-[320px]">
+              <div className="relative min-h-[260px] flex-[1_1_420px] overflow-hidden rounded-[20px] bg-white sm:min-h-[320px]">
                 <Image src={c.image} alt={c.imageAlt} fill sizes="(min-width: 1024px) 600px, 100vw" className="object-cover object-top" />
               </div>
               <div className="flex min-w-0 flex-[1_1_420px] flex-col gap-5 px-2 py-4">
                 <div className="flex flex-wrap gap-2">
                   {c.tags.map((t) => (
-                    <span key={t} className="rounded-full border border-[#dcdfe5] bg-white px-3 py-1.5 text-xs font-semibold">
+                    <span key={t} className="rounded-full bg-white px-3 py-1.5 text-xs font-semibold">
                       {t}
                     </span>
                   ))}

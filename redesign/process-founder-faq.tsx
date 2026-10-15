@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { Plus } from "lucide-react"
 
 const steps = [
@@ -21,8 +22,8 @@ const faqs = [
     a: "A criação é combinada à parte. Custos recorrentes, como domínio, hospedagem ou manutenção, ficam explicados na proposta antes de você decidir.",
   },
   {
-    q: "O cliente precisa baixar aplicativo para ver o prato em 3D?",
-    a: "Não. Abre direto no navegador do celular, pelo QR Code da mesa.",
+    q: "Já tenho Instagram. Preciso mesmo de site?",
+    a: "O Instagram mostra, mas o site e o cardápio fecham o pedido: aparecem no Google, abrem rápido no celular e levam o cliente direto ao seu WhatsApp.",
   },
 ]
 
@@ -35,9 +36,9 @@ export function Process() {
           Do primeiro “oi” ao site no ar, em quatro passos.
         </h2>
       </div>
-      <ol className="m-0 grid list-none gap-y-8 border-t-2 border-navy p-0 sm:grid-cols-2 lg:grid-cols-4">
+      <ol className="m-0 grid list-none gap-4 p-0 sm:grid-cols-2 lg:grid-cols-4">
         {steps.map((s, i) => (
-          <li key={s.title} className="flex flex-col gap-3 pr-6 pt-7">
+          <li key={s.title} className="flex flex-col gap-3 rounded-3xl bg-white p-7">
             <span className="font-code text-sm text-accent-strong">0{i + 1}</span>
             <strong className="font-heading text-[22px]">{s.title}</strong>
             <span className="text-[15px] leading-relaxed text-slate">{s.text}</span>
@@ -51,12 +52,15 @@ export function Process() {
 export function Founder() {
   return (
     <section className="mx-auto max-w-[1240px] px-5 pb-24 font-body text-ink sm:px-6 lg:pb-28">
-      <div className="flex flex-wrap items-center gap-10 rounded-[32px] border border-line bg-white p-7 sm:p-10">
-        <div
-          aria-hidden="true"
-          className="flex aspect-square w-full max-w-[220px] flex-[0_1_220px] items-center justify-center rounded-3xl bg-navy font-heading text-[72px] font-bold text-accent"
-        >
-          GB
+      <div className="flex flex-wrap items-center gap-10 rounded-[32px] bg-white p-7 sm:p-10">
+        <div className="relative aspect-square w-full max-w-[260px] flex-[0_1_260px] overflow-hidden rounded-3xl bg-navy">
+          <Image
+            src="/images/gustavo-brito.png"
+            alt="Gustavo Brito, fundador da Veltrix"
+            fill
+            sizes="260px"
+            className="object-cover"
+          />
         </div>
         <div className="flex min-w-0 flex-[999_1_420px] flex-col gap-5">
           <span className="font-code text-[13px] tracking-[0.12em] text-accent-strong">04 — QUEM FAZ</span>
@@ -87,9 +91,9 @@ export function Faq() {
           Antes de chamar no WhatsApp.
         </h2>
       </div>
-      <div className="flex min-w-0 flex-[999_1_560px] flex-col border-t border-[#d5d9e0]">
+      <div className="flex min-w-0 flex-[999_1_560px] flex-col gap-3">
         {faqs.map((f) => (
-          <details key={f.q} className="group border-b border-[#d5d9e0] py-6">
+          <details key={f.q} className="group rounded-2xl bg-white px-6 py-5">
             <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-semibold [&::-webkit-details-marker]:hidden">
               {f.q}
               <Plus className="size-6 shrink-0 text-accent-strong transition-transform group-open:rotate-45" aria-hidden="true" />

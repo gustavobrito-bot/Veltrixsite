@@ -1,4 +1,4 @@
-import { ArrowRight, Check, Box } from "lucide-react"
+import { ArrowRight, Check, Plus } from "lucide-react"
 import { WHATSAPP_URL } from "../lib/site"
 
 const promises = ["Resposta em até 24h", "Proposta com preço fechado", "Atendimento direto com quem constrói"]
@@ -38,7 +38,7 @@ export default function Hero() {
             </a>
             <a
               href="#cases"
-              className="rounded-full border border-white/35 px-6 py-[15px] text-base font-medium text-white transition-colors hover:border-white hover:bg-white/10"
+              className="rounded-full bg-white/10 px-6 py-4 text-base font-medium text-white transition-colors hover:bg-white/20"
             >
               Ver projetos no ar
             </a>
@@ -55,29 +55,31 @@ export default function Hero() {
 
         {/* Mockup do cardápio digital */}
         <div className="relative flex flex-[1_1_340px] justify-center" aria-hidden="true">
-          <div className="w-[300px] rounded-[40px] border border-white/10 bg-ink p-3 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.6)]">
+          <div className="w-[300px] rounded-[40px] bg-ink p-3 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.6)]">
             <div className="overflow-hidden rounded-[30px] bg-white text-ink">
               <div className="bg-paper px-[18px] pb-3.5 pt-[22px]">
                 <div className="font-code text-[10px] tracking-[0.1em] text-slate">CARDÁPIO · MESA 07</div>
                 <div className="mt-1 font-heading text-[22px] font-bold">Seu bar aqui</div>
                 <div className="mt-3 flex gap-1.5 text-[11px]">
                   <span className="rounded-full bg-navy px-2.5 py-1.5 font-semibold text-white">Petiscos</span>
-                  <span className="rounded-full border border-[#dcdfe5] bg-white px-2.5 py-1.5">Drinks</span>
-                  <span className="rounded-full border border-[#dcdfe5] bg-white px-2.5 py-1.5">Chopp</span>
+                  <span className="rounded-full bg-white px-2.5 py-1.5">Drinks</span>
+                  <span className="rounded-full bg-white px-2.5 py-1.5">Chopp</span>
                 </div>
               </div>
               <div className="flex flex-col px-[18px] pb-[18px] pt-2">
-                {menuItems.map((item, i) => (
+                {menuItems.map((item) => (
                   <div
                     key={item.name}
-                    className={`flex items-center gap-3 py-3 ${i < menuItems.length - 1 ? "border-b border-[#eef0f3]" : ""}`}
+                    className="flex items-center gap-3 py-3"
                   >
                     <div className={`size-[54px] shrink-0 rounded-xl ${item.tone}`} />
                     <div className="min-w-0 flex-1">
                       <div className="text-sm font-semibold">{item.name}</div>
                       <div className="text-xs text-slate">R$ 00,00</div>
                     </div>
-                    <span className="rounded-lg bg-navy px-2 py-1.5 text-[10px] font-semibold text-white">Ver na mesa</span>
+                    <span className="flex size-8 items-center justify-center rounded-full bg-navy text-white">
+                      <Plus className="size-4" />
+                    </span>
                   </div>
                 ))}
                 <div className="mt-1.5 rounded-[14px] bg-[#1f8a4c] p-3 text-center text-[13px] font-semibold text-white">
@@ -85,15 +87,6 @@ export default function Hero() {
                 </div>
               </div>
             </div>
-          </div>
-          <div className="absolute -bottom-7 left-0 hidden max-w-[220px] items-center gap-3 rounded-2xl bg-white px-4 py-3.5 text-ink shadow-[0_20px_40px_-20px_rgba(0,0,0,0.5)] sm:flex">
-            <span className="flex size-9 shrink-0 items-center justify-center rounded-[10px] bg-accent">
-              <Box className="size-[18px] text-navy" />
-            </span>
-            <span className="text-[13px] leading-snug">
-              <strong>Prato em 3D/AR</strong>
-              <br />o cliente vê na mesa pela câmera
-            </span>
           </div>
         </div>
       </div>
