@@ -32,11 +32,11 @@ const offers: Offer[] = [
 
 export default function Services() {
   return (
-    <section id="servicos" className="mx-auto flex max-w-[1240px] flex-col gap-14 px-5 py-24 font-body text-ink sm:px-6 lg:py-28">
+    <section id="servicos" aria-labelledby="servicos-titulo" className="mx-auto flex max-w-[1240px] flex-col gap-14 px-5 py-24 font-body text-ink sm:px-6 lg:py-28">
       <div className="flex flex-wrap items-end justify-between gap-6">
         <div className="flex max-w-[680px] flex-col gap-4">
           <span className="font-code text-[13px] tracking-[0.12em] text-accent-strong">01 — O QUE ENTREGAMOS</span>
-          <h2 className="m-0 font-heading text-[clamp(2rem,3.6vw,3.2rem)] font-bold leading-[1.08] tracking-[-0.02em]">
+          <h2 id="servicos-titulo" className="m-0 font-heading text-[clamp(2rem,3.6vw,3.2rem)] font-bold leading-[1.08] tracking-[-0.02em]">
             Três coisas, bem feitas. Nada de pacote genérico.
           </h2>
         </div>
@@ -77,7 +77,8 @@ export default function Services() {
                 rel="noopener noreferrer"
                 className={`whitespace-nowrap text-[15px] font-semibold underline-offset-4 hover:underline text-accent-strong`}
               >
-                Pedir orçamento →
+                Pedir orçamento <span aria-hidden="true">→</span>
+                <span className="sr-only"> de {o.title} pelo WhatsApp (abre em nova aba)</span>
               </a>
             </div>
           </article>

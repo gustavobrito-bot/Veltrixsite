@@ -23,7 +23,8 @@
   --color-paper: #f2f3f5;
   --color-line: #e3e6eb;
   --color-slate: #5a6275;
-  --color-accent-strong: #d84315;
+  /* #bf360c: contraste 5,05:1 sobre #f2f3f5 e 5,6:1 sobre branco (WCAG AA). Antes #d84315 (3,99:1). */
+  --color-accent-strong: #bf360c;
   --color-accent-light: #ff8a65;
 
   --radius: 1rem;
@@ -49,6 +50,27 @@
   video {
     max-width: 100%;
   }
+  /* Foco visível para navegação por teclado (WCAG 2.4.7) */
+  :focus-visible {
+    outline: 3px solid #ff8a65;
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  .bg-white :focus-visible,
+  .bg-paper :focus-visible,
+  [role="region"] :focus-visible {
+    outline-color: #bf360c;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
   ::selection {
     background: rgb(255 87 34 / 0.25);
     color: #1b2233;
@@ -56,6 +78,59 @@
 }
 
 @layer components {
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -100px;
+    z-index: 100;
+    border-radius: 9999px;
+    background: #ff5722;
+    color: #0f1d3a;
+    padding: 0.75rem 1.25rem;
+    font-weight: 600;
+  }
+  .skip-link:focus {
+    top: 1rem;
+  }
+
+  /* Texto das páginas jurídicas */
+  .legal-prose h2 {
+    margin: 2.75rem 0 0.9rem;
+    font-family: var(--font-bricolage), system-ui, sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.2;
+    scroll-margin-top: 6rem;
+  }
+  .legal-prose h3 {
+    margin: 1.75rem 0 0.5rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+  .legal-prose p,
+  .legal-prose li {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: #2b3245;
+  }
+  .legal-prose p {
+    margin: 0 0 1rem;
+  }
+  .legal-prose ul {
+    margin: 0 0 1.25rem;
+    padding-left: 1.25rem;
+    list-style: disc;
+  }
+  .legal-prose li {
+    margin-bottom: 0.4rem;
+  }
+  .legal-prose a {
+    color: #bf360c;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
   .font-display {
     font-family: var(--font-poppins), system-ui, -apple-system, sans-serif;
   }

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next"
 import { Poppins, Bricolage_Grotesque, Instrument_Sans, IBM_Plex_Mono } from "next/font/google"
 import "../globals.css"
+import CookieConsent from "../redesign/cookie-consent"
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -62,9 +63,15 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${poppins.variable} ${bricolage.variable} ${instrument.variable} ${plexMono.variable} scroll-smooth bg-background`}
+      className={`${poppins.variable} ${bricolage.variable} ${instrument.variable} ${plexMono.variable} motion-safe:scroll-smooth bg-background`}
     >
-      <body className="bg-background text-foreground antialiased">{children}</body>
+      <body className="bg-background text-foreground antialiased">
+        <a href="#conteudo" className="skip-link">
+          Pular para o conteúdo
+        </a>
+        {children}
+        <CookieConsent />
+      </body>
     </html>
   )
 }

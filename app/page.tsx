@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
       <SiteHeader />
-      <main className="bg-paper">
+      <main id="conteudo" tabIndex={-1} className="bg-paper focus:outline-none">
         <Hero />
         <ProofStrip />
         <Services />
