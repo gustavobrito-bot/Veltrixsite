@@ -1,19 +1,33 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { Menu, X, Instagram } from "lucide-react"
 import { WHATSAPP_URL, INSTAGRAM_URL } from "../lib/site"
 
 const navItems = [
   { label: "Serviços", href: "#servicos" },
-  { label: "Cases", href: "#cases" },
+  { label: "Projetos", href: "#cases" },
   { label: "Como trabalhamos", href: "#processo" },
   { label: "Dúvidas", href: "#faq" },
 ]
 
 export default function SiteHeader() {
   const [open, setOpen] = useState(false)
+  const toggleRef = useRef<HTMLButtonElement>(null)
+
+  // Esc fecha o menu mobile e devolve o foco ao botão (navegação por teclado).
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false)
+        toggleRef.current?.focus()
+      }
+    }
+    document.addEventListener("keydown", onKey)
+    return () => document.removeEventListener("keydown", onKey)
+  }, [open])
 
   return (
     <header className="sticky top-0 z-40 bg-navy/95 font-body text-white backdrop-blur-xl">
@@ -21,7 +35,7 @@ export default function SiteHeader() {
         <a href="#inicio" className="flex items-center" aria-label="Veltrix Tecnologia – início">
           <Image
             src="/veltrix-logo-transparent.png"
-            alt="Veltrix Tecnologia"
+            alt=""
             width={160}
             height={90}
             priority
@@ -39,7 +53,7 @@ export default function SiteHeader() {
             href={INSTAGRAM_URL}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Instagram da Veltrix"
+            aria-label="Instagram da Veltrix (abre em nova aba)"
             className="flex size-11 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-white/20"
           >
             <Instagram className="size-5" aria-hidden="true" />
@@ -51,10 +65,12 @@ export default function SiteHeader() {
             className="rounded-full bg-accent px-5 py-3 font-semibold text-navy transition-colors hover:bg-accent-light"
           >
             Orçamento no WhatsApp
+            <span className="sr-only"> (abre em nova aba)</span>
           </a>
         </div>
 
         <button
+          ref={toggleRef}
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
@@ -89,6 +105,7 @@ export default function SiteHeader() {
               >
                 <Instagram className="size-5" aria-hidden="true" />
                 @veltrixtecnologia
+                <span className="sr-only"> (abre em nova aba)</span>
               </a>
             </li>
           </ul>
@@ -99,6 +116,7 @@ export default function SiteHeader() {
             className="mt-5 flex justify-center rounded-full bg-accent px-5 py-4 font-semibold text-navy"
           >
             Orçamento no WhatsApp
+            <span className="sr-only"> (abre em nova aba)</span>
           </a>
         </div>
       )}

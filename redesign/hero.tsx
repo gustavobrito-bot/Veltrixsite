@@ -1,7 +1,7 @@
 import { ArrowRight, Check, Plus } from "lucide-react"
 import { WHATSAPP_URL } from "../lib/site"
 
-const promises = ["Resposta em até 24h", "Proposta com preço fechado", "Atendimento direto com quem constrói"]
+const promises = ["Orçamento sob medida", "Proposta com preço fechado", "Atendimento direto com quem constrói"]
 
 const menuItems = [
   { name: "Porção da casa", tone: "bg-[#ffe3d9]" },
@@ -11,7 +11,7 @@ const menuItems = [
 
 export default function Hero() {
   return (
-    <section id="inicio" className="relative overflow-hidden bg-navy font-body text-white">
+    <section id="inicio" aria-labelledby="inicio-titulo" className="relative overflow-hidden bg-navy font-body text-white">
       <div
         aria-hidden="true"
         className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:80px_80px]"
@@ -19,7 +19,7 @@ export default function Hero() {
       <div className="relative mx-auto flex max-w-[1240px] flex-wrap items-center gap-14 px-5 pb-24 pt-14 sm:px-6 lg:pt-20">
         <div className="flex min-w-0 flex-[999_1_560px] flex-col gap-7">
           <span className="font-code text-[13px] tracking-[0.12em] text-accent-light">ESTÚDIO DIGITAL · SÃO PAULO</span>
-          <h1 className="m-0 font-heading text-[clamp(2.5rem,5.4vw,4.6rem)] font-bold leading-[1.02] tracking-[-0.03em]">
+          <h1 id="inicio-titulo" className="m-0 font-heading text-[clamp(2.5rem,5.4vw,4.6rem)] font-bold leading-[1.02] tracking-[-0.03em]">
             Sites e cardápios digitais que fazem o cliente <span className="text-accent">pedir</span>.
           </h1>
           <p className="m-0 max-w-[560px] text-[18px] leading-relaxed text-white/80 sm:text-[19px]">
@@ -34,13 +34,14 @@ export default function Hero() {
               className="group inline-flex items-center gap-2.5 rounded-full bg-accent px-6 py-4 text-base font-semibold text-navy transition-colors hover:bg-accent-light"
             >
               Quero um orçamento
+              <span className="sr-only"> (abre o WhatsApp em nova aba)</span>
               <ArrowRight className="size-[18px] transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </a>
             <a
               href="#cases"
               className="rounded-full bg-white/10 px-6 py-4 text-base font-medium text-white transition-colors hover:bg-white/20"
             >
-              Ver projetos no ar
+              Ver projetos
             </a>
           </div>
           <ul className="flex flex-wrap gap-x-6 gap-y-3 pt-3 text-sm text-white/75">
@@ -78,11 +79,11 @@ export default function Hero() {
                       <div className="text-xs text-slate">R$ 00,00</div>
                     </div>
                     <span className="flex size-8 items-center justify-center rounded-full bg-navy text-white">
-                      <Plus className="size-4" />
+                      <Plus className="size-4" aria-hidden="true" />
                     </span>
                   </div>
                 ))}
-                <div className="mt-1.5 rounded-[14px] bg-[#1f8a4c] p-3 text-center text-[13px] font-semibold text-white">
+                <div className="mt-1.5 rounded-[14px] bg-[#1a7a43] p-3 text-center text-[13px] font-semibold text-white">
                   Pedir pelo WhatsApp · 2 itens
                 </div>
               </div>

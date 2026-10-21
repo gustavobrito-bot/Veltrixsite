@@ -5,7 +5,7 @@ const steps = [
   { title: "Conversa", text: "Entendemos seu negócio, seu cliente e o que precisa vender mais." },
   { title: "Proposta fechada", text: "Escopo, prazo e preço por escrito. Sem surpresa no meio do caminho." },
   { title: "Construção", text: "Você acompanha uma prévia online e aprova cada etapa." },
-  { title: "No ar + suporte", text: "Publicamos e nosso time de suporte cuida das atualizações depois da entrega." },
+  { title: "No ar + suporte", text: "Publicamos e nosso time de suporte cuida das atualizações combinadas na proposta." },
 ]
 
 const faqs = [
@@ -15,7 +15,7 @@ const faqs = [
   },
   {
     q: "Eu consigo mudar preço e cardápio sozinho?",
-    a: "Você não precisa se preocupar com isso: temos um time de suporte especializado que faz as atualizações de preços, itens e fotos do seu cardápio sempre que precisar.",
+    a: "Você não precisa se preocupar com isso: temos um time de suporte especializado que faz as atualizações de preços, itens e fotos do seu cardápio, conforme o plano de suporte combinado na proposta.",
   },
   {
     q: "Tem mensalidade?",
@@ -23,23 +23,23 @@ const faqs = [
   },
   {
     q: "Já tenho Instagram. Preciso mesmo de site?",
-    a: "O Instagram mostra, mas o site e o cardápio fecham o pedido: aparecem no Google, abrem rápido no celular e levam o cliente direto ao seu WhatsApp.",
+    a: "O Instagram mostra, mas o site e o cardápio ajudam a fechar o pedido: podem aparecer nas buscas do Google, abrem rápido no celular e levam o cliente direto ao seu WhatsApp.",
   },
 ]
 
 export function Process() {
   return (
-    <section id="processo" className="mx-auto flex max-w-[1240px] flex-col gap-14 px-5 py-24 font-body text-ink sm:px-6 lg:py-28">
+    <section id="processo" aria-labelledby="processo-titulo" className="mx-auto flex max-w-[1240px] flex-col gap-14 px-5 py-24 font-body text-ink sm:px-6 lg:py-28">
       <div className="flex max-w-[720px] flex-col gap-4">
         <span className="font-code text-[13px] tracking-[0.12em] text-accent-strong">03 — COMO TRABALHAMOS</span>
-        <h2 className="m-0 font-heading text-[clamp(2rem,3.6vw,3.2rem)] font-bold leading-[1.08] tracking-[-0.02em]">
+        <h2 id="processo-titulo" className="m-0 font-heading text-[clamp(2rem,3.6vw,3.2rem)] font-bold leading-[1.08] tracking-[-0.02em]">
           Do primeiro “oi” ao site no ar, em quatro passos.
         </h2>
       </div>
       <ol className="m-0 grid list-none gap-x-10 gap-y-10 p-0 sm:grid-cols-2 lg:grid-cols-4">
         {steps.map((s, i) => (
           <li key={s.title} className="flex flex-col gap-3">
-            <span className="font-code text-sm text-accent-strong">0{i + 1}</span>
+            <span className="font-code text-sm text-accent-strong" aria-hidden="true">0{i + 1}</span>
             <strong className="font-heading text-[22px]">{s.title}</strong>
             <span className="text-[15px] leading-relaxed text-slate">{s.text}</span>
           </li>
@@ -84,17 +84,17 @@ export function Founder() {
 
 export function Faq() {
   return (
-    <section id="faq" className="mx-auto flex max-w-[1240px] flex-wrap gap-12 px-5 pb-24 font-body text-ink sm:px-6 lg:pb-28">
+    <section id="faq" aria-labelledby="faq-titulo" className="mx-auto flex max-w-[1240px] flex-wrap gap-12 px-5 pb-24 font-body text-ink sm:px-6 lg:pb-28">
       <div className="flex flex-[1_1_320px] flex-col gap-4">
         <span className="font-code text-[13px] tracking-[0.12em] text-accent-strong">05 — DÚVIDAS</span>
-        <h2 className="m-0 font-heading text-[clamp(2rem,3.6vw,3.2rem)] font-bold leading-[1.08] tracking-[-0.02em]">
+        <h2 id="faq-titulo" className="m-0 font-heading text-[clamp(2rem,3.6vw,3.2rem)] font-bold leading-[1.08] tracking-[-0.02em]">
           Antes de chamar no WhatsApp.
         </h2>
       </div>
       <div className="flex min-w-0 flex-[999_1_560px] flex-col gap-2">
         {faqs.map((f) => (
           <details key={f.q} className="group py-4">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-semibold [&::-webkit-details-marker]:hidden">
+            <summary className="flex min-h-11 cursor-pointer list-none rounded-md items-center justify-between gap-4 text-lg font-semibold [&::-webkit-details-marker]:hidden">
               {f.q}
               <Plus className="size-6 shrink-0 text-accent-strong transition-transform group-open:rotate-45" aria-hidden="true" />
             </summary>
