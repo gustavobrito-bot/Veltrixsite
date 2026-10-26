@@ -78,8 +78,6 @@ export default function LinksPage() {
         </nav>
 
         <ShareButton />
-
-        <p className="m-0 mt-10 font-code text-xs tracking-[0.12em] text-white/50">ZONA LESTE · SÃO PAULO</p>
       </div>
     </main>
   )
