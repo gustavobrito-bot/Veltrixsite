@@ -11,6 +11,17 @@ type Case = {
 
 const cases: Case[] = [
   {
+    name: "Mizzica",
+    tags: ["Restaurante siciliano", "Mooca, SP"],
+    image: "/images/mizzica-cardapio-reservas.png",
+    imageAlt:
+      "Três telas do sistema da Mizzica no celular: cardápio digital, reserva de mesa com escolha de dia e pessoas, e painel da equipe para editar o cardápio",
+    challenge:
+      "Precisava de um cardápio fácil de manter atualizado e de reservas organizadas, sem depender de anotação manual.",
+    solution:
+      "Cardápio digital com busca e reserva online com confirmação pelo WhatsApp. No painel, a equipe edita pratos e preços na hora, acompanha a lotação do dia e marca as chegadas.",
+  },
+  {
     name: "Adega da Mooca",
     tags: ["Adega e conveniência", "Mooca, SP"],
     image: "/images/adega-produtos.png",

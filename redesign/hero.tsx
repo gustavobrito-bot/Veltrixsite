@@ -1,13 +1,8 @@
-import { ArrowRight, Check, Plus } from "lucide-react"
+import { ArrowRight, Check } from "lucide-react"
 import { WHATSAPP_URL } from "../lib/site"
+import ReserveAnimation from "./reserve-animation"
 
 const promises = ["Resposta em até 24h", "Proposta com preço fechado", "Atendimento direto com quem constrói"]
-
-const menuItems = [
-  { name: "Porção da casa", tone: "bg-[#ffe3d9]" },
-  { name: "Hambúrguer artesanal", tone: "bg-[#dde4f3]" },
-  { name: "Drink autoral", tone: "bg-[#fff1c9]" },
-]
 
 export default function Hero() {
   return (
@@ -53,41 +48,9 @@ export default function Hero() {
           </ul>
         </div>
 
-        {/* Mockup do cardápio digital */}
-        <div className="relative flex flex-[1_1_340px] justify-center" aria-hidden="true">
-          <div className="w-[300px] rounded-[40px] bg-ink p-3 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.6)]">
-            <div className="overflow-hidden rounded-[30px] bg-white text-ink">
-              <div className="bg-paper px-[18px] pb-3.5 pt-[22px]">
-                <div className="font-code text-[10px] tracking-[0.1em] text-slate">CARDÁPIO · MESA 07</div>
-                <div className="mt-1 font-heading text-[22px] font-bold">Seu bar aqui</div>
-                <div className="mt-3 flex gap-1.5 text-[11px]">
-                  <span className="rounded-full bg-navy px-2.5 py-1.5 font-semibold text-white">Petiscos</span>
-                  <span className="rounded-full bg-white px-2.5 py-1.5">Drinks</span>
-                  <span className="rounded-full bg-white px-2.5 py-1.5">Chopp</span>
-                </div>
-              </div>
-              <div className="flex flex-col px-[18px] pb-[18px] pt-2">
-                {menuItems.map((item) => (
-                  <div
-                    key={item.name}
-                    className="flex items-center gap-3 py-3"
-                  >
-                    <div className={`size-[54px] shrink-0 rounded-xl ${item.tone}`} />
-                    <div className="min-w-0 flex-1">
-                      <div className="text-sm font-semibold">{item.name}</div>
-                      <div className="text-xs text-slate">R$ 00,00</div>
-                    </div>
-                    <span className="flex size-8 items-center justify-center rounded-full bg-navy text-white">
-                      <Plus className="size-4" />
-                    </span>
-                  </div>
-                ))}
-                <div className="mt-1.5 rounded-[14px] bg-[#1f8a4c] p-3 text-center text-[13px] font-semibold text-white">
-                  Pedir pelo WhatsApp · 2 itens
-                </div>
-              </div>
-            </div>
-          </div>
+        {/* Ilustração animada: reserva no celular → site do restaurante */}
+        <div className="relative flex min-w-0 flex-[1_1_400px] justify-center">
+          <ReserveAnimation />
         </div>
       </div>
     </section>
