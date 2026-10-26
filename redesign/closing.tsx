@@ -8,8 +8,8 @@ export function ProofStrip() {
       <div className="mx-auto flex max-w-[1240px] flex-wrap items-center justify-between gap-x-12 gap-y-5 px-5 py-7 sm:px-6">
         <span className="font-code text-xs tracking-[0.12em] text-slate">PROJETOS NO AR</span>
         <ul className="m-0 flex list-none flex-wrap items-center gap-x-12 gap-y-3 p-0 font-heading text-2xl font-bold text-navy">
+          <li>Mizzica</li>
           <li>Adega da Mooca</li>
-          <li>Angel Luxe</li>
         </ul>
         <span className="text-sm text-slate">Next.js · Vercel · WhatsApp · IA</span>
       </div>
