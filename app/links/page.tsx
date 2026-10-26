@@ -17,10 +17,10 @@ export const metadata: Metadata = {
 }
 
 const links = [
-  { href: "/#cases", label: "Veja projetos no ar", icon: Briefcase },
-  { href: "/#servicos", label: "Cardápio digital e sites", icon: Layers },
-  { href: "/#processo", label: "Como funciona", icon: Route },
-  { href: "/", label: "Conheça a Veltrix", icon: Globe },
+  { href: "/links/cardapio", label: "Experimente um cardápio digital", icon: Layers },
+  { href: "/links/projetos", label: "Veja projetos no ar", icon: Briefcase },
+  { href: "/links/como-funciona", label: "Como funciona", icon: Route },
+  { href: "/links/sobre", label: "Conheça a Veltrix", icon: Globe },
 ]
 
 export default function LinksPage() {
