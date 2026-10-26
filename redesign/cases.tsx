@@ -11,20 +11,23 @@ type Case = {
 
 const cases: Case[] = [
   {
+    name: "Mizzica",
+    tags: ["Restaurante siciliano", "Mooca, SP"],
+    image: "/images/mizzica-cardapio-reservas.png",
+    imageAlt:
+      "Três telas do sistema da Mizzica no celular: cardápio digital, reserva de mesa com escolha de dia e pessoas, e painel da equipe para editar o cardápio",
+    challenge:
+      "Precisava de um cardápio fácil de manter atualizado e de reservas organizadas, sem depender de anotação manual.",
+    solution:
+      "Cardápio digital com busca e reserva online com confirmação pelo WhatsApp. No painel, a equipe edita pratos e preços na hora, acompanha a lotação do dia e marca as chegadas.",
+  },
+  {
     name: "Adega da Mooca",
     tags: ["Adega e conveniência", "Mooca, SP"],
     image: "/images/adega-produtos.png",
     imageAlt: "Página de produtos do site da Adega da Mooca, com filtros por categoria e botão de pedido",
     challenge: "Pedidos chegavam soltos no WhatsApp, sem cardápio organizado e sem preço claro.",
     solution: "Site com cardápio online filtrável, carrinho e pedido direto pelo WhatsApp, com área de entrega da região.",
-  },
-  {
-    name: "Angel Luxe",
-    tags: ["Importados de luxo", "E-commerce"],
-    image: "/images/angel-luxe-hero.png",
-    imageAlt: "Página inicial da loja Angel Luxe, com curadoria de perfumes e maquiagem importados",
-    challenge: "Uma curadoria premium de perfumes, bolsas e calçados vendida só por conversa, sem vitrine própria.",
-    solution: "Loja online com identidade de luxo, vitrine por categorias e atendimento de consultoria integrado.",
   },
 ]
 
