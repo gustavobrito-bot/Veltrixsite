@@ -29,14 +29,6 @@ const cases: Case[] = [
     challenge: "Pedidos chegavam soltos no WhatsApp, sem cardápio organizado e sem preço claro.",
     solution: "Site com cardápio online filtrável, carrinho e pedido direto pelo WhatsApp, com área de entrega da região.",
   },
-  {
-    name: "Angel Luxe",
-    tags: ["Importados de luxo", "E-commerce"],
-    image: "/images/angel-luxe-hero.png",
-    imageAlt: "Página inicial da loja Angel Luxe, com curadoria de perfumes e maquiagem importados",
-    challenge: "Uma curadoria premium de perfumes, bolsas e calçados vendida só por conversa, sem vitrine própria.",
-    solution: "Loja online com identidade de luxo, vitrine por categorias e atendimento de consultoria integrado.",
-  },
 ]
 
 export default function Cases() {
